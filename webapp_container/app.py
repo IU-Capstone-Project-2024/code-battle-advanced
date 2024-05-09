@@ -6,11 +6,14 @@ import markdown
 import markdown.extensions.fenced_code
 import uuid
 import os
+from datetime import datetime, timezone
+from zipfile import ZipFile
+import math
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'testlol'
-app.config['MONGO_dbname'] = 'CBA_database'
-app.config['MONGO_URI'] = 'mongodb://adminuser:password123@192.168.49.2:32000/Users?authSource=admin'
+app.config['SECRET_KEY'] = 'testing'
+app.config['MONGO_dbname'] = 'Users'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/Users'
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './uploaded'
@@ -31,7 +34,8 @@ def get_number(username, task_name):
         for i in submissions:
             if i["n_try"] > max_try:
                 max_try = i["n_try"]
-        return max_try+1
+        return max_try + 1
+
 
 @app.route("/signup", methods=['POST', 'GET'])
 def signup():
@@ -47,12 +51,16 @@ def signup():
     return render_template('signup.html')
 
 
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        f = request.files['zip']
+        zip_handle = ZipFile(f._file)
+        zip_handle.extractall("tasks/")
+        zip_handle.close()
     session["listOfUrls"] = [f.parts[-1] for f in p.iterdir() if f.is_dir()]
     if 'username' in session:
         return render_template('index.html', username=session['username'], listOfUrls=session['listOfUrls'])
-
     return render_template('index.html')
 
 
@@ -69,14 +77,36 @@ def task(task_name):
 @app.route('/<string:task_name>/success', methods=['POST'])
 def success(task_name):
     if request.method == 'POST':
+        languages = {"Python 3.19": "python3", "C++ 17": "cpp"}
+        language = request.form['language']
         number = get_number(session["username"], task_name)
         f = request.files['file']
         ext = os.path.splitext(f.filename)[-1]
-        name = f.filename
         filename = str(uuid.uuid4()) + ext
         f.save(f"uploaded/{filename}")
-        mongo.db.submissions.insert_one({'sender': session['username'], 'task_name': task_name, 'filename': filename, 'n_try': number, 'language':'python3', 'state': 0})
-        return render_template("Acknowledgement.html", name=name)
+        mongo.db.submissions.insert_one({'sender': session['username'], "datetime in UTC": datetime.now(timezone.utc),
+                                         'task_name': task_name, 'filename': filename, 'n_try': number,
+                                         'language': languages[language], 'state': 0})
+        return render_template("acknowledgement.html")
+
+
+def get_string_submissions(submissions_arr):
+    result = []
+    for i in submissions_arr:
+        result.append(f"time: {i['datetime in UTC']}; task_name: {i['task_name']};"
+                      f" language: {i['language']}; state: {i['state']}")
+    return result
+
+
+@app.route('/submissions/<int:page_number>', methods=['POST', 'GET'])
+def submissions(page_number):
+    submissions_array = mongo.db.submissions.find({'sender': session['username']})
+    submissions_array = sorted(submissions_array, key=lambda x: x['datetime in UTC'], reverse=True)
+    limit_page = math.ceil(len(submissions_array)/10)
+    submissions_array = submissions_array[(page_number - 1) * 10:page_number * 10]
+    return render_template("submissions.html",
+                           submissions_array=get_string_submissions(submissions_array), current_page=page_number,
+                           limit_page=limit_page)
 
 
 @app.route('/signin', methods=['GET', 'POST'])
@@ -93,7 +123,6 @@ def signin():
 
         flash('Username and password combination is wrong')
         return render_template('signin.html')
-
     return render_template('signin.html')
 
 
@@ -104,4 +133,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(debug=True)
