@@ -15,5 +15,8 @@ COPY useless.py /useless.py
 COPY tasks /tasks
 COPY templates /templates
 COPY uploaded /uploaded
+
+EXPOSE 5000
+
 ENTRYPOINT ["python3", "/app.py"]
 
