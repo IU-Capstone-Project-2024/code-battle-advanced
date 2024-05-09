@@ -1,1 +1,1 @@
-python3 checker.py $1 $2
+python3 $(dirname "$0")/checker.py $1 $2
