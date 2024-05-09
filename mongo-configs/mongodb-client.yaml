@@ -5,7 +5,7 @@ metadata:
     app: web-app
   name: web-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: web-app
@@ -15,9 +15,11 @@ spec:
         app: web-app
     spec:
       containers:
-      - image: web_app:v5
+      - image: web_app:v7
         imagePullPolicy: Never
         name: web-app
+        ports:
+        - containerPort: 5000
         env:
         - name: mongo-client_INITDB_ROOT_USERNAME
           value: 'dummy'
