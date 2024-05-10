@@ -11,9 +11,9 @@ from zipfile import ZipFile
 import math
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'testing'
-app.config['MONGO_dbname'] = 'Users'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/Users'
+app.config['SECRET_KEY'] = 'testlol'
+app.config['MONGO_dbname'] = 'CBA_database'
+app.config['MONGO_URI'] = 'mongodb://adminuser:password123@192.168.49.2:32000/CBA_database?authSource=admin'
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './uploaded'
@@ -86,7 +86,7 @@ def success(task_name):
         f.save(f"uploaded/{filename}")
         mongo.db.submissions.insert_one({'sender': session['username'], "datetime in UTC": datetime.now(timezone.utc),
                                          'task_name': task_name, 'filename': filename, 'n_try': number,
-                                         'language': languages[language], 'state': 0})
+                                         'language': languages[language], 'verdict': "NJ"})
         return render_template("acknowledgement.html")
 
 
@@ -133,4 +133,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
