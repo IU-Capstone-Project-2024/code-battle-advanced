@@ -1,0 +1,21 @@
+<html> 
+   <head> 
+      <title>Submissions</title> 
+   </head> 
+   <body> 
+      <p>Your submissions.</p>
+   </body>
+   {%if submissions_array is defined %}
+        {%if current_page > 1%}
+        <li role="presentation" class="active"><a href="/submissions/{{current_page-1}}">Previous page</a>
+                </li>
+        {%endif%}
+	{%if current_page > limit_page%}
+        <li role="presentation" class="active"><a href="/submissions/{{current_page+1}}">>Next page</a>
+        </li>
+	{%endif%}
+   	{% for submission in submissions_array %}    
+ 			<p>{{submission}}</p>
+	{% endfor %}
+   {%endif%}
+</html>

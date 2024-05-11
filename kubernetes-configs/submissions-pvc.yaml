@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: submissions-data
+spec:
+  accessModes:
+    - ReadWriteOnce 
+  volumeName: submissions-pv
+  resources:
+    requests:
+      storage: 1Gi

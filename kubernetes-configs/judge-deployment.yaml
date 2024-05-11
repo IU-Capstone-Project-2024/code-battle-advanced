@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: judge
+  labels:
+    app: judge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: judge
+  template:
+    metadata:
+      labels:
+        app: judge
+    spec:
+      containers:
+      - name: judge
+        image: judge
+        imagePullPolicy: Never
+        volumeMounts:
+        - name: "tasks-dir"
+          mountPath: "/tasks"
+        - name: "submissions-dir"
+          mountPath: "/submissions"
+      volumes:
+      - name: "tasks-dir"
+        persistentVolumeClaim:
+          claimName: "tasks-data"
+      - name: "submissions-dir"
+        persistentVolumeClaim:
+          claimName: "submissions-data"
+
