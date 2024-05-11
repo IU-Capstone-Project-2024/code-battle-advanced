@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Code Battle Advanced</title>
+</head>
+
+<body>
+<h1>Code Battle Advanced</h1>
+<div class="container">
+    <div class="header">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="#">Home</a>
+                </li>
+                {%if username is defined %}
+                <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li role="presentation"><a href="/signin">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/signup">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <div class="jumbotron">
+        <p class="lead"></p>
+        {%if username is defined %}
+	<h3>Contests</h3>
+	{% for url in listOfUrls %}    
+ 			<li role="presentation"><a href=/contest/{{url}}>{{url}}</a>
+			</li>
+	{% endfor %}
+	<h2>You can check your submissions</h2>
+	<li role="presentation"><a href="/submissions/1">Check your submissions</a>
+        </li> 
+        {% endif %}
+    </div>
+
+</div>
+</body>
+
+</html>
