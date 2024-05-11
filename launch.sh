@@ -21,13 +21,11 @@ minikube kubectl -- apply -f ./kubernetes-configs/submissions-pvc.yaml
 minikube kubectl -- apply -f ./kubernetes-configs/redis-pod.yaml
 minikube kubectl -- apply -f ./kubernetes-configs/redis-service.yaml
 
-minikube kubectl -- apply -f ./kubernetes-configs/judge-job.yaml
+minikube kubectl -- apply -f ./kubernetes-configs/judge-deployment.yaml
 
 minikube kubectl -- apply -f ./kubernetes-configs/mongodb-deployment.yaml
 minikube kubectl -- apply -f ./kubernetes-configs/web-app-client.yaml
 
 minikube kubectl -- apply -f ./kubernetes-configs/mongodb-nodeport-svc.yaml
 minikube kubectl -- apply -f ./kubernetes-configs/web-app-nodeport-svc.yaml
-
-minikube service web-app-nodeport-svc 
 

@@ -17,7 +17,7 @@ app.config['MONGO_dbname'] = 'CBA_database'
 app.config['MONGO_URI'] = 'mongodb://adminuser:password123@192.168.49.2:32000/CBA_database?authSource=admin'
 mongo = PyMongo(app)
 p = Path('./tasks')
-UPLOAD_FOLDER = './uploaded'
+UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
 
 
@@ -48,7 +48,7 @@ def signup():
             flash(request.form['username'] + ' username is already exist')
             return redirect(url_for('signup'))
         hashed = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt(14))
-        users.insert_one({'username': request.form['username'], 'password': hashed, 'email': request.form['email']})
+        users.insert_one({'username': request.form['username'], 'password': hashed, 'email': request.form['email'], 'admin': False})
         return redirect(url_for('signin'))
     return render_template('signup.html')
 
@@ -60,13 +60,36 @@ def index():
         zip_handle = ZipFile(f._file)
         zip_handle.extractall("tasks/")
         zip_handle.close()
-    session["listOfUrls"] = [f.parts[-1] for f in p.iterdir() if f.is_dir()]
     if 'username' in session:
-        return render_template('index.html', username=session['username'], listOfUrls=session['listOfUrls'])
+        session["contests"] = [i['name'] for i in mongo.db.contests.find()]
+        return render_template('index.html', username=session['username'],
+                               listOfUrls=session['contests'])
     return render_template('index.html')
 
 
-@app.route('/<string:task_name>')
+@app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
+def contest(contest_name):
+    if request.method == 'POST':
+        f = request.files['zip']
+        zip_handle = ZipFile(f._file)
+        zip_handle.extractall("tasks/")
+        zip_handle.close()
+        names = [info.filename for info in zip_handle.infolist() if info.is_dir()]
+        for i in names:
+            if i.count("/") == 1:
+                task_name = i.split("/")[0]
+                if task_name not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
+                    mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': task_name}})
+    admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
+    if admin:
+        return render_template('contest.html', admin=admin,
+                               listOfTasks=tasks, contest_name=contest_name)
+    else:
+        return render_template('contest.html', listOfTasks=tasks, contest_name=contest_name)
+
+
+@app.route('/task/<string:task_name>')
 def task(task_name):
     readme_file = open(f"tasks/{task_name}/description.md", "r")
     md_template_string = markdown.markdown(
@@ -76,7 +99,7 @@ def task(task_name):
     return md_template_string
 
 
-@app.route('/<string:task_name>/success', methods=['POST'])
+@app.route('/task/<string:task_name>/success', methods=['POST'])
 def success(task_name):
     if request.method == 'POST':
         languages = {"Python 3.19": "python3", "C++ 17": "cpp"}
@@ -87,10 +110,10 @@ def success(task_name):
         f.save(f"submissions/{filename}")
         _id = mongo.db.submissions.insert_one({'sender': session['username'], "datetime in UTC": datetime.now(timezone.utc),
                                          'task_name': task_name, 'filename': filename, 'n_try': number,
-                                         'language': languages[language], 'verdict': "NJ"}).inserted_id
+                                         'language': languages[language], 'verdict': "N/A"}).inserted_id
         if type(_id) != str:
           _id = str(_id)
-        q.lpush("job2", _id)
+        q.lpush("job2", _id+":3")
         return render_template("acknowledgement.html")
 
 
@@ -138,4 +161,4 @@ def logout():
 
 if __name__ == "__main__":
     q = redis.StrictRedis(host=redis_host)
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host='0.0.0.0', debug=True)

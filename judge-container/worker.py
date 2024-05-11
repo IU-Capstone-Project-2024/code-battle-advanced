@@ -42,12 +42,34 @@ if __name__ == "__main__":
   print("NEW VERSION4!", flush=True)
   print(f"Worker with sessionID: {session_id}", flush=True)
   print(f"Initial queue state: {q.llen('job2')} not processed, {q.llen('job2:processing')} in progress", flush=True)
+  
+  clean_up = q.lock("clean_up")
+  
   while 1:
+    
+    if clean_up.acquire(blocking=False):
+      processing = q.lrange("job2:processing", 0, -1)
+      for item in processing:
+        itemstr, strikes = item.decode("utf-8").split(":")
+        if not db.exists(f"job2:claim:{itemstr}"):
+          q.lrem("job2:processing", 0, item)
+          if strikes == "0":
+            db.submissions.update_one({"_id": ObjectId(itemstr)}, {"$set":{"verdict":"JE"}}) 
+          else:
+            q.lpush("job2", f"{itemstr}:{int(strikes) - 1}")
+      clean_up.release()
+      
+    
     item = q.brpoplpush("job2", "job2:processing", timeout=3)
     if item is not None:
-      itemstr = item.decode("utf-8")
+      
+      itemstr, strikes = item.decode("utf-8").split(":")
+      db.setex(f"job2:claim:{itemstr}", 3*60, session_id)
+      
       print("Working on " + itemstr, flush=True)
       test_task(itemstr)
+      
+      db.delete(f"job2:claim:{itemstr}")
       q.lrem("job2:processing", 0, item)
     else:
       print("Waiting for work")
