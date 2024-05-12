@@ -19,8 +19,8 @@
         <li role="presentation" class="active"><a href="/submissions/{{current_page-1}}">Previous page</a>
                 </li>
         {%endif%}
-	{%if current_page > limit_page%}
-        <li role="presentation" class="active"><a href="/submissions/{{current_page+1}}">>Next page</a>
+	{%if current_page < limit_page%}
+        <li role="presentation" class="active"><a href="/submissions/{{current_page+1}}">Next page</a>
         </li>
 	{%endif%}
    	{% for submission in submissions_array %}    
