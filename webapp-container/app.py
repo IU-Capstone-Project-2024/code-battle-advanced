@@ -135,6 +135,13 @@ def task(task_name):
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
 def contest_task(contest_name, task_name):
+    my_contest = mongo.db.contests.find_one({"name": contest_name})
+    admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    if (not my_contest['startTime'].replace(tzinfo=timezone.utc)
+            <= datetime.now(timezone.utc) <= my_contest['startTime'].replace(tzinfo=timezone.utc)
+            + timedelta(minutes=int(my_contest['duration']))) and not admin:
+        print(admin)
+        return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
     readme_file = open(f"tasks/{task_name}/description.md", "r")

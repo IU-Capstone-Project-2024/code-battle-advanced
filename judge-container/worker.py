@@ -51,10 +51,10 @@ if __name__ == "__main__":
       processing = q.lrange("job2:processing", 0, -1)
       for item in processing:
         itemstr, strikes = item.decode("utf-8").split(":")
-        if not db.exists(f"job2:claim:{itemstr}"):
+        if not q.exists(f"job2:claim:{itemstr}"):
           q.lrem("job2:processing", 0, item)
           if strikes == "0":
-            db.submissions.update_one({"_id": ObjectId(itemstr)}, {"$set":{"verdict":"JE"}}) 
+            q.submissions.update_one({"_id": ObjectId(itemstr)}, {"$set":{"verdict":"JE"}}) 
           else:
             q.lpush("job2", f"{itemstr}:{int(strikes) - 1}")
       clean_up.release()
@@ -64,12 +64,12 @@ if __name__ == "__main__":
     if item is not None:
       
       itemstr, strikes = item.decode("utf-8").split(":")
-      db.setex(f"job2:claim:{itemstr}", 3*60, session_id)
+      q.setex(f"job2:claim:{itemstr}", 3*60, session_id)
       
       print("Working on " + itemstr, flush=True)
       test_task(itemstr)
       
-      db.delete(f"job2:claim:{itemstr}")
+      q.delete(f"job2:claim:{itemstr}")
       q.lrem("job2:processing", 0, item)
     else:
       print("Waiting for work")
