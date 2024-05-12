@@ -168,7 +168,9 @@ def contest_success(contest_name, task_name):
             return render_template("error.html")
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
-                                               'task_name': mongo.db.tasks.find_one({"uuid": task_name})["task_name"],
+                                               'task_name': task_name,
+                                               'in_contest_name': mongo.db.tasks.find_one({"uuid":
+                                                                                               task_name})["task_name"],
                                                'filename': f, 'n_try': n,
                                                'language': lang,
                                                'contest': contest_name,
@@ -186,7 +188,9 @@ def success(task_name):
         success_support_func(task_name)
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
-                                               'task_name': mongo.db.tasks.find_one({"uuid": task_name})["task_name"],
+                                               'task_name': task_name,
+                                               'in_contest_name': mongo.db.tasks.find_one({"uuid":
+                                                                                               task_name})["task_name"],
                                                'filename': f, 'n_try': n,
                                                'language': lang,
                                                'contest': 'No contest',
@@ -200,7 +204,7 @@ def success(task_name):
 def get_string_submissions(submissions_arr):
     result = []
     for i in submissions_arr:
-        result.append(f"time: {i['datetime in UTC']}; contest: {i['contest']}; task_name: {i['task_name']};"
+        result.append(f"time: {i['datetime in UTC']}; contest: {i['contest']}; task_name: {i['in_contest_name']};"
                       f" language: {i['language']}; verdict: {i['verdict']}")
     return result
 
