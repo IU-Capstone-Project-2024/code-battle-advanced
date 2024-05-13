@@ -12,10 +12,6 @@ RUN pip install pymongo redis
 
 COPY ./worker.py /worker.py
 COPY ./judge.sh /judge.sh
-COPY ./tasks /tasks
-COPY ./useless.py /useless.py
-COPY ./submissions /submissions
-COPY ./rediswq.py /rediswq.py
 
 EXPOSE 5000
 

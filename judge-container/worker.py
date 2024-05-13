@@ -54,7 +54,7 @@ if __name__ == "__main__":
         if not q.exists(f"job2:claim:{itemstr}"):
           q.lrem("job2:processing", 0, item)
           if strikes == "0":
-            q.submissions.update_one({"_id": ObjectId(itemstr)}, {"$set":{"verdict":"JE"}}) 
+            db.submissions.update_one({"_id": ObjectId(itemstr)}, {"$set":{"verdict":"JE"}}) 
           else:
             q.lpush("job2", f"{itemstr}:{int(strikes) - 1}")
       clean_up.release()

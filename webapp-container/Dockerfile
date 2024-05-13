@@ -11,10 +11,7 @@ RUN apk add py3-pip mongodb mongodb-tools
 RUN pip install Flask-PyMongo markdown bcrypt redis
 
 COPY ./app.py /app.py
-COPY ./useless.py /useless.py
-COPY ./tasks /tasks
 COPY ./templates /templates
-COPY ./submissions /submissions
 
 EXPOSE 5000
 
