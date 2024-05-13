@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Code Battle Advanced</title>
+</head>
+
+<body>
+<h1>Code Battle Advanced</h1>
+<div class="container">
+    <div class="header">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="#">Home</a>
+                </li>
+                {%if username is defined %}
+                <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li role="presentation"><a href="/signin">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/signup">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <div class="jumbotron">
+        <p class="lead"></p>
+        {%if username is defined %}
+	<h3>Contests</h3>
+	{% for url in listOfUrls %}    
+ 			<li role="presentation"><a href=/contest/{{url}}>{{url}}</a>
+			</li>
+	{% endfor %}
+	{%if admin is defined%} 
+	{%if admin%}
+	<h2>You can create new contest</h2>
+	<form class="form-contest" action="/index" method="post">
+        <label for="inputName" class="sr-only">Contest name:</label>
+        <input type="ContestName" name="ContestName" id="ContestName" class="form-control" placeholder="ContestName" required autofocus>
+	<label for="inputName" class="sr-only">Start time in UTC:</label>
+	<input type="StartTime" name="StartTime" id="StartTime" class="form-control" placeholder="DD/MM/YYYY HH:MM:SS" required autofocus>
+	<label for="inputName" class="sr-only">Duration in minutes:</label>
+	<input type="duration" name="duration" id="duration" class="form-control" placeholder="" required autofocus>
+	<button id="Submit" class="btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Submit</button>
+	</form>
+	{%endif%}
+	{%endif%}
+	<h2>Task archive</h2>
+	{% for contest, uuid, task_name in all_tasks %}    
+ 		<li role="presentation"><a href=/task/{{uuid}}>{{contest}}: {{task_name}}</a>
+		</li>
+	{% endfor %}
+	<h2>You can check your submissions</h2>
+	<li role="presentation"><a href="/submissions/1">Check your submissions</a>
+        </li> 
+        {% endif %}
+    </div>
+
+</div>
+</body>
+
+</html>

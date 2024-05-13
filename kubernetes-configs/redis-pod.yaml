@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-master
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: master
+        image: redis
+        env:
+        - name: MASTER
+          value: "true"
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: "redis-dir"
+          mountPath: "/data"
+      volumes:
+      - name: "redis-dir"
+        persistentVolumeClaim:
+          claimName: "redis-data"
+

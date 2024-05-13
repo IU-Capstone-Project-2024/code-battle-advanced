@@ -1,0 +1,27 @@
+
+<html>   
+<head>   
+    <title>Upload the file : GFG</title>   
+</head>   
+<body>
+    {%if contest_name is defined%}
+    <form action = "/contest/{{contest_name}}/task/{{url}}/success" method = "post" enctype="multipart/form-data">   
+        <input type="file" name="file" />
+        <select name='language' id='language'>
+        <option value="C++ 17">C++ 17</option>
+        <option value="Python 3.19">Python 3.19</option>
+        </select>
+	<input type = "submit" value="Upload"> 
+    </form>
+    {%else%}
+    <form action = "/task/{{url}}/success" method = "post" enctype="multipart/form-data">   
+        <input type="file" name="file" />
+        <select name='language' id='language'>
+        <option value="C++ 17">C++ 17</option>
+        <option value="Python 3.19">Python 3.19</option>
+        </select>
+	<input type = "submit" value="Upload"> 
+    </form>
+    {%endif%}
+</body>   
+</html>

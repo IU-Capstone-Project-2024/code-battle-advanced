@@ -1,0 +1,23 @@
+<html> 
+   <head> 
+      <title>Contest content</title> 
+   </head>
+   <li role="presentation" class="active"><a href="/index">Home</a>
+   <body> 
+      <h1>{{contest_name}}</h1>
+   </body>
+   {% for name, uuid in listOfTasks %}    
+ 		<li role="presentation"><a href={{contest_name}}/task/{{uuid}}>{{name}}</a>
+		</li>
+   {% endfor %}
+   {%if admin is defined %}
+   {%if admin%}
+   <h2>You can add your own task</h2>
+	<form action = "/contest/{{contest_name}}" method = "post" enctype="multipart/form-data">   
+	    <input type="file" name="zip" />
+	    <input type = "submit" value="Upload">
+	</form>
+   {% endif %}
+   {% endif %}
+   </li> 
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Code battle advanced</title>
+
+</head>
+
+<body>
+<h1>Code Battle Advanced</h1>
+<div class="container">
+  <div class="header">
+    <nav>
+      <ul class="nav nav-pills pull-right">
+        <li role="presentation" ><a href="main">Home</a></li>
+        <li role="presentation" class="active"><a href="#">Sign In</a></li>
+        <li role="presentation"><a href="/signup">Sign Up</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="jumbotron">
+    <h2>Login</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <form class="form-signin" action="/signin" method="post">
+      <label for="inputName" class="sr-only">Username</label>
+      <input type="name" name="username" id="inputName" class="form-control" placeholder="Username" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Login</button>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>
