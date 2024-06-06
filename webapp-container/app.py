@@ -10,11 +10,13 @@ from datetime import datetime, timezone, timedelta
 from zipfile import ZipFile
 import math
 import redis
+import re
+import shutil
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
 app.config['MONGO_dbname'] = 'CBA_database'
-app.config['MONGO_URI'] = 'mongodb://adminuser:password123@192.168.49.2:32000/CBA_database?authSource=admin'
+app.config['MONGO_URI'] = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
@@ -129,6 +131,14 @@ def task(task_name):
     md_template_string = markdown.markdown(
         readme_file.read(), extensions=["fenced_code"]
     )
+    
+    res_dir_names = ["static", "resources", "res"]
+    
+    for i in res_dir_names:
+        if os.path.exists(f"/tasks/{task_name}/{i}"):
+            shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
+            md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
+    
     md_template_string += render_template('task.html', url=task_name, username=session['username'])
     return md_template_string
 
@@ -144,10 +154,20 @@ def contest_task(contest_name, task_name):
         return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
-    readme_file = open(f"tasks/{task_name}/description.md", "r")
+    readme_file = open(f"tasks/{task_name}/description.md", "r").read()
     md_template_string = markdown.markdown(
-        readme_file.read(), extensions=["fenced_code"]
+        readme_file, extensions=["fenced_code"]
     )
+    
+    res_dir_names = ["static", "resources", "resource", "res"]
+    
+    for i in res_dir_names:
+        if os.path.exists(f"/tasks/{task_name}/{i}"):
+            shutil.copytree(f"tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
+            md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
+            md_template_string = md_template_string.replace(f"src=\"/{i}", "src=\"/static")
+            md_template_string = md_template_string.replace(f"src=\"{i}", "src=\"/static")
+    
     md_template_string += render_template('task.html', url=task_name, username=session['username'],
                                           contest_name=contest_name)
     return md_template_string
@@ -158,15 +178,13 @@ def success_support_func(task_name):
     language = request.form['language']
     number = get_number(session["username"], task_name)
     f = request.files['file']
-    filename = str(uuid.uuid4())
-    f.save(f"submissions/{filename}")
-    return filename, number, languages[language]
+    return f.read(), number, languages[language]
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>/success', methods=['POST'])
 def contest_success(contest_name, task_name):
     if request.method == 'POST':
-        f, n, lang = success_support_func(task_name)
+        src, n, lang = success_support_func(task_name)
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
         my_contest = mongo.db.contests.find_one({"name": contest_name})
         if (not (my_contest['startTime'].replace(tzinfo=timezone.utc)
@@ -177,13 +195,14 @@ def contest_success(contest_name, task_name):
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
                                                'in_contest_name': mongo.db.tasks.find_one({"uuid":
-                                                                                               task_name})["task_name"],
-                                               'filename': f, 'n_try': n,
+                                               task_name})["task_name"],
+                                               'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': contest_name,
                                                'verdict': "N/A"}).inserted_id
         if type(_id) != str:
             _id = str(_id)
+            
         q.lpush("job2", _id + ":3")
         return render_template("acknowledgement.html")
 
@@ -191,14 +210,13 @@ def contest_success(contest_name, task_name):
 @app.route('/task/<string:task_name>/success', methods=['POST'])
 def success(task_name):
     if request.method == 'POST':
-        f, n, lang = success_support_func(task_name)
-        success_support_func(task_name)
+        src, n, lang = success_support_func(task_name)
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
                                                'in_contest_name': mongo.db.tasks.find_one({"uuid":
-                                                                                               task_name})["task_name"],
-                                               'filename': f, 'n_try': n,
+                                               task_name})["task_name"],
+                                               'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': 'No contest',
                                                'verdict': "N/A"}).inserted_id

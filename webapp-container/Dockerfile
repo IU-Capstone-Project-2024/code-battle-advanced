@@ -12,6 +12,7 @@ RUN pip install Flask-PyMongo markdown bcrypt redis
 
 COPY ./app.py /app.py
 COPY ./templates /templates
+RUN mkdir -p /static
 
 EXPOSE 5000
 

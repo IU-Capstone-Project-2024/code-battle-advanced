@@ -5,7 +5,7 @@ metadata:
     app: web-app
   name: web-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: web-app
@@ -21,10 +21,16 @@ spec:
         ports:
         - containerPort: 5000
         env:
-        - name: mongo-client_INITDB_ROOT_USERNAME
-          value: 'dummy'
-        - name: mongo-client_INITDB_ROOT_PASSWORD
-          value: 'dummy'
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: password
         volumeMounts:
         - name: "tasks-dir"
           mountPath: "/tasks"

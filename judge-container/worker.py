@@ -9,8 +9,10 @@ from sys import stderr
 import redis
 import uuid
 import hashlib
+import pathlib
+from shutil import rmtree
 
-mongo_uri_docker = "mongodb://adminuser:password123@192.168.49.2:32000/CBA_database?authSource=admin"
+mongo_uri_docker = "mongodb://sUbskr1bet0:1celypuZZl3s@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo_uri_local = "mongodb://localhost"
 
 redis_host = "redis"
@@ -19,7 +21,13 @@ def test_task(task_id):
   global db
   
   submission_info = db.submissions.find_one({"_id": ObjectId(task_id)})
-  submission_file = "/submissions/" + submission_info['filename']
+  
+  submission_file = "/source"
+  f = open(submission_file, "wb")
+  print(submission_info["source"])
+  f.write(submission_info["source"])
+  f.close()
+  
   task = submission_info["task_name"]
   compiler = submission_info["language"]
   time_limit_ms = "2000"
@@ -30,6 +38,7 @@ def test_task(task_id):
     print("Error while testing, check all your files for correctness.", file=stderr)
     return
   verdict = open("verdict.temp", "r").read().strip()
+  pathlib.Path.unlink(submission_file)
   db.submissions.update_one({"_id": ObjectId(task_id)}, {"$set":{"verdict":verdict}})
 
 if __name__ == "__main__":
