@@ -8,7 +8,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repos
 RUN apk add py3-pip mongodb g++ bash
 
 #Installing relevant python packages
-RUN pip install pymongo redis
+RUN pip install pymongo redis pathlib
 
 COPY ./worker.py /worker.py
 COPY ./judge.sh /judge.sh

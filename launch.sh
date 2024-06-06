@@ -1,7 +1,7 @@
 #!/bin/bash
 
 minikube delete
-minikube start
+minikube start --vm-driver=docker --registry-mirror="https://mirror.gcr.io"
 
 minikube dashboard &
 
