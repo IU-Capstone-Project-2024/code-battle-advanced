@@ -36,16 +36,7 @@
 	{% endfor %}
 	{%if admin is defined%} 
 	{%if admin%}
-	<h2>You can create new contest</h2>
-	<form class="form-contest" action="/index" method="post">
-        <label for="inputName" class="sr-only">Contest name:</label>
-        <input type="ContestName" name="ContestName" id="ContestName" class="form-control" placeholder="ContestName" required autofocus>
-	<label for="inputName" class="sr-only">Start time in UTC:</label>
-	<input type="StartTime" name="StartTime" id="StartTime" class="form-control" placeholder="DD/MM/YYYY HH:MM:SS" required autofocus>
-	<label for="inputName" class="sr-only">Duration in minutes:</label>
-	<input type="duration" name="duration" id="duration" class="form-control" placeholder="" required autofocus>
-	<button id="Submit" class="btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Submit</button>
-	</form>
+	<li role="presentation" class="active"><a href="/create">Create your own contest</a>
 	{%endif%}
 	{%endif%}
 	<h2>Task archive</h2>
