@@ -9,8 +9,8 @@ import os
 from datetime import datetime, timezone, timedelta
 from zipfile import ZipFile
 import math
+import pytz
 import redis
-import re
 import shutil
 
 app = Flask(__name__)
@@ -21,6 +21,7 @@ mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
+
 
 
 @app.route("/")
@@ -59,21 +60,15 @@ def signup():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     if 'username' in session:
-        if request.method == 'POST':
-            mongo.db.contests.insert_one({'name': request.form['ContestName'], 'tasks': [],
-                                          'duration': request.form['duration'],
-                                          'startTime': datetime.strptime(request.form['StartTime'],
-                                                                         "%d/%m/%Y %H:%M:%S")})
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
         session["contests"] = [i['name'] for i in mongo.db.contests.find()
-                               if (i['startTime'].replace(tzinfo=timezone.utc) <= datetime.now(timezone.utc) <=
-                                   i['startTime'].replace(tzinfo=timezone.utc)
+                               if (i['startTime'].astimezone(pytz.utc) <= datetime.now(timezone.utc) <=
+                                   i['startTime'].astimezone(pytz.utc)
                                    + timedelta(minutes=int(i['duration']))) or (admin and datetime.now(timezone.utc) <=
-                                                                                i['startTime'].replace(
-                                                                                    tzinfo=timezone.utc))]
+                                                                                i['startTime'].astimezone(pytz.utc))]
         contest_archive = [i for i in mongo.db.contests.find()
                            if i['name'] not in session['contests'] and datetime.now(timezone.utc) >
-                           i['startTime'].replace(tzinfo=timezone.utc)
+                           i['startTime'].astimezone(pytz.utc)
                            + timedelta(minutes=int(i['duration']))]
         tasks_archive = []
         for i in contest_archive:
@@ -90,13 +85,14 @@ def index():
 def contest(contest_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    if (not my_contest['startTime'].replace(tzinfo=timezone.utc)
-            <= datetime.now(timezone.utc) <= my_contest['startTime'].replace(tzinfo=timezone.utc)
+    if (not my_contest['startTime'].astimezone(pytz.utc)
+            <= datetime.now(timezone.utc) <= my_contest['startTime'].astimezone(pytz.utc)
             + timedelta(minutes=int(my_contest['duration']))) and not admin:
         print(admin)
         return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
+    admin = mongo.db.users.find_one({'username': session['username']})['admin']
     if request.method == 'POST':
         f = request.files['zip']
         zip_handle = ZipFile(f._file)
@@ -111,11 +107,9 @@ def contest(contest_name):
                 if task_name not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
                     mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
                 mongo.db.tasks.insert_one({'uuid': filename, "task_name": task_name})
-    admin = mongo.db.users.find_one({'username': session['username']})['admin']
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
-    print(tasks)
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
-    if 'username' in session:
+    if admin:
         return render_template('contest.html', admin=admin,
                                listOfTasks=tasks, contest_name=contest_name, username=session['username'])
     else:
@@ -131,14 +125,14 @@ def task(task_name):
     md_template_string = markdown.markdown(
         readme_file.read(), extensions=["fenced_code"]
     )
-    
+
     res_dir_names = ["static", "resources", "res"]
-    
+
     for i in res_dir_names:
         if os.path.exists(f"/tasks/{task_name}/{i}"):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
-    
+
     md_template_string += render_template('task.html', url=task_name, username=session['username'])
     return md_template_string
 
@@ -147,8 +141,8 @@ def task(task_name):
 def contest_task(contest_name, task_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    if (not my_contest['startTime'].replace(tzinfo=timezone.utc)
-            <= datetime.now(timezone.utc) <= my_contest['startTime'].replace(tzinfo=timezone.utc)
+    if (not my_contest['startTime'].astimezone(pytz.utc)
+            <= datetime.now(timezone.utc) <= my_contest['startTime'].astimezone(pytz.utc)
             + timedelta(minutes=int(my_contest['duration']))) and not admin:
         print(admin)
         return render_template("error.html")
@@ -158,16 +152,16 @@ def contest_task(contest_name, task_name):
     md_template_string = markdown.markdown(
         readme_file, extensions=["fenced_code"]
     )
-    
+
     res_dir_names = ["static", "resources", "resource", "res"]
-    
+
     for i in res_dir_names:
         if os.path.exists(f"/tasks/{task_name}/{i}"):
             shutil.copytree(f"tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
             md_template_string = md_template_string.replace(f"src=\"/{i}", "src=\"/static")
             md_template_string = md_template_string.replace(f"src=\"{i}", "src=\"/static")
-    
+
     md_template_string += render_template('task.html', url=task_name, username=session['username'],
                                           contest_name=contest_name)
     return md_template_string
@@ -187,22 +181,22 @@ def contest_success(contest_name, task_name):
         src, n, lang = success_support_func(task_name)
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
         my_contest = mongo.db.contests.find_one({"name": contest_name})
-        if (not (my_contest['startTime'].replace(tzinfo=timezone.utc)
-                 <= datetime.now(timezone.utc) <= my_contest['startTime'].replace(tzinfo=timezone.utc)
+        if (not (my_contest['startTime'].astimezone(pytz.utc)
+                 <= datetime.now(timezone.utc) <= my_contest['startTime'].astimezone(pytz.utc)
                  + timedelta(minutes=int(my_contest['duration'])))) and not admin:
             return render_template("error.html")
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
                                                'in_contest_name': mongo.db.tasks.find_one({"uuid":
-                                               task_name})["task_name"],
+                                                                                               task_name})["task_name"],
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': contest_name,
                                                'verdict': "N/A"}).inserted_id
         if type(_id) != str:
             _id = str(_id)
-            
+
         q.lpush("job2", _id + ":3")
         return render_template("acknowledgement.html")
 
@@ -215,7 +209,7 @@ def success(task_name):
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
                                                'in_contest_name': mongo.db.tasks.find_one({"uuid":
-                                               task_name})["task_name"],
+                                                                                               task_name})["task_name"],
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': 'No contest',
@@ -266,6 +260,50 @@ def signin():
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
+
+
+@app.route('/create', methods=['GET', 'POST'])
+def create_contest():
+    if 'username' not in session:
+        return render_template('unauthorized.html')
+    else:
+        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    if request.method == 'POST':
+        mongo.db.contests.insert_one({'name': request.form['ContestName'], 'tasks': [],
+                                      'duration': request.form['duration'],
+                                      'startTime': datetime.strptime(request.form['StartTime'],
+                                                                     "%d/%m/%Y %H:%M:%S")})
+    return render_template('create.html', admin=admin)
+
+
+@app.route('/contest/<string:contest_name>/upload', methods=['GET', 'POST'])
+def upload(contest_name):
+    if 'username' not in session:
+        return render_template('unauthorized.html')
+    else:
+        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    return render_template('upload.html', admin=admin, contest_name=contest_name)
+
+
+@app.route('/contest/<string:contest_name>/leaderboard/<int:page_number>', methods=['GET', 'POST'])
+def leader_board(contest_name, page_number):
+    leaders = {}
+    for i in mongo.db.submissions.find({'contest': contest_name}):
+        if i['sender'] not in leaders.keys():
+            leaders[i['sender']] = {i['task_name']: 1 if i['verdict'] == 'AC' else 0}
+        else:
+            if i['task_name'] in leaders[i['sender']].keys():
+                res = 1 if i['verdict'] == 'AC' else 0
+                leaders[i['sender']]['task_name'] = max(res, leaders[i['sender']]['task_name'])
+    board = [(i, sum(list(leaders[i].values()))) for i in list(leaders.keys())]
+    board = sorted(board, key=lambda k: -k[1])
+    for i in range(len(board)):
+        board[i] = (i+1, board[i][0], board[i][1])
+    limit_page = min(math.ceil(len(board) / 10), 1)
+    board = board[(page_number - 1) * 10:page_number * 10]
+    return render_template('leaderboard.html', board=[';'.join(map(str, i)) for i in board],
+                           limit_page=limit_page,
+                           current_page=page_number, contest_name=contest_name)
 
 
 if __name__ == "__main__":
