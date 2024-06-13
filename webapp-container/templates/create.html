@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Code battle advanced</title>
+
+</head>
+
+<body>
+<h1>Code Battle Advanced</h1>
+<div class="container">
+  <div class="header">
+    <nav>
+      <ul class="nav nav-pills pull-right">
+        <li role="presentation" ><a href="index">Home</a></li>
+      </ul>
+    </nav>
+  </div>
+{%if admin is defined%} 
+{%if admin%}
+<form class="form-contest" action="/create" method="post">
+        <label for="inputName" class="sr-only">Contest name:</label>
+        <input type="ContestName" name="ContestName" id="ContestName" class="form-control" placeholder="ContestName" required autofocus>
+	<label for="inputName" class="sr-only">Start time in UTC:</label>
+	<input type="StartTime" name="StartTime" id="StartTime" class="form-control" placeholder="DD/MM/YYYY HH:MM:SS" required autofocus>
+	<label for="inputName" class="sr-only">Duration in minutes:</label>
+	<input type="duration" name="duration" id="duration" class="form-control" placeholder="" required autofocus>
+	<button id="Submit" class="btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Submit</button>
+</form>
+{%endif%}
+{%endif%}
+</body>
