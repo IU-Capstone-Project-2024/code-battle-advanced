@@ -2,7 +2,9 @@
    <head> 
       <title>Contest content</title> 
    </head>
+   <h1>Code Battle Advanced</h1>
    <li role="presentation" class="active"><a href="/index">Home</a>
+   <li role="presentation" class="active"><a href="/contest/{{contest_name}}/leaderboard/1">Leaderboard</a>
    <body> 
       <h1>{{contest_name}}</h1>
    </body>
@@ -13,10 +15,7 @@
    {%if admin is defined %}
    {%if admin%}
    <h2>You can add your own task</h2>
-	<form action = "/contest/{{contest_name}}" method = "post" enctype="multipart/form-data">   
-	    <input type="file" name="zip" />
-	    <input type = "submit" value="Upload">
-	</form>
+   <li role="presentation" class="active"><a href="/contest/{{contest_name}}/upload">Create your own task</a>
    {% endif %}
    {% endif %}
    </li> 
