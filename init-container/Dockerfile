@@ -5,15 +5,13 @@ USER root
 #Installing MongoDB
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main' >> /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositories
-RUN apk add py3-pip g++ bash
+RUN apk add py3-pip
 
 #Installing relevant python packages
-RUN pip install pymongo redis pathlib
+RUN pip install pymongo pathlib bcrypt
 
-COPY ./worker.py /worker.py
-COPY ./judge.sh /judge.sh
+COPY ./init_database.py /init_database.py
+COPY ./data /data
 
-EXPOSE 5000
-
-CMD ["python3", "/worker.py"]
+CMD ["python3", "/init_database.py"]
 
