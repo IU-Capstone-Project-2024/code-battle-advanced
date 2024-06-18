@@ -8,7 +8,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repos
 RUN apk add py3-pip mongodb mongodb-tools
 
 #Installing relevant python packages
-RUN pip install Flask-PyMongo markdown bcrypt redis
+RUN pip install Flask-PyMongo markdown bcrypt redis pytz
 
 COPY ./app.py /app.py
 COPY ./templates /templates
