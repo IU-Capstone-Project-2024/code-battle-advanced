@@ -34,12 +34,7 @@ spec:
         volumeMounts:
         - name: "tasks-dir"
           mountPath: "/tasks"
-        - name: "submissions-dir"
-          mountPath: "/submissions"
       volumes:
       - name: "tasks-dir"
         persistentVolumeClaim:
           claimName: "tasks-data"
-      - name: "submissions-dir"
-        persistentVolumeClaim:
-          claimName: "submissions-data"
