@@ -11,7 +11,7 @@
     <div class="header">
         <nav>
             <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="#">Home</a>
+                <li role="presentation" class="active"><a href="/index">Home</a>
                 </li>
                 {%if username is defined %}
                 <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
@@ -28,18 +28,12 @@
         </nav>
     </div>
 
-    <div class="jumbotron">
-        <p class="lead"></p>
-        <li role="presentation" class="active"><a href="/available_contests">Available contests</a></li>
-        <li role="presentation" class="active"><a href="/tasks_archive">Task archive</a></li>
-	{%if admin is defined%} 
-		{%if admin%}
-		<li role="presentation" class="active"><a href="/my_contests">My contests</a></li>
-		{%endif%}
-	{%endif%}
-    </div>
 
+<h1>Tasks_archive</h1>
+<div class="jumbotron">
+{% for contest, uuid, task_name in all_tasks %}    
+ 		<li role="presentation"><a href=/task/{{uuid}}>{{contest}}: {{task_name}}</a>
+		</li>
+{% endfor %}
 </div>
-</body>
-
-</html>
+</div>

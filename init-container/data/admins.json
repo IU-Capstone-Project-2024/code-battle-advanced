@@ -1,0 +1,26 @@
+{
+    "users": [
+        {
+            "username": "Tedor",
+            "password": {
+                "$binary": {
+                    "base64": "JDJiJDE0JGZkb2tBdTJScTYxSU4yR0VRQnJXaC54RHhQMC9RYUtaUER1aFVVcENlWW9qU1lSNFlnTUFh",
+                    "subType": "00"
+                }
+            },
+            "email": "idc_lol",
+            "admin": true
+        },
+        {
+            "username": "Pedor",
+            "password": {
+                "$binary": {
+                    "base64": "JDJiJDE0JDhady9WcGtSOEN6NVJQWTBPa2ZQOU81cGpLRkV3S28uZDlvN0tWNFBYb2ZOMUJ4NFliVEVX",
+                    "subType": "00"
+                }
+            },
+            "email": "idc_lol1",
+            "admin": true
+        }
+    ]
+}

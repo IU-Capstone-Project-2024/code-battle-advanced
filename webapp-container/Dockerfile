@@ -5,7 +5,7 @@ USER root
 #Installing MongoDB
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main' >> /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositories
-RUN apk add py3-pip mongodb mongodb-tools
+RUN apk add py3-pip
 
 #Installing relevant python packages
 RUN pip install Flask-PyMongo markdown bcrypt redis pytz

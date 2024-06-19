@@ -10,23 +10,25 @@ from datetime import datetime, timezone, timedelta
 from zipfile import ZipFile
 import math
 import pytz
-import redis
 import shutil
+import redis
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
 app.config['MONGO_dbname'] = 'CBA_database'
-app.config['MONGO_URI'] = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
+app.config[
+    'MONGO_URI'] = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
 
 
-
 @app.route("/")
 @app.route("/main")
 def main():
+    if 'username' in session:
+        session.pop('username')
     return render_template('index.html')
 
 
@@ -85,10 +87,11 @@ def index():
 def old_contest(contest_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    if (not my_contest['startTime'].astimezone(pytz.utc)
-            <= datetime.now(timezone.utc) <= my_contest['startTime'].astimezone(pytz.utc)
-            + timedelta(minutes=int(my_contest['duration']))) and not admin:
-        print(admin)
+    start_time = pytz.utc.localize(my_contest['startTime'])
+    print(start_time, datetime.now(pytz.utc), start_time + timedelta(minutes=int(my_contest['duration'])))
+    if (not start_time
+            <= datetime.now(pytz.utc) <= start_time
+            + timedelta(minutes=int(my_contest['duration'])) and not (admin and start_time > datetime.now(pytz.utc))):
         return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
@@ -178,10 +181,10 @@ def task(task_name):
 def contest_task(contest_name, task_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    if (not my_contest['startTime'].astimezone(pytz.utc)
-            <= datetime.now(timezone.utc) <= my_contest['startTime'].astimezone(pytz.utc)
-            + timedelta(minutes=int(my_contest['duration']))) and not admin:
-        print(admin)
+    start_time = pytz.utc.localize(my_contest['startTime'])
+    if (not start_time
+            <= datetime.now(pytz.utc) <= start_time
+            + timedelta(minutes=int(my_contest['duration'])) and not (admin and start_time > datetime.now(pytz.utc))):
         return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
@@ -218,9 +221,11 @@ def contest_success(contest_name, task_name):
         src, n, lang = success_support_func(task_name)
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
         my_contest = mongo.db.contests.find_one({"name": contest_name})
-        if (not (my_contest['startTime'].astimezone(pytz.utc)
-                 <= datetime.now(timezone.utc) <= my_contest['startTime'].astimezone(pytz.utc)
-                 + timedelta(minutes=int(my_contest['duration'])))) and not admin:
+        start_time = pytz.utc.localize(my_contest['startTime'])
+        if (not start_time
+                <= datetime.now(pytz.utc) <= start_time
+                + timedelta(minutes=int(my_contest['duration'])) or not (
+                admin and start_time > datetime.now(pytz.utc))):
             return render_template("error.html")
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
@@ -308,8 +313,8 @@ def create_contest():
     if request.method == 'POST':
         mongo.db.contests.insert_one({'name': request.form['ContestName'], 'tasks': [],
                                       'duration': request.form['duration'],
-                                      'startTime': datetime.strptime(request.form['StartTime'],
-                                                                     "%d/%m/%Y %H:%M:%S")})
+                                      'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
+                                                                                       "%d/%m/%Y %H:%M:%S"))})
     return render_template('create.html', admin=admin)
 
 
@@ -335,12 +340,76 @@ def leader_board(contest_name, page_number):
     board = [(i, sum(list(leaders[i].values()))) for i in list(leaders.keys())]
     board = sorted(board, key=lambda k: -k[1])
     for i in range(len(board)):
-        board[i] = (i+1, board[i][0], board[i][1])
+        board[i] = (i + 1, board[i][0], board[i][1])
     limit_page = min(math.ceil(len(board) / 10), 1)
     board = board[(page_number - 1) * 10:page_number * 10]
     return render_template('leaderboard.html', board=[';'.join(map(str, i)) for i in board],
                            limit_page=limit_page,
                            current_page=page_number, contest_name=contest_name)
+
+
+@app.route('/personal', methods=['GET', 'POST'])
+def personal():
+    if 'username' not in session:
+        return render_template('unauthorized.html')
+    else:
+        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+        return render_template('personal.html', admin=admin, username=session['username'])
+
+
+@app.route('/tasks_archive', methods=['GET', 'POST'])
+def tasks_archive():
+    if 'username' not in session:
+        return render_template('unauthorized.html')
+    else:
+        contest_archive = [i for i in mongo.db.contests.find()
+                           if i['name'] not in session['contests'] and datetime.now(pytz.utc) >
+                           i['startTime'].astimezone(pytz.utc)
+                           + timedelta(minutes=int(i['duration']))]
+        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+        tasks_archive = []
+        for i in contest_archive:
+            tasks_archive += [(i['name'], j, mongo.db.tasks.find_one({'uuid': j})['task_name']) for j in i['tasks']]
+        return render_template('tasks_archive.html', all_tasks=tasks_archive, admin=admin,
+                               username=session['username'])
+
+
+@app.route('/available_contests', methods=['GET', 'POST'])
+def available_contests():
+    if 'username' not in session:
+        return render_template('unauthorized.html')
+    else:
+        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+        session['contests'] = []
+        for i in mongo.db.contests.find():
+            start_time = pytz.utc.localize(i['startTime'])
+            if (start_time <= datetime.now(pytz.utc) <=
+                start_time
+                + timedelta(minutes=int(i['duration']))) or (admin and datetime.now(pytz.utc) <=
+                                                             start_time):
+                session['contests'].append(i['name'])
+        return render_template('available.html', listOfUrls=session['contests'], admin=admin,
+                               username=session['username'])
+
+
+@app.route('/my_contests', methods=['GET', 'POST'])
+def my_contests():
+    if 'username' not in session:
+        return render_template('unauthorized.html')
+    else:
+        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+        if not admin:
+            return render_template('unauthorized.html')
+        session["contests"] = []
+        for i in mongo.db.contests.find():
+            start_time = pytz.utc.localize(i['startTime'])
+            if (start_time <= datetime.now(pytz.utc) <=
+                start_time
+                + timedelta(minutes=int(i['duration']))) or (admin and datetime.now(pytz.utc) <=
+                                                             start_time):
+                session['contests'].append(i['name'])
+        return render_template('my_contests.html', username=session['username'],
+                               listOfUrls=session['contests'], admin=admin)
 
 
 if __name__ == "__main__":

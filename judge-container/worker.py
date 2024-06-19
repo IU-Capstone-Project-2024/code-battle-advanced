@@ -32,7 +32,7 @@ def test_task(task_id):
   compiler = submission_info["language"]
   time_limit_ms = "2000"
   verdict = open("verdict.temp", "w")
-  code = subprocess.check_call(["bash", "judge.sh", submission_file, task, compiler, time_limit_ms], stdout=verdict)
+  code = subprocess.check_call(["unshare", "-rn", "bash", "judge.sh", submission_file, task, compiler, time_limit_ms], stdout=verdict)
   verdict.close()
   if code != 0:
     print("Error while testing, check all your files for correctness.", file=stderr)
