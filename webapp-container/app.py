@@ -137,7 +137,6 @@ def contest(contest_name):
             if info.is_dir() and info.filename.count("/") == 1:
                 task_name = info.filename
                 task_name = task_name.split("/")[0]
-                # TODO binary read the files
                 file_data = zip_handle.open(info.filename).read()
                 if task_name not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
                     mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': task_name}})
@@ -225,8 +224,7 @@ def contest_success(contest_name, task_name):
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
-                                               'in_contest_name': mongo.db.tasks.find_one({"task_name":
-                                                                                               task_name})["task_name"],
+                                               'in_contest_name': mongo.db.tasks.find_one({"task_name": task_name}),
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': contest_name,
