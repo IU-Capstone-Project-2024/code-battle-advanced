@@ -16,6 +16,8 @@
                 {%if username is defined %}
                 <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
                 </li>
+		<li role="presentation"><a href="/personal">Personal page</a>
+                </li>
                 {% else %}
                 <li role="presentation"><a href="/signin">Sign In</a>
                 </li>
@@ -28,26 +30,13 @@
 
     <div class="jumbotron">
         <p class="lead"></p>
-        {%if username is defined %}
-	<h3>Contests</h3>
-	{% for url in listOfUrls %}    
- 			<li role="presentation"><a href=/contest/{{url}}>{{url}}</a>
-			</li>
-	{% endfor %}
+        <li role="presentation" class="active"><a href="/available_contests">Available contests</a></li>
+        <li role="presentation" class="active"><a href="/tasks_archive">Task archive</a></li>
 	{%if admin is defined%} 
-	{%if admin%}
-	<li role="presentation" class="active"><a href="/create">Create your own contest</a>
+		{%if admin%}
+		<li role="presentation" class="active"><a href="/my_contests">My contests</a></li>
+		{%endif%}
 	{%endif%}
-	{%endif%}
-	<h2>Task archive</h2>
-	{% for contest, uuid, task_name in all_tasks %}    
- 		<li role="presentation"><a href=/task/{{uuid}}>{{contest}}: {{task_name}}</a>
-		</li>
-	{% endfor %}
-	<h2>You can check your submissions</h2>
-	<li role="presentation"><a href="/submissions/1">Check your submissions</a>
-        </li> 
-        {% endif %}
     </div>
 
 </div>
