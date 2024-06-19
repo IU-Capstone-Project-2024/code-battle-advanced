@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Code Battle Advanced</title>
+</head>
+
+<body>
+<h1>Code Battle Advanced</h1>
+<div class="container">
+    <div class="header">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="/index">Home</a>
+                </li>
+                {%if username is defined %}
+                <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
+                </li>
+		<li role="presentation"><a href="/personal">Personal page</a>
+                </li>
+                {% else %}
+                <li role="presentation"><a href="/signin">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/signup">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+
+<h1>Tasks_archive</h1>
+<div class="jumbotron">
+{% for contest, uuid, task_name in all_tasks %}    
+ 		<li role="presentation"><a href=/task/{{uuid}}>{{contest}}: {{task_name}}</a>
+		</li>
+{% endfor %}
+</div>
+</div>
