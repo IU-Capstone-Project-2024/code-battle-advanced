@@ -30,31 +30,31 @@
     </header>
 
     <main class="main">
-    <div class="container">
-        <nav class="main__nav">
-            <ul class="main__nav-list">
-                <li role="presentation" class="main__nav-item active"><a href="#" class="main__nav-link">Contests</a></li>
-                <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">In Progress</a></li>
-                <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">Solved tasks</a></li>
-            </ul>
-            <p role="presentation" class="main__nav-item"><a class="main__nav-link" href="/submissions">My submissions</a></p>
-        </nav>
+        <div class="container">
+            <nav class="main__nav">
+                <ul class="main__nav-list">
+                    <li role="presentation" class="main__nav-item active"><a href="#" class="main__nav-link">Contests</a></li>
+                    <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">In Progress</a></li>
+                    <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">Solved tasks</a></li>
+                </ul>
+                <p role="presentation" class="main__nav-item"><a class="main__nav-link" href="/submissions">My submissions</a></p>
+            </nav>
 
-        <div class="jumbotron">
-            {% for url in listOfUrls %}    
-                <article class="contest">
-                    <h2 class="contest__header">Title of contest</h2>
-                    <p class="contest__content">Content description. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit distinctio, sequi quis ratione quasi repudiandae inventore, accusantium aut et nostrum dolores nihil magnam quidem dolore tempora eligendi non! Reprehenderit, voluptate.</p>
-                    <p class="contest__requirements">Required languages/knowledge</p>
-                    <p role="presentation" class="main__nav-item"><a href="/contest/{{url}}" class="main__nav-link">To contest</a></p>
-                </article>
-            {% endfor %}
+            <div class="jumbotron">
+                {% for url in listOfUrls %}    
+                    <article class="contest">
+                        <h2 class="contest__header">Title of contest</h2>
+                        <p class="contest__content">Content description. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit distinctio, sequi quis ratione quasi repudiandae inventore, accusantium aut et nostrum dolores nihil magnam quidem dolore tempora eligendi non! Reprehenderit, voluptate.</p>
+                        <p class="contest__requirements">Required languages/knowledge</p>
+                        <p role="presentation" class="main__nav-item"><a href="/contest/{{url}}" class="main__nav-link">To contest</a></p>
+                    </article>
+                {% endfor %}
+            </div>
+
+            
+            <p class="contest__create">You can create your contest</p>
+            <p class="main__nav-item" role="presentation"><a class="main__nav-link" href="/create">Create</a></p>
         </div>
-
-        
-        <p class="contest__create">You can create your contest</p>
-        <p class="main__nav-item" role="presentation"><a class="main__nav-link" href="/create">Create</a></p>
-    </div>
     </main>
 
     <footer class="footer">
