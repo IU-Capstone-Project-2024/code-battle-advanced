@@ -37,15 +37,15 @@ do
 		fi fi # Cool way to see the number of compilers
 		
 		if [ $exitCode -eq 137 ]  ; then
-			echo TL $fileId
+			echo TL $fileId '\n'
 		else if [ $exitCode -eq 124 ]  ; then
-			echo TL $fileId
+			echo TL $fileId '\n'
 		else if [ ! $exitCode -eq 0 ]  ; then
-			echo RE $fileId
+			echo RE $fileId '\n'
 		else if [ ! $(sh ./tasks/$task/checker.sh $file temp.out) = "True" ] ; then
-			echo WA $fileId
+			echo WA $fileId '\n'
 		else
-			echo AC $fileId
+			echo AC $fileId '\n'
 		fi fi fi fi
 		rm temp.out
 	fi

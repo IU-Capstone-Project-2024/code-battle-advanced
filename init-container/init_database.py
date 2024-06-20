@@ -26,6 +26,8 @@ print("Connected to database")
 
 files = os.listdir("./data")
 for f in files:
+    if f[-4:] != "json":
+        continue
     data = bson.json_util.loads(open(f"./data/{f}", "r").read())
     for table in data:
         if table == "users":
@@ -40,5 +42,7 @@ for f in files:
                     i["password"] = bcrypt.hashpw(i["password"].encode('utf-8'), bcrypt.gensalt(14))
                 
                 db.users.insert_one(i)
+        else:
+            db[table].insert_many(data[table])
 
 print("Success!")
