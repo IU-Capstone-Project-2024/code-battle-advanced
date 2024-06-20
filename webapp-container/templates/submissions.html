@@ -1,6 +1,9 @@
-<html> 
+<!DOCTYPE html>
+<html lang="en">
    <head> 
       <title>Submissions</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
       <link rel="stylesheet" href="../static/general.css">
       <link rel="stylesheet" href="../static/header.css">
@@ -26,45 +29,46 @@
          </nav>
      </header>
 
-   <main class="main">
-      <div class="container">
-         <nav class="main__nav">
-            <ul class="main__nav-list">
-               <li role="presentation" class="main__nav-item"><a href="#" class="main__nav-link">Contests</a></li>
-               <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">In Progress</a></li>
-               <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">Solved tasks</a></li>
-            </ul>
-            <p role="presentation" class="main__nav-item active"><a class="main__nav-link" href="/submissions">My submissions</a></p>
-         </nav>
+      <main class="main">
+         <div class="container">
+            <nav class="main__nav">
+               <ul class="main__nav-list">
+                  <li role="presentation" class="main__nav-item"><a href="#" class="main__nav-link">Contests</a></li>
+                  <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">In Progress</a></li>
+                  <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">Solved tasks</a></li>
+               </ul>
+               <p role="presentation" class="main__nav-item active"><a class="main__nav-link" href="/submissions">My submissions</a></p>
+            </nav>
 
-         <div class="jumbotron">
-            <div class="btn__nav-wrapper">
-               {%if submissions_array is defined %}
-                  {%if current_page > 1%}
-                  <p role="presentation" class="btn-prev main__nav-item active"><a class="main__nav-link" href="/submissions/{{current_page-1}}">Previous page</a></p>
+            <div class="jumbotron">
+               <div class="btn__nav-wrapper">
+                  {%if submissions_array is defined %}
+                     {%if current_page > 1%}
+                     <p role="presentation" class="btn-prev main__nav-item active"><a class="main__nav-link" href="/submissions/{{current_page-1}}">Previous page</a></p>
+                     {%endif%}
+                  {%if current_page < limit_page%}
+                     <p role="presentation" class="btn-next main__nav-item active"><a class="main__nav-link" href="/submissions/{{current_page+1}}">Next page</a></p>
                   {%endif%}
-               {%if current_page < limit_page%}
-                  <p role="presentation" class="btn-next main__nav-item active"><a class="main__nav-link" href="/submissions/{{current_page+1}}">Next page</a></p>
+               </div>
+                  {% for submission in submissions_array %}
+                     <article class="submission">
+                        <h2 class="submission__header">{{submission}}</h2>
+                        <div class="submission__buttons">
+                           <p role="presentation" class="main__nav-item"><a href="#" class="main__nav-link">View code</a></p>
+                           <p role="presentation" class="main__nav-item"><a href="#" class="main__nav-link">To task</a></p>
+                        </div>
+                     </article>
+                  {% endfor %}
                {%endif%}
             </div>
-               {% for submission in submissions_array %}
-                  <article class="submission">
-                     <h2 class="submission__header">{{submission}}</h2>
-                     <div class="submission__buttons">
-                        <p role="presentation" class="main__nav-item"><a href="#" class="main__nav-link">View code</a></p>
-                        <p role="presentation" class="main__nav-item"><a href="#" class="main__nav-link">To task</a></p>
-                     </div>
-                  </article>
-               {% endfor %}
-            {%endif%}
+
          </div>
+      </main>
 
-      </div>
-   </main>
-
-   <footer class="footer">
-      <div class="container">
-      <p class="footer__copyright">&copy; Copyright</p>
-      </div>
-  </footer>
+      <footer class="footer">
+         <div class="container">
+         <p class="footer__copyright">&copy; Copyright</p>
+         </div>
+      </footer>
+  </body>
 </html>

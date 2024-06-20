@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Code battle advanced</title>
+  <head>
+    <title>Code battle advanced</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
 
-</head>
-
-<body>
-<h1>Code Battle Advanced</h1>
-<div class="container">
-  <div class="header">
-    <nav>
-      <ul class="nav nav-pills pull-right">
-        <li role="presentation" ><a href="/index">Home</a></li>
-      </ul>
-    </nav>
-  </div>
-{%if admin is defined %}
-{%if admin%}
-<form action = "/contest/{{contest_name}}" method = "post" enctype="multipart/form-data">   
-	    <input type="file" name="zip" />
-	    <input type = "submit" value="Upload">
-</form>
-{%endif%}
-{%endif%}
-</body>
+  <body>
+    <h1>Code Battle Advanced</h1>
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" ><a href="/index">Home</a></li>
+          </ul>
+        </nav>
+      </div>
+    {%if admin is defined %}
+    {%if admin%}
+    <form action = "/contest/{{contest_name}}" method = "post" enctype="multipart/form-data">   
+          <input type="file" name="zip" />
+          <input type = "submit" value="Upload">
+    </form>
+    {%endif%}
+    {%endif%}
+    </div>
+  </body>
+</html>

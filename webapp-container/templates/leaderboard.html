@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<html> 
-   <head> 
-      <title>Leaderboard</title> 
-   </head> 
-   <body> 
-       <h1>Code Battle Advanced</h1>
-       <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="/index">Home</a>
-                </li>
-            </ul>
-        </nav>
-      <p>Leaderboard.</p>
-   </body>
-   {%if board is defined %}
-        {%if current_page > 1%}
-        <li role="presentation" class="active"><a href="/contest/{contest_name}/{{current_page-1}}">Previous page</a>
-                </li>
-        {%endif%}
-	{%if current_page < limit_page%}
-        <li role="presentation" class="active"><a href="/contest/{contest_name}/{{current_page+1}}">Next page</a>
-        </li>
-	{%endif%}
-   	{% for entry in board %}    
- 			<p>{{entry}}</p>
-	{% endfor %}
-   {%endif%}
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Leaderboard</title>
+</head>
+<body>
+   <h1>Code Battle Advanced</h1>
+   <nav>
+        <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="/index">Home</a>
+            </li>
+        </ul>
+    </nav>
+  <p>Leaderboard.</p>
+</body>
+{%if board is defined %}
+    {%if current_page > 1%}
+    <li role="presentation" class="active"><a href="/contest/{contest_name}/{{current_page-1}}">Previous page</a>
+            </li>
+    {%endif%}
+{%if current_page < limit_page%}
+    <li role="presentation" class="active"><a href="/contest/{contest_name}/{{current_page+1}}">Next page</a>
+    </li>
+{%endif%}
+  {% for entry in board %}    
+      <p>{{entry}}</p>
+{% endfor %}
+{%endif%}
 </html>
