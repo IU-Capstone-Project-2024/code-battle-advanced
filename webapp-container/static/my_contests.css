@@ -36,6 +36,7 @@
     border-radius: 17px;
     font-weight: 700;
     font-size: 20px;
+    width: fit-content;
     transition: 0.3s background-color;
 }
 
@@ -63,4 +64,37 @@
     display: inline-block;
     text-transform: capitalize;
     padding: 11.5px 16.5px;
+}
+
+.contest {
+    padding: 30px;
+}
+
+.contest:nth-child(2n + 1) {
+    background-color: #E2E2E2;
+}
+
+.contest__header {
+    color: #000;
+    margin-bottom: 14.5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.contest__content {
+    color: #000;
+    margin-bottom: 12.5px;
+    font-size: 20px;
+}
+
+.contest__requirements {
+    color: #5F5F5F;
+    margin-bottom: 35px;
+    font-size: 18px;
+}
+
+.contest__create {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
 }
