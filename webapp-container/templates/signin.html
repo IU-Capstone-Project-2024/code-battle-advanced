@@ -2,42 +2,58 @@
 <html lang="en">
 <head>
   <title>Code battle advanced</title>
-
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+  <link rel="stylesheet" href="../static/general.css">
+  <link rel="stylesheet" href="../static/header.css">
+  <link rel="stylesheet" href="../static/main.css">
+  <link rel="stylesheet" href="../static/footer.css">
 </head>
 
 <body>
-<h1>Code Battle Advanced</h1>
-<div class="container">
-  <div class="header">
-    <nav>
-      <ul class="nav nav-pills pull-right">
-        <li role="presentation" ><a href="main">Home</a></li>
-        <li role="presentation" class="active"><a href="#">Sign In</a></li>
-        <li role="presentation"><a href="/signup">Sign Up</a></li>
+
+<header>
+  <div class="container">
+    <nav class="nav">
+      <h1 class="nav__header"><a href="main" class="nav__header-link">Code Battle Advanced</a></h1>
+      <ul class="nav__list nav-pills pull-right">
+        <li role="presentation" class="nav__item active"><a href="#" class="nav__link">Get started</a></li>
+        <li role="presentation" class="nav__item"><a href="/signup" class="nav__link">Sign Up</a></li>
       </ul>
     </nav>
   </div>
+</header>
 
-  <div class="jumbotron">
-    <h2>Login</h2>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul class=flashes>
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    <form class="form-signin" action="/signin" method="post">
-      <label for="inputName" class="sr-only">Username</label>
-      <input type="name" name="username" id="inputName" class="form-control" placeholder="Username" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Login</button>
-    </form>
+<main class="main">
+  <div class="container">
+    <div class="jumbotron">
+      <h2 class="jumbotron__header">Welcome back!</h2>
+      <form class="form-signin" action="/signin" method="post">
+        <label for="inputName" class="sr-only">Username</label>
+        <input type="name" name="username" id="inputName" class="form-control" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Log in</button>
+      </form>
+      <p class="jumbotron__extra">Do not have an account? <a href="/signup" class="jumbotron__extra-link">Register one</a></p>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+     
+    </div>
   </div>
+</main>
 
-</div>
+<footer class="footer">
+  <div class="container">
+    <p class="footer__copyright">&copy; Copyright</p>
+  </div>
+</footer>
+
 </body>
 </html>

@@ -1,0 +1,77 @@
+header {
+    background-color: #5F5F5F;
+}
+
+.nav {
+    padding: 27px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav__header {
+    position: relative;
+    font-size: 38px;
+    line-height: 40px;
+    padding-left: 64px;
+}
+
+.nav__header::before {
+    position: absolute;
+    content: '';
+    width: 64px;
+    height: 64px;
+    background-image: url("images/battle.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 36px;
+}
+
+.nav__header-link {
+    color: #00C643;
+}
+
+.nav__item {
+    font-size: 20px;
+    font-weight: 700;
+    background-color: transparent;
+    border: 2px solid #00C643;
+    border-radius: 17px;
+    transition: 0.3s background-color;
+}
+
+.nav__item.active {
+    background-color: #00C643;
+}
+
+.nav__item:hover {
+    background-color: #00C643;
+}
+
+.nav__item:hover > a {
+    color: #5F5F5F;
+}
+
+.nav__link {
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 11.5px 16.5px;
+}
+
+.nav__item > a {
+    color: #00C643;
+}
+
+.nav__item.active > a {
+    color: #5F5F5F;
+}
