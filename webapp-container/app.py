@@ -81,19 +81,16 @@ def contest(contest_name):
         return render_template('unauthorized.html')
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
     if request.method == 'POST':
-        f = request.files['zip']
-        zip_handle = ZipFile(f._file)
-        for info in zip_handle.infolist():
-            zip_handle.extract(info.filename, "tasks/")
+        f = request.files['zip'].read()
+        
+        zip_handle = ZipFile(request.files['zip']._file)
         for info in zip_handle.infolist():
             if info.is_dir() and info.filename.count("/") == 1:
                 filename = str(uuid.uuid4())
-                task_name = info.filename
-                os.rename("tasks/" + info.filename, "tasks/" + filename)
-                task_name = task_name.split("/")[0]
-                if task_name not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
+                mongo.db.tasks.insert_one({'uuid': filename, "task_name": info.filename.split("/")[0], "source":f})
+                if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
                     mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
-                mongo.db.tasks.insert_one({'uuid': filename, "task_name": task_name})
+                
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
     if admin:
@@ -135,6 +132,22 @@ def contest_task(contest_name, task_name):
         return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
+        
+    task = mongo.db.tasks.find_one({"uuid": task_name})
+    
+    f = open("/temp.zip", "wb")
+    f.write(task["source"])
+    f.close()
+    
+    zip_handle = ZipFile("/temp.zip")
+    for info in zip_handle.infolist():
+        zip_handle.extract(info.filename, "tasks/")
+    for info in zip_handle.infolist():
+        if info.is_dir() and info.filename.count("/") == 1:
+            if os.path.isdir(f"tasks/{task_name}"):
+                shutil.rmtree(f"tasks/{task_name}")
+            os.rename("tasks/" + info.filename, "tasks/" + task_name)
+    
     readme_file = open(f"tasks/{task_name}/description.md", "r").read()
     md_template_string = markdown.markdown(
         readme_file, extensions=["fenced_code"]
@@ -279,11 +292,19 @@ def leader_board(contest_name, page_number):
     leaders = {}
     for i in mongo.db.submissions.find({'contest': contest_name}):
         if i['sender'] not in leaders.keys():
-            leaders[i['sender']] = {i['task_name']: 1 if i['verdict'] == 'AC' else 0}
+            leaders[i['sender']] = {}
+            
+        res = 0
+        for j in i['verdict'].split("\n")[:-1]:
+            if j.split()[0] == "AC":
+                res += 1
+        if i['verdict'].count("\n") != 0:
+            res /= i['verdict'].count("\n")
+        
+        if i['task_name'] in leaders[i['sender']].keys():
+            leaders[i['sender']][i['task_name']] = max(res, leaders[i['sender']][i['task_name']])
         else:
-            if i['task_name'] in leaders[i['sender']].keys():
-                res = 1 if i['verdict'] == 'AC' else 0
-                leaders[i['sender']]['task_name'] = max(res, leaders[i['sender']]['task_name'])
+            leaders[i['sender']][i['task_name']] = res
     board = [(i, sum(list(leaders[i].values()))) for i in list(leaders.keys())]
     board = sorted(board, key=lambda k: -k[1])
     for i in range(len(board)):
