@@ -1,0 +1,49 @@
+.btn__nav-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: right;
+}
+
+.submission {
+    padding: 30px;
+}
+
+.submission:nth-child(2n) {
+    background-color: #E2E2E2;
+}
+
+.submission__header {
+    color: #000;
+    margin-bottom: 14.5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.submission__content {
+    color: #000;
+    margin-bottom: 12.5px;
+    font-size: 20px;
+}
+
+.submission__requirements {
+    color: #5F5F5F;
+    margin-bottom: 35px;
+    font-size: 18px;
+}
+
+.submission__create {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+}
+
+.submission__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.submission__buttons a {
+    padding: 11.5px 60px;
+}

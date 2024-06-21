@@ -1,0 +1,44 @@
+.nav__item.logged {
+    border: none;
+}
+
+.nav__item.logged:hover {
+    background-color: transparent;
+}
+
+.nav__item.logged:hover > a {
+    color: #00C643;
+}
+
+.contest {
+    padding: 30px;
+}
+
+.contest:nth-child(2n + 1) {
+    background-color: #E2E2E2;
+}
+
+.contest__header {
+    color: #000;
+    margin-bottom: 14.5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.contest__content {
+    color: #000;
+    margin-bottom: 12.5px;
+    font-size: 20px;
+}
+
+.contest__requirements {
+    color: #5F5F5F;
+    margin-bottom: 35px;
+    font-size: 18px;
+}
+
+.contest__create {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+}

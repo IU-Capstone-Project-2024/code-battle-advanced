@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Code Battle Advanced</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <link rel="stylesheet" href="../static/general.css">
+    <link rel="stylesheet" href="../static/header.css">
+    <link rel="stylesheet" href="../static/main.css">
+    <link rel="stylesheet" href="../static/footer.css">
+    <link rel="stylesheet" href="../static/main_nav.css">
+    <link rel="stylesheet" href="../static/my_contests.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+        <nav class="nav">
+            <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
+            <ul class="nav__list nav-pills pull-right">
+                {%if username is defined %}
+        		<li class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></li>
+                <li class="nav__item" role="presentation"><a class="nav__link" href="/logout">Logout</a></li>
+                {% else %}
+                <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">Get started</a></li>
+                <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <nav class="main__nav">
+                <ul class="main__nav-list">
+                    <li role="presentation" class="main__nav-item active"><a href="#" class="main__nav-link">Contests</a></li>
+                    <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">In Progress</a></li>
+                    <li role="presentation" class="main__nav-item"><a href="" class="main__nav-link">Solved tasks</a></li>
+                </ul>
+                <p role="presentation" class="main__nav-item"><a class="main__nav-link" href="/submissions/1">My submissions</a></p>
+            </nav>
+            <h2>Available</h2>
+            <div class="jumbotron">
+                {% for url in listOfUrls %}    
+                    <article class="contest">
+                        <h2 class="contest__header">Title of contest</h2>
+                        <p class="contest__content">Content description. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit distinctio, sequi quis ratione quasi repudiandae inventore, accusantium aut et nostrum dolores nihil magnam quidem dolore tempora eligendi non! Reprehenderit, voluptate.</p>
+                        <p class="contest__requirements">Required languages/knowledge</p>
+                        <p role="presentation" class="main__nav-item"><a href="/contest/{{url}}" class="main__nav-link">To contest</a></p>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+        <p class="footer__copyright">&copy; Copyright</p>
+        </div>
+    </footer>
+</body>

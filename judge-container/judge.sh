@@ -24,6 +24,7 @@ for fileId in $(seq 0 $(($numberOfFiles - 1)))
 do
 	file="./tasks/${task}/tests/${fileId}.in"
 	if [ -f "$file" ]; then
+	
 		if [ "$compiler" = "python3" ]; then 
 			cat $file | timeout -s 9 $(echo $mstime / 1000 | bc -l)s python3 -I $code > temp.out
 			exitCode=$?
@@ -34,26 +35,22 @@ do
 			>&2 echo Unsupported compiler option
 			exit
 		fi fi # Cool way to see the number of compilers
+		
 		if [ $exitCode -eq 137 ]  ; then
-			echo TL $fileId
-			exit
-		fi
-		if [ $exitCode -eq 124 ]  ; then
-			echo TL $fileId
-			exit
-		fi
-		if [ ! $exitCode -eq 0 ]  ; then
-			echo RE $fileId
-			exit
-		fi
-		if [ ! $(sh ./tasks/$task/checker.sh $file temp.out) = "True" ] ; then
-			echo WA $fileId
-			exit
-		fi
+			echo TL $fileId '\n'
+		else if [ $exitCode -eq 124 ]  ; then
+			echo TL $fileId '\n'
+		else if [ ! $exitCode -eq 0 ]  ; then
+			echo RE $fileId '\n'
+		else if [ ! $(sh ./tasks/$task/checker.sh $file temp.out) = "True" ] ; then
+			echo WA $fileId '\n'
+		else
+			echo AC $fileId '\n'
+		fi fi fi fi
 		rm temp.out
 	fi
 done
 	
-echo AC
+# echo AC
 exit
 

@@ -11,6 +11,8 @@ import uuid
 import hashlib
 import pathlib
 from shutil import rmtree
+from zipfile import ZipFile
+import os
 
 mongo_uri_docker = "mongodb://sUbskr1bet0:1celypuZZl3s@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo_uri_local = "mongodb://localhost"
@@ -28,11 +30,27 @@ def test_task(task_id):
   f.write(submission_info["source"])
   f.close()
   
-  task = submission_info["task_name"]
+  task_name = submission_info["task_name"]
+  
+  task = db.tasks.find_one({"uuid": task_name})
+    
+  f = open("/temp.zip", "wb")
+  f.write(task["source"])
+  f.close()
+    
+  zip_handle = ZipFile("/temp.zip")
+  for info in zip_handle.infolist():
+    zip_handle.extract(info.filename, "tasks/")
+  for info in zip_handle.infolist():
+    if info.is_dir() and info.filename.count("/") == 1:
+      if os.path.isdir(f"tasks/{task_name}"):
+        rmtree(f"tasks/{task_name}")
+      os.rename("tasks/" + info.filename, "tasks/" + task_name)
+  
   compiler = submission_info["language"]
   time_limit_ms = "2000"
   verdict = open("verdict.temp", "w")
-  code = subprocess.check_call(["bash", "judge.sh", submission_file, task, compiler, time_limit_ms], stdout=verdict)
+  code = subprocess.check_call(["unshare", "-rn", "bash", "judge.sh", submission_file, task_name, compiler, time_limit_ms], stdout=verdict)
   verdict.close()
   if code != 0:
     print("Error while testing, check all your files for correctness.", file=stderr)
