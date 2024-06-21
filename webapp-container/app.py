@@ -81,18 +81,35 @@ def contest(contest_name):
         return render_template('unauthorized.html')
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
     if request.method == 'POST':
-        f = request.files['zip'].read()
-        
+        file_id = str(uuid.uuid4()) # TODO is it always unique?
+
         zip_handle = ZipFile(request.files['zip']._file)
+        mongo.db.tasks.insert_one({'id': file_id})
+
+        if file_id not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
+            mongo.db.contests.update_one({'name': contest_name},
+                                         {'$push': {'tasks': {'id': file_id, 'taskname': zip_handle.filename}}})
+
         for info in zip_handle.infolist():
-            if info.is_dir() and info.filename.count("/") == 1:
-                filename = str(uuid.uuid4())
-                mongo.db.tasks.insert_one({'uuid': filename, "task_name": info.filename.split("/")[0], "source":f})
-                if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
-                    mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
-                
+            if info.filename.endswith('/'):
+                continue
+            with zip_handle.open(info.filename) as f:
+                value = f.read()
+                taskname = info.filename.split('/')
+                if taskname[1] == 'tests':
+                    mongo.db.tasks.update_one(
+                        {'id': file_id},
+                        {'$push': {'tests': {'test_name': taskname[2], 'value': value}}})
+                elif taskname[1] == 'res':
+                    mongo.db.tasks.update_one(
+                        {'id': file_id},
+                        {'$push': {'res': {'res_name': taskname[2], 'value': value}}})
+                else:
+                    mongo.db.tasks.update_one(
+                        {'id': file_id},
+                        {'$set': {f'{taskname[1].split(".")[1]}': {'name': taskname[1], 'value': value}}})
+
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
-    tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
     if admin:
         return render_template('contest.html', admin=admin,
                                listOfTasks=tasks, contest_name=contest_name, username=session['username'])

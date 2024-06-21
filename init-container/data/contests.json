@@ -1,1 +1,34 @@
-{}
+{
+    "contests": [
+        {
+            "_id": {
+                "$oid": "667429e6bfb5912ae74c8bed"
+            },
+            "name": "Test123",
+            "tasks": [
+                "f07bead8-4b22-4926-807a-e2d0cef17e29",
+                "e4d5e6b1-7e63-4ec4-ad1f-1cf96a2c872b"
+            ],
+            "duration": "66666666",
+            "startTime": {
+                "$date": "2024-05-18T18:09:00Z"
+            }
+        },
+        {
+            "_id": {
+                "$oid": "66759452629becff19cbbfe3"
+            },
+            "name": "DUDE",
+            "tasks": [
+                {
+                    "id": "ed50ce28-34a1-4519-889a-1de831d8037e",
+                    "taskname": null
+                }
+            ],
+            "duration": "999999",
+            "startTime": {
+                "$date": "2024-06-21T18:02:00Z"
+            }
+        }
+    ]
+}
