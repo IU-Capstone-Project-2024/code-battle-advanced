@@ -13,6 +13,9 @@ RUN pip install pymongo redis pathlib
 COPY ./worker.py /worker.py
 COPY ./judge.sh /judge.sh
 
+COPY ./cbahelper.py /cbahelper.py
+COPY ./cbacontest.py /cbacontest.py
+
 EXPOSE 5000
 
 CMD ["python3", "/worker.py"]

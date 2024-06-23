@@ -22,9 +22,13 @@ while 1:
     except pymongo.errors.ServerSelectionTimeoutError:
         continue
 print("{")
+f = False
 for i in db.list_collection_names():
+    if f:
+        print(",")
+    else:
+        f = True
     print(f'"{i}":')
     print(bson.json_util.dumps(list(db[i].find()), indent=4))
-    print(",")
 print("}")
 
