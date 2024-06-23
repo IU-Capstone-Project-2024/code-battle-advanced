@@ -196,7 +196,8 @@ def contest_success(contest_name, task_name):
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': contest_name,
-                                               'verdict': "N/A"}).inserted_id
+                                               'verdict': "N/A",
+                                               'final_verdict': "N/A"}}).inserted_id
         if type(_id) != str:
             _id = str(_id)
 
