@@ -80,6 +80,7 @@ def contest(contest_name):
     if 'username' not in session:
         return render_template('unauthorized.html')
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    
     if request.method == 'POST':
         f = request.files['zip'].read()
         
@@ -90,7 +91,7 @@ def contest(contest_name):
                 mongo.db.tasks.insert_one({'uuid': filename, "task_name": info.filename.split("/")[0], "source":f})
                 if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
                     mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
-                
+
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
     if admin:
@@ -215,7 +216,8 @@ def success(task_name):
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': 'No contest',
-                                               'verdict': "N/A"}).inserted_id
+                                               'verdict': [("N/A", 0)],
+                                               'final_verdict': "N/A"}).inserted_id
         if type(_id) != str:
             _id = str(_id)
         q.lpush("job2", _id + ":3")
@@ -226,7 +228,7 @@ def get_string_submissions(submissions_arr):
     result = []
     for i in submissions_arr:
         result.append(f"time: {i['datetime in UTC']}; contest: {i['contest']}; task_name: {i['in_contest_name']};"
-                      f" language: {i['language']}; verdict: {i['verdict']}")
+                      f" language: {i['language']}; verdict: {i['final_verdict']}")
     return result
 
 
@@ -289,23 +291,26 @@ def upload(contest_name):
 
 @app.route('/contest/<string:contest_name>/leaderboard/<int:page_number>', methods=['GET', 'POST'])
 def leader_board(contest_name, page_number):
+    board = []
     leaders = {}
-    for i in mongo.db.submissions.find({'contest': contest_name}):
-        if i['sender'] not in leaders.keys():
-            leaders[i['sender']] = {}
-            
-        res = 0
-        for j in i['verdict'].split("\n")[:-1]:
-            if j.split()[0] == "AC":
-                res += 1
-        if i['verdict'].count("\n") != 0:
-            res /= i['verdict'].count("\n")
-        
-        if i['task_name'] in leaders[i['sender']].keys():
-            leaders[i['sender']][i['task_name']] = max(res, leaders[i['sender']][i['task_name']])
-        else:
-            leaders[i['sender']][i['task_name']] = res
-    board = [(i, sum(list(leaders[i].values()))) for i in list(leaders.keys())]
+    for i in mongo.db.participants.find({'contest_id': contest_name}):
+        board.append((i["participant_id"], i["points"]))
+    
+#        if i['sender'] not in leaders.keys():
+#            leaders[i['sender']] = {}
+#            
+#        res = 0
+#        for j in i['verdict'].split("\n")[:-1]:
+#            if j.split()[0] == "AC":
+#                res += 1
+#        if i['verdict'].count("\n") != 0:
+#            res /= i['verdict'].count("\n")
+#        
+#        if i['task_name'] in leaders[i['sender']].keys():
+#            leaders[i['sender']][i['task_name']] = max(res, leaders[i['sender']][i['task_name']])
+#        else:
+#            leaders[i['sender']][i['task_name']] = res
+#    board = [(i, sum(list(leaders[i].values()))) for i in list(leaders.keys())]
     board = sorted(board, key=lambda k: -k[1])
     for i in range(len(board)):
         board[i] = (i + 1, board[i][0], board[i][1])

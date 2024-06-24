@@ -18,11 +18,4 @@ spec:
       - name: judge
         image: judge
         imagePullPolicy: Never
-        volumeMounts:
-        - name: "tasks-dir"
-          mountPath: "/tasks"
-      volumes:
-      - name: "tasks-dir"
-        persistentVolumeClaim:
-          claimName: "tasks-data"
 
