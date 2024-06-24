@@ -1,0 +1,40 @@
+.main {
+    display: block;
+}
+
+.task {
+    padding: 30px;
+}
+
+.task:nth-child(2n) {
+    background-color: #E2E2E2;
+}
+
+.task__header {
+    color: #000;
+    margin-bottom: 14.5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.task__desc {
+    color: #5F5F5F;
+    margin-bottom: 35px;
+    font-size: 20px;
+}
+
+.task__content {
+    color: #000;
+    margin-bottom: 12.5px;
+    font-size: 20px;
+}
+
+.task__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.task__buttons a {
+    padding: 11.5px 60px;
+}

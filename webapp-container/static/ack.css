@@ -1,0 +1,21 @@
+.main__wrapper {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.submission__header {
+    font-size: 36px;
+    margin-bottom: 1em;
+}
+
+.submission__check-link {
+    background-color: #7a1e5f;
+    padding: 0.8em 1.6em;
+    font-size: 24px;
+    border-radius: 1em;
+    transition: background-color 0.3s;
+}
+
+.submission__check-link:hover {
+    background-color: #000000;
+}

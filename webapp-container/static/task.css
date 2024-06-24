@@ -1,0 +1,33 @@
+.main__wrapper {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1em;
+}
+
+.form > label, .form__submit, .form__select {
+    font-size: 16px;
+    text-transform: capitalize;
+    background-color: #00C643;
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.form__submit {
+    background-color: #7a1e5f;
+    transition: background-color 0.3s;
+}
+
+.form__submit:hover {
+    background-color: #000000;
+}

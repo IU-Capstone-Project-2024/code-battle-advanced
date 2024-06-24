@@ -4,28 +4,48 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Leaderboard</title>
+   <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+   <link rel="stylesheet" href="../static/general.css">
+   <link rel="stylesheet" href="../static/header.css">
+   <link rel="stylesheet" href="../static/main.css">
+   <link rel="stylesheet" href="../static/footer.css">
+   <link rel="stylesheet" href="../static/leaderboard.css">
 </head>
 <body>
-   <h1>Code Battle Advanced</h1>
-   <nav>
-        <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="/index">Home</a>
-            </li>
-        </ul>
-    </nav>
-  <p>Leaderboard.</p>
+    <header>
+        <div class="container">
+          <nav class="nav">
+            <h1 class="nav__header"><a href="main" class="nav__header-link">Code Battle Advanced</a></h1>
+          </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="leaderboard">
+                <h2 class="leaderboard__header">Leaderboard</h2>
+                {%if board is defined %}
+                <div class="leaderboard__btns">
+                    {%if current_page > 1%}
+                    <p role="presentation" class="btn-prev active"><a href="/contest/{contest_name}/{{current_page-1}}">Previous page</a></p>
+                    {%endif%}
+                    {%if current_page < limit_page%}
+                        <p role="presentation" class="btn-next active"><a href="/contest/{contest_name}/{{current_page+1}}">Next page</a></p>
+                    {%endif%}
+                </div>
+                    {% for entry in board %}    
+                        <p>{{entry}}</p>
+                    {% endfor %}
+                {%endif%}
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+          <p class="footer__copyright">&copy; Copyright</p>
+        </div>
+    </footer>
 </body>
-{%if board is defined %}
-    {%if current_page > 1%}
-    <li role="presentation" class="active"><a href="/contest/{contest_name}/{{current_page-1}}">Previous page</a>
-            </li>
-    {%endif%}
-{%if current_page < limit_page%}
-    <li role="presentation" class="active"><a href="/contest/{contest_name}/{{current_page+1}}">Next page</a>
-    </li>
-{%endif%}
-  {% for entry in board %}    
-      <p>{{entry}}</p>
-{% endfor %}
-{%endif%}
+
 </html>

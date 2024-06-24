@@ -4,30 +4,53 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Contest content</title>
+   <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+   <link rel="stylesheet" href="../static/general.css">
+   <link rel="stylesheet" href="../static/header.css">
+   <link rel="stylesheet" href="../static/main.css">
+   <link rel="stylesheet" href="../static/footer.css">
+   <link rel="stylesheet" href="../static/contest.css">
 </head>
 <body>
-   
+   <header>
+      <div class="container">
+        <nav class="nav">
+          <h1 class="nav__header"><a href="main" class="nav__header-link">Code Battle Advanced</a></h1>
+          <ul class="nav__list nav-pills pull-right">
+            <li role="presentation" class="nav__item"><a href="/contest/{{contest_name}}/leaderboard/1" class="nav__link">Leaderboard</a></li>
+          </ul>
+        </nav>
+      </div>
+   </header>
+
+   <main class="main">
+      <div class="container">
+         <section class="contest">
+            <h2 class="contest__header">{{contest_name}}</h2>
+            {% for name, uuid in listOfTasks %}
+            <article class="task">
+               <h3 class="task__header">{{name}}</h3>
+               <p class="task__desc">Description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eveniet nemo, molestiae atque repudiandae doloremque perferendis eos non? Assumenda asperiores obcaecati eveniet quia libero praesentium quam quibusdam saepe totam dolorum.
+               Quibusdam ullam soluta consequatur voluptate, error voluptates repellat deserunt officia possimus distinctio accusamus cum maxime, quidem ducimus aut sit earum omnis amet? Accusamus nulla sunt corrupti repudiandae quo, repellendus unde.
+               Itaque, ea. Laborum, placeat reiciendis tempora, numquam, dolore pariatur quos deleniti consequuntur provident laudantium praesentium repellendus? Quasi, nesciunt aliquam? Laudantium temporibus quia esse deleniti obcaecati?</p>
+               <div class="task__buttons">
+                  <p class="content__task" role="presentation"><a class="content__task-link" href={{contest_name}}/task/{{uuid}}>To task</a></p>
+               </div>
+            </article>
+            {% endfor %}
+         </section>
+         {if admin is defined %}
+               {%if admin%}
+               <p role="presentation" class="contest__create active"><a class="contest__create-link" href="/contest/{{contest_name}}/upload">You can add your own task</a></p>
+               {% endif %}
+         {% endif %}
+      </div>
+   </main>
+
+   <footer class="footer">
+      <div class="container">
+        <p class="footer__copyright">&copy; Copyright</p>
+      </div>
+   </footer>
 </body>
-</html>
-<html> 
-   <head> 
-      <title>Contest content</title> 
-   </head>
-   <h1>Code Battle Advanced</h1>
-   <li role="presentation" class="active"><a href="/index">Home</a>
-   <li role="presentation" class="active"><a href="/contest/{{contest_name}}/leaderboard/1">Leaderboard</a>
-   <body> 
-      <h1>{{contest_name}}</h1>
-   </body>
-   {% for name, uuid in listOfTasks %}    
- 		<li role="presentation"><a href={{contest_name}}/task/{{uuid}}>{{name}}</a>
-		</li>
-   {% endfor %}
-   {%if admin is defined %}
-   {%if admin%}
-   <h2>You can add your own task</h2>
-   <li role="presentation" class="active"><a href="/contest/{{contest_name}}/upload">Create your own task</a>
-   {% endif %}
-   {% endif %}
-   </li> 
 </html>

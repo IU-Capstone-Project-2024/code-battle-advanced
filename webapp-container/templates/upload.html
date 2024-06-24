@@ -4,26 +4,49 @@
     <title>Code battle advanced</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <link rel="stylesheet" href="../static/general.css">
+    <link rel="stylesheet" href="../static/header.css">
+    <link rel="stylesheet" href="../static/main.css">
+    <link rel="stylesheet" href="../static/footer.css">
+    <link rel="stylesheet" href="../static/single_item.css">
+    <link rel="stylesheet" href="../static/upload.css">
   </head>
 
   <body>
-    <h1>Code Battle Advanced</h1>
-    <div class="container">
-      <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" ><a href="/index">Home</a></li>
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <h1 class="nav__header"><a href="main" class="nav__header-link">Code Battle Advanced</a></h1>
+          {%if username is defined %}
+          <ul class="nav__list nav-pills pull-right">
+            <p class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></p>
           </ul>
+          {%endif%}
         </nav>
       </div>
-    {%if admin is defined %}
-    {%if admin%}
-    <form action = "/contest/{{contest_name}}" method = "post" enctype="multipart/form-data">   
-          <input type="file" name="zip" />
-          <input type = "submit" value="Upload">
-    </form>
-    {%endif%}
-    {%endif%}
-    </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="main__wrapper">
+          {%if admin is defined %}
+            {%if admin%}
+            <form class="form" action = "/contest/{{contest_name}}" method="post" enctype="multipart/form-data">   
+                  <input id="choose-file" type="file" name="zip" hidden />
+                  <label for="choose-file">Choose File</label>
+                  <input class="form__submit" type="submit" value="Upload">
+            </form>
+            {%endif%}
+          {%endif%}
+        </div>
+      </div>
+    </main>
+    
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__copyright">&copy; Copyright</p>
+      </div>
+    </footer>
   </body>
 </html>

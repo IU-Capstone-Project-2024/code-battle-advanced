@@ -1,0 +1,12 @@
+.main {
+    display: block;
+}
+
+.leaderboard__header {
+    margin-bottom: 1em;
+}
+
+.leaderboard__btns {
+    display: flex;
+    gap: 1em;
+}
