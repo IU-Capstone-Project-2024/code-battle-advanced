@@ -10,25 +10,23 @@ from datetime import datetime, timezone, timedelta
 from zipfile import ZipFile
 import math
 import pytz
-import shutil
 import redis
+import shutil
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
 app.config['MONGO_dbname'] = 'CBA_database'
-app.config[
-    'MONGO_URI'] = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
+app.config['MONGO_URI'] = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
 
 
+
 @app.route("/")
 @app.route("/main")
 def main():
-    if 'username' in session:
-        session.pop('username')
     return render_template('index.html')
 
 
@@ -149,13 +147,13 @@ def contest_task(contest_name, task_name):
         return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
-        
+
     task = mongo.db.tasks.find_one({"uuid": task_name})
-    
+
     f = open("/temp.zip", "wb")
     f.write(task["source"])
     f.close()
-    
+
     zip_handle = ZipFile("/temp.zip")
     for info in zip_handle.infolist():
         zip_handle.extract(info.filename, "tasks/")
@@ -164,7 +162,7 @@ def contest_task(contest_name, task_name):
             if os.path.isdir(f"tasks/{task_name}"):
                 shutil.rmtree(f"tasks/{task_name}")
             os.rename("tasks/" + info.filename, "tasks/" + task_name)
-    
+
     readme_file = open(f"tasks/{task_name}/description.md", "r").read()
     md_template_string = markdown.markdown(
         readme_file, extensions=["fenced_code"]
@@ -310,14 +308,14 @@ def leader_board(contest_name, page_number):
     for i in mongo.db.submissions.find({'contest': contest_name}):
         if i['sender'] not in leaders.keys():
             leaders[i['sender']] = {}
-            
+
         res = 0
         for j in i['verdict'].split("\n")[:-1]:
             if j.split()[0] == "AC":
                 res += 1
         if i['verdict'].count("\n") != 0:
             res /= i['verdict'].count("\n")
-        
+
         if i['task_name'] in leaders[i['sender']].keys():
             leaders[i['sender']][i['task_name']] = max(res, leaders[i['sender']][i['task_name']])
         else:
