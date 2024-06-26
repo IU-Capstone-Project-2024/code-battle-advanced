@@ -1,12 +1,14 @@
 .btn__nav-wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
+    gap: 1em;
     justify-content: right;
+    margin-bottom: 0.5em;
 }
 
 .submission {
     padding: 30px;
+    border-radius: 1em;
 }
 
 .submission:nth-child(2n) {
@@ -20,30 +22,21 @@
     font-weight: 700;
 }
 
-.submission__content {
-    color: #000;
-    margin-bottom: 12.5px;
+.btn__nav-wrapper .red-btn:hover{
+    background-color: transparent;
     font-size: 20px;
 }
 
-.submission__requirements {
-    color: #5F5F5F;
-    margin-bottom: 35px;
-    font-size: 18px;
+.btn__nav-wrapper .red-btn > a {
+    transition: color 0.3s;
 }
 
-.submission__create {
-    font-size: 24px;
-    font-weight: 700;
-    color: #000;
+.btn__nav-wrapper .red-btn:hover > a {
+    color: #DD0000;
 }
 
 .submission__buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-}
-
-.submission__buttons a {
-    padding: 11.5px 60px;
 }

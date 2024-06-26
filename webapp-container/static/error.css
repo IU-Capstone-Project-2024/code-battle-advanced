@@ -1,0 +1,5 @@
+@media (max-width: 360px) {
+    .nav__header {
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,46 @@
+.header {
+    margin-bottom: 3em;
+}
+
+.main {
+    display: block;
+    background-color: #ffffff;
+}
+
+.leaderboard__header {
+    margin-bottom: 1em;
+    color: #000000;
+}
+
+.leaderboard__btns {
+    display: flex;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+.red-btn {
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 4px 12px;
+}
+
+.leaderboard__entry {
+    display: block;
+    margin-bottom: 0.5em;
+    padding: 30px;
+    border-radius: 1em;
+}
+
+.leaderboard__entry:nth-child(2n+1) {
+    background-color: #E2E2E2;
+}
+
+.leaderboard__entry-content {
+    color: #000000;
+}
+
+@media (max-width: 360px) {
+    .nav__header {
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,33 @@
+.main {
+    display: block;
+    background-color: #ffffff;
+}
+
+.header {
+    margin-bottom: 3em;
+}
+
+.main__nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.main__nav-link {
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 0.5em 1em;
+}
+
+.red-btn:hover {
+    background-color: transparent;
+}
+
+.red-btn > a {
+    transition: color 0.3s;
+}
+
+.red-btn:hover > a {
+    color: #DD0000;
+}

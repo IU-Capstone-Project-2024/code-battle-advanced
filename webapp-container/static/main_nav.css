@@ -6,50 +6,21 @@
 .main__nav {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    padding: 30px 0;
+    padding: 2em 0;
+    gap: 1em;
+    justify-content: center;
 }
 
 .main__nav-list {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 106px;
-}
-
-.main__nav-item {
-    background-color: transparent;
-    border: 2px solid #DD0000;
-    border-radius: 17px;
-    font-weight: 700;
-    font-size: 20px;
-    width: fit-content;
-    transition: 0.3s background-color;
-}
-
-.main__nav-item > a {
-    color: #DD0000;
-}
-
-.main__nav-item.active > a {
-    color: #fff;
-}
-
-.main__nav-item:hover {
-    background-color: #DD0000;
-}
-
-.main__nav-item:hover > a {
-    color: #fff;
-}
-
-.main__nav-item.active {
-    background-color: #DD0000;
+    gap: 1em;
 }
 
 .main__nav-link {
     display: inline-block;
     text-transform: capitalize;
-    padding: 11.5px 16.5px;
+    padding: 0.5em 1em;
 }

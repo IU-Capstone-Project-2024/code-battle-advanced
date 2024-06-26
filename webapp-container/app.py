@@ -11,6 +11,7 @@ from zipfile import ZipFile
 import math
 import pytz
 import shutil
+import bson
 import redis
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
+
 
 
 @app.route("/")
@@ -67,6 +69,17 @@ def index():
     return render_template('index.html')
 
 
+def return_bson(name):
+    uploaded_file = request.files[name]
+    filename = uploaded_file.filename
+    file_data = uploaded_file.read()
+    bson_document = {
+        'filename': filename,
+        'file_data': bson.Binary(file_data)
+    }
+    return bson_document
+
+
 @app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
 def contest(contest_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
@@ -80,17 +93,53 @@ def contest(contest_name):
     if 'username' not in session:
         return render_template('unauthorized.html')
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    
+
     if request.method == 'POST':
-        f = request.files['zip'].read()
-        
-        zip_handle = ZipFile(request.files['zip']._file)
-        for info in zip_handle.infolist():
-            if info.is_dir() and info.filename.count("/") == 1:
-                filename = str(uuid.uuid4())
-                mongo.db.tasks.insert_one({'uuid': filename, "task_name": info.filename.split("/")[0], "source":f})
-                if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
-                    mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
+        filename = str(uuid.uuid4())
+        available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
+        md = return_bson('md-file')
+        if 'input-file' in request.files and 'checker-file' in request.files:
+            input1 = return_bson('input-file')
+            checker = return_bson('checker-file')
+            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+                                       "input": input1,
+                                       "checker": checker,
+                                       "judgement_mod": request.form["judgement_mod"],
+                                       "available": available_languages,
+                                       "tags": request.form['tags'].split(","),
+                                       'md': md})
+        elif 'input-file' in request.files and 'solution-file' in request.files:
+            input1 = return_bson('input-file')
+            solution = return_bson('solution-file')
+            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+                                       "input": input1,
+                                       "solution": solution,
+                                       "judgement_mod": request.form["judgement_mod"],
+                                       "available": available_languages,
+                                       "tags": request.form['tags'].split(","),
+                                       'md': md})
+        elif 'input-file' in request.files and 'interactive-file' in request.files:
+            input1 = return_bson('input-file')
+            interactive = return_bson('interactive-file')
+            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+                                       "input": input1,
+                                       "interactive": interactive,
+                                       "judgement_mod": request.form["judgement_mod"],
+                                       "available": available_languages,
+                                       "tags": request.form['tags'].split(","),
+                                       'md': md})
+        elif 'input-file' in request.files and 'output-file' in request.files:
+            input1 = return_bson('input-file')
+            output = return_bson('output-file')
+            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+                                       "input": input1,
+                                       "output": output,
+                                       "judgement_mod": request.form["judgement_mod"],
+                                       "available": available_languages,
+                                       "tags": request.form['tags'].split(","),
+                                       'md': md})
+        if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
+            mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
 
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
@@ -106,13 +155,15 @@ def contest(contest_name):
 def task(task_name):
     if 'username' not in session:
         return render_template('unauthorized.html')
-    readme_file = open(f"tasks/{task_name}/description.md", "r")
+
+    result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_name"]
+
     md_template_string = markdown.markdown(
-        readme_file.read(), extensions=["fenced_code"]
+        result.decode(), extensions=["fenced_code"]
     )
 
+    # Copy static resources and update paths in the Markdown content
     res_dir_names = ["static", "resources", "res"]
-
     for i in res_dir_names:
         if os.path.exists(f"/tasks/{task_name}/{i}"):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
@@ -133,38 +184,20 @@ def contest_task(contest_name, task_name):
         return render_template("error.html")
     if 'username' not in session:
         return render_template('unauthorized.html')
-        
-    task = mongo.db.tasks.find_one({"uuid": task_name})
-    
-    f = open("/temp.zip", "wb")
-    f.write(task["source"])
-    f.close()
-    
-    zip_handle = ZipFile("/temp.zip")
-    for info in zip_handle.infolist():
-        zip_handle.extract(info.filename, "tasks/")
-    for info in zip_handle.infolist():
-        if info.is_dir() and info.filename.count("/") == 1:
-            if os.path.isdir(f"tasks/{task_name}"):
-                shutil.rmtree(f"tasks/{task_name}")
-            os.rename("tasks/" + info.filename, "tasks/" + task_name)
-    
-    readme_file = open(f"tasks/{task_name}/description.md", "r").read()
+
+    result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_data"]
     md_template_string = markdown.markdown(
-        readme_file, extensions=["fenced_code"]
+        result.decode(), extensions=["fenced_code"]
     )
 
-    res_dir_names = ["static", "resources", "resource", "res"]
-
+    # Copy static resources and update paths in the Markdown content
+    res_dir_names = ["static", "resources", "res"]
     for i in res_dir_names:
         if os.path.exists(f"/tasks/{task_name}/{i}"):
-            shutil.copytree(f"tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
+            shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
-            md_template_string = md_template_string.replace(f"src=\"/{i}", "src=\"/static")
-            md_template_string = md_template_string.replace(f"src=\"{i}", "src=\"/static")
 
-    md_template_string += render_template('task.html', url=task_name, username=session['username'],
-                                          contest_name=contest_name)
+    md_template_string += render_template('task.html', url=task_name, username=session['username'])
     return md_template_string
 
 
@@ -269,15 +302,27 @@ def logout():
 
 @app.route('/create', methods=['GET', 'POST'])
 def create_contest():
+    print(request.method)
     if 'username' not in session:
         return render_template('unauthorized.html')
     else:
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
     if request.method == 'POST':
+        uploaded_file = request.files['type_python']
+        filename = uploaded_file.filename
+        file_data = uploaded_file.read()
+        bson_document = {
+            'filename': filename,
+            'file_data': bson.Binary(file_data)
+        }
         mongo.db.contests.insert_one({'name': request.form['ContestName'], 'tasks': [],
                                       'duration': request.form['duration'],
                                       'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
-                                                                                       "%d/%m/%Y %H:%M:%S"))})
+                                                                                       "%d/%m/%Y %H:%M:%S")),
+                                      'allowed_teams': request.form['teams'],
+                                      'widgets': bson_document})
+        mongo.db.widgets.insert_one({'name': request.form['ContestName'], 'widget': bson_document})
+
     return render_template('create.html', admin=admin)
 
 
@@ -296,22 +341,22 @@ def leader_board(contest_name, page_number):
     leaders = {}
     for i in mongo.db.participants.find({'contest_id': contest_name}):
         board.append((i["participant_id"], i["points"]))
-    
-#        if i['sender'] not in leaders.keys():
-#            leaders[i['sender']] = {}
-#            
-#        res = 0
-#        for j in i['verdict'].split("\n")[:-1]:
-#            if j.split()[0] == "AC":
-#                res += 1
-#        if i['verdict'].count("\n") != 0:
-#            res /= i['verdict'].count("\n")
-#        
-#        if i['task_name'] in leaders[i['sender']].keys():
-#            leaders[i['sender']][i['task_name']] = max(res, leaders[i['sender']][i['task_name']])
-#        else:
-#            leaders[i['sender']][i['task_name']] = res
-#    board = [(i, sum(list(leaders[i].values()))) for i in list(leaders.keys())]
+
+    #        if i['sender'] not in leaders.keys():
+    #            leaders[i['sender']] = {}
+    #
+    #        res = 0
+    #        for j in i['verdict'].split("\n")[:-1]:
+    #            if j.split()[0] == "AC":
+    #                res += 1
+    #        if i['verdict'].count("\n") != 0:
+    #            res /= i['verdict'].count("\n")
+    #
+    #        if i['task_name'] in leaders[i['sender']].keys():
+    #            leaders[i['sender']][i['task_name']] = max(res, leaders[i['sender']][i['task_name']])
+    #        else:
+    #            leaders[i['sender']][i['task_name']] = res
+    #    board = [(i, sum(list(leaders[i].values()))) for i in list(leaders.keys())]
     board = sorted(board, key=lambda k: -k[1])
     for i in range(len(board)):
         board[i] = (i + 1, board[i][0], board[i][1])

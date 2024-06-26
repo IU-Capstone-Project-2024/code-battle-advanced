@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
     <link rel="stylesheet" href="../static/general.css">
     <link rel="stylesheet" href="../static/header.css">
+    <link rel="stylesheet" href="../static/buttons.css">
     <link rel="stylesheet" href="../static/main.css">
     <link rel="stylesheet" href="../static/footer.css">
   </head>
@@ -34,18 +35,18 @@
             <input type="name" name="username" id="inputName" class="form-control" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" name="password" id="inputPassword" class="form-control" required>
-            <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Log in</button>
+            <button id="btnSignUp" class="purple-btn btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Log in</button>
           </form>
           <p class="jumbotron__extra">Do not have an account? <a href="/signup" class="jumbotron__extra-link">Register one</a></p>
-          {% with messages = get_flashed_messages() %}
-          {% if messages %}
+          <!-- {% with messages = get_flashed_messages() %}
+          {% if messages %} -->
           <ul class=flashes>
-            {% for message in messages %}
+            <!-- {% for message in messages %} -->
             <li>{{ message }}</li>
-            {% endfor %}
-          </ul>
+            <!-- {% endfor %} -->
+          <!-- </ul>
           {% endif %}
-          {% endwith %}
+          {% endwith %} -->
         
         </div>
       </div>

@@ -1,17 +1,10 @@
-.nav__item.logged {
-    border: none;
-}
-
-.nav__item.logged:hover {
-    background-color: transparent;
-}
-
-.nav__item.logged:hover > a {
-    color: #00C643;
+.jumbotron {
+    margin-bottom: 3em;
 }
 
 .contest {
     padding: 30px;
+    border-radius: 1em;
 }
 
 .contest:nth-child(2n + 1) {
