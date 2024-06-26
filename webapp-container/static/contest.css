@@ -1,0 +1,57 @@
+.header {
+    margin-bottom: 3em;
+}
+
+.main {
+    display: block;
+    background-color: #ffffff;
+}
+
+.contest {
+    margin-bottom: 6em;
+    padding: 30px;
+    border-radius: 1em;
+}
+
+.contest:nth-child(2n+1) {
+    background-color: #E2E2E2;
+}
+
+.contest__header {
+    font-size: 30px;
+    color: #000000;
+    margin-bottom: 1em;
+}
+
+.task__header {
+    margin-bottom: 0.5em;
+    color: #000000;
+}
+
+.task:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.task__desc {
+    margin-bottom: 0.5em;
+    color: #000000;
+}
+
+.contest__create, .content__task {
+    background-color: transparent;
+    border: 2px solid #DD0000;
+    border-radius: 17px;
+    font-weight: 700;
+    font-size: 16px;
+    width: fit-content;
+    transition: 0.3s background-color;
+}
+
+.contest__create-link, .content__task-link {
+    color: #DD0000;
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 0.5em 1em;
+}
+
+

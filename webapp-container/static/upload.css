@@ -1,0 +1,16 @@
+.main__wrapper {
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+}
+
+.purple-btn, .green-btn {
+    min-width: 170px;
+    width: fit-content;
+}
+

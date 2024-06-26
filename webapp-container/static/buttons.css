@@ -1,0 +1,77 @@
+/*RED*/
+
+.red-btn {
+    background-color: transparent;
+    border: 2px solid #DD0000;
+    border-radius: 1em;
+    font-weight: 700;
+    font-size: 20px;
+    width: fit-content;
+    height: fit-content;
+    transition: 0.3s background-color;
+    text-align: center;
+}
+
+.red-btn > a {
+    color: #DD0000;
+}
+
+.red-btn.active > a {
+    color: #fff;
+}
+
+.red-btn:hover {
+    background-color: #DD0000;
+    cursor: pointer;
+}
+
+.red-btn:hover > a {
+    color: #fff;
+}
+
+.red-btn.active {
+    background-color: #DD0000;
+}
+
+/*PURPLE*/
+
+.purple-btn {
+    background-color: #7a1e5f;
+    padding: 0.4em 0.8em;
+    font-size: 20px;
+    border-radius: 1em;
+    transition: background-color 0.3s;
+    height: fit-content;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.purple-btn:hover, .purple-btn.active {
+    background-color: #000000;
+    cursor: pointer;
+}
+
+/*GREEN*/
+
+.green-btn {
+    text-transform: capitalize;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #00C643;
+    color: #00C643;
+    border-radius: 1em;
+    font-size: 20px;
+    padding: 0.4em 0.8em;
+    height: fit-content;
+    transition: background-color 0.3s, color 0.3;
+}
+
+.green-btn.active {
+    background-color: #00C643;
+    color: #ffffff;
+}
+
+.green-btn:hover {
+    background-color: #00C643;
+    color: #ffffff;
+}

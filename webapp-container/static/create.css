@@ -1,0 +1,28 @@
+.form-contest {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 1em;
+    font-size: 24px;
+}
+
+input {
+    font-size: 20px;
+}
+
+#Submit {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.4em 0.8em;
+}
+
+#ContestName, #StartTime, #duration {
+    border-bottom: 2px solid #000000;
+}
+
+@media (max-width: 360px) {
+    .nav__header {
+        margin: 0 auto;
+    }
+}
