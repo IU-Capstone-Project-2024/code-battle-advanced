@@ -23,7 +23,6 @@ UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
 
 
-
 @app.route("/")
 @app.route("/main")
 def main():
@@ -79,14 +78,14 @@ def contest(contest_name):
         return render_template('unauthorized.html')
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
     if request.method == 'POST':
-        file_id = str(uuid.uuid4()) # TODO is it always unique?
+        file_id = str(uuid.uuid4())
 
         zip_handle = ZipFile(request.files['zip']._file)
         mongo.db.tasks.insert_one({'id': file_id})
 
-        if file_id not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
+        if file_id not in mongo.db.contests.find_one({'name': contest_name}, {'tasks.id'}):
             mongo.db.contests.update_one({'name': contest_name},
-                                         {'$push': {'tasks': {'id': file_id, 'taskname': zip_handle.filename}}})
+                                         {'$push': {'tasks': {'id': file_id, 'taskname': request.form['name']}}})
 
         for info in zip_handle.infolist():
             if info.filename.endswith('/'):
@@ -97,23 +96,20 @@ def contest(contest_name):
                 if taskname[1] == 'tests':
                     mongo.db.tasks.update_one(
                         {'id': file_id},
-                        {'$push': {'tests': {'test_name': taskname[2], 'value': value}}})
+                        {'$push': {'tests': {'name': taskname[2], 'value': value}}})
                 elif taskname[1] == 'res':
                     mongo.db.tasks.update_one(
                         {'id': file_id},
-                        {'$push': {'res': {'res_name': taskname[2], 'value': value}}})
+                        {'$push': {'res': {'name': taskname[2], 'value': value}}})
                 else:
                     mongo.db.tasks.update_one(
                         {'id': file_id},
                         {'$set': {f'{taskname[1].split(".")[1]}': {'name': taskname[1], 'value': value}}})
 
-    tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
-    if admin:
-        return render_template('contest.html', admin=admin,
-                               listOfTasks=tasks, contest_name=contest_name, username=session['username'])
-    else:
-        return render_template('contest.html', listOfTasks=tasks, contest_name=contest_name,
-                               username=session['username'])
+    tasks = mongo.db.contests.find({'name': contest_name}, {"tasks.taskname"})
+
+    return render_template('contest.html', admin=admin,
+                           listOfTasks=tasks, contest_name=contest_name, username=session['username'])
 
 
 @app.route('/task/<string:task_name>')
@@ -148,27 +144,40 @@ def contest_task(contest_name, task_name):
     if 'username' not in session:
         return render_template('unauthorized.html')
 
-    task = mongo.db.tasks.find_one({"uuid": task_name})
+    task_id = mongo.db.contests.find_one({'name': contest_name, "tasks.taskname": task_name}, {'id': 1})
+    task = mongo.db.tasks.find_one({'id': task_id})
 
-    f = open("/temp.zip", "wb")
-    f.write(task["source"])
-    f.close()
 
-    zip_handle = ZipFile("/temp.zip")
-    for info in zip_handle.infolist():
-        zip_handle.extract(info.filename, "tasks/")
-    for info in zip_handle.infolist():
-        if info.is_dir() and info.filename.count("/") == 1:
-            if os.path.isdir(f"tasks/{task_name}"):
-                shutil.rmtree(f"tasks/{task_name}")
-            os.rename("tasks/" + info.filename, "tasks/" + task_name)
+    # zip_handle = ZipFile("/temp.zip")
+    # for info in zip_handle.infolist():
+    #     zip_handle.extract(info.filename, "tasks/")
+    # for info in zip_handle.infolist():
+    #     if info.is_dir() and info.filename.count("/") == 1:
+    #         if os.path.isdir(f"tasks/{task_name}"):
+    #             shutil.rmtree(f"tasks/{task_name}")
+    #         os.rename("tasks/" + info.filename, "tasks/" + task_name)
+    #
 
+    # filling task directory from database, can be a function?
+    for i in mongo.db.tasks.find_one({'id': task_id}):
+        for j in i['tests']:
+            with open(f"tasks/{task_name}/tests/{j['name']}", "wb") as f:
+                f.write(j['value'])
+        for j in i['res']:
+            with open(f"tasks/{task_name}/res/{j['name']}", "wb") as f:
+                f.write(j['value'])
+        with open(f"tasks/{task_name}/{i['md.name']}", "wb") as f:
+            f.write(i['md.value'])
+        with open(f"tasks/{task_name}/{i['py.name']}", "wb") as f:
+            f.write(i['py.value'])
+        with open(f"tasks/{task_name}/{i['sh.name']}", "wb") as f:
+            f.write(i['sh.value'])
+
+    res_dir_names = ["static", "resources", "resource", "res"]
     readme_file = open(f"tasks/{task_name}/description.md", "r").read()
     md_template_string = markdown.markdown(
         readme_file, extensions=["fenced_code"]
     )
-
-    res_dir_names = ["static", "resources", "resource", "res"]
 
     for i in res_dir_names:
         if os.path.exists(f"/tasks/{task_name}/{i}"):
