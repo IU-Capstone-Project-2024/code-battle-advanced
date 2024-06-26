@@ -16,10 +16,19 @@ import os
 
 import cbacontest, cbahelper
 
+import grpc
+
+import contest_pb2 as pb2
+import contest_pb2_grpc as pb2_grpc
+
 mongo_uri_docker = "mongodb://sUbskr1bet0:1celypuZZl3s@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo_uri_local = "mongodb://localhost"
 
 redis_host = "redis"
+
+def get_stub():
+    channel = grpc.insecure_channel("192.168.49.2:32002")
+    return pb2_grpc.ContestStub(channel)
 
 def test_task(task_id):
     global db
@@ -65,37 +74,14 @@ def test_task(task_id):
     verdict = [(i[0], int(i[1]), int(i[2])) for i in verdict]
     
     pathlib.Path.unlink(submission_file)
-    if db.participants.find_one({"contest_id": submission_info["contest"], "participant_id": submission_info["sender"]}) == None:
-        contest = db.contests.find_one({"name": submission_info["contest"]})
-        
-        profile = cbahelper.load_data(submission_info["contest"], submission_info["sender"])
-        
-        new_entry = {"contest_id": submission_info["contest"], 
-                     "participant_id": submission_info["sender"],
-                     "final_task_results": {i:"" for i in contest["tasks"]},
-                     "points": 0,
-                     "task_results": {i:[("N/A", 0)] for i in contest["tasks"]}, 
-                     "storage": {}, 
-                     "widgets": []}
-        db.participants.insert_one(new_entry)
-        
-        cbahelper.save_data(submission_info["contest"], submission_info["sender"], profile)
-        
-    db.participants.update_one({"contest_id": submission_info["contest"], "participant_id": submission_info["sender"]}, 
-                               {"$set":{f"task_results.{submission_info['task_name']}": verdict}})
-    
-    profile = cbahelper.load_data(submission_info["contest"], submission_info["sender"])
-    final_verdict = profile.get_test_verdict(submission_info['task_name'])
-    new_points = profile.get_points()
-    cbahelper.save_data(submission_info["contest"], submission_info["sender"], profile)
-    
-    db.participants.update_one({"contest_id": submission_info["contest"], "participant_id": submission_info["sender"]}, 
-                               {"$set":{f"final_task_results.{submission_info['task_name']}": final_verdict}})
-    db.participants.update_one({"contest_id": submission_info["contest"], "participant_id": submission_info["sender"]}, 
-                               {"$set":{"points": new_points}})
-                               
     db.submissions.update_one({"_id": ObjectId(task_id)}, {"$set":{"verdict":verdict}})
-    db.submissions.update_one({"_id": ObjectId(task_id)}, {"$set":{"final_verdict":final_verdict}})
+    
+    stub = get_stub()
+    stub.HandleEvent(pb2.EventData(contest_id=submission_info["contest"], 
+                                   participant_id=submission_info["sender"],
+                                   caller="Judge",
+                                   data=submission_info["task_name"]))
+    stub.UpdateTask(pb2.UpdateData(submission_id=task_id))
                                
     
 

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contest
+  labels:
+    app: contest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contest
+  template:
+    metadata:
+      labels:
+        app: contest
+    spec:
+      containers:
+      - name: contest
+        image: contest
+        imagePullPolicy: Never
+
