@@ -18,13 +18,13 @@
                 <nav class="nav">
                     <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
                     <ul class="nav__list nav-pills pull-right">
-                        <!-- {%if username is defined %} -->
+                        {%if username is defined %}
                         <li class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></li>
                         <li class="nav__item" role="presentation"><a class="nav__link" href="/logout">Logout</a></li>
-                        <!-- {% else %} -->
-                        <!-- <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">Get started</a></li>
-                        <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">Sign Up</a></li> -->
-                        <!-- {% endif %} -->
+                        {% else %}
+                        <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">Get started</a></li>
+                        <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">Sign Up</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
@@ -37,11 +37,11 @@
                         <p class="lead">lead</p>
                         <p role="presentation" class="red-btn active"><a class="main__nav-link" href="/available_contests">Available contests</a></p>
                         <p role="presentation" class="red-btn active"><a class="main__nav-link" href="/tasks_archive">Task archive</a></p>
-                        <!-- {%if admin is defined%} 
-                            {%if admin%} -->
+                        {%if admin is defined%} 
+                            {%if admin%}
                             <p role="presentation" class="red-btn active"><a class="main__nav-link" href="/my_contests">My contests</a></p>
-                            <!-- {%endif%}
-                        {%endif%} -->
+                            {%endif%}
+                        {%endif%} 
                     </nav>
                 </section>
             </div>

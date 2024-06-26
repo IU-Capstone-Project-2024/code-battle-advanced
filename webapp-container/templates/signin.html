@@ -38,15 +38,15 @@
             <button id="btnSignUp" class="purple-btn btn btn-lg btn-primary btn-block" onclick = 'this.form.submit();' type="button">Log in</button>
           </form>
           <p class="jumbotron__extra">Do not have an account? <a href="/signup" class="jumbotron__extra-link">Register one</a></p>
-          <!-- {% with messages = get_flashed_messages() %}
-          {% if messages %} -->
+           {% with messages = get_flashed_messages() %}
+          {% if messages %} 
           <ul class=flashes>
-            <!-- {% for message in messages %} -->
+             {% for message in messages %} 
             <li>{{ message }}</li>
-            <!-- {% endfor %} -->
-          <!-- </ul>
+             {% endfor %} 
+           </ul>
           {% endif %}
-          {% endwith %} -->
+          {% endwith %} 
         
         </div>
       </div>

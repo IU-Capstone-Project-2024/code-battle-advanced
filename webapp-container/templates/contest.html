@@ -28,7 +28,7 @@
       <div class="container">
          <section class="contest">
             <h2 class="contest__header">{{contest_name}}</h2>
-            <!-- {% for name, uuid in listOfTasks %} -->
+            {% for name, uuid in listOfTasks %}
             <article class="task">
                <h3 class="task__header">{{name}}</h3>
                <p class="task__desc">Description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eveniet nemo, molestiae atque repudiandae doloremque perferendis eos non? Assumenda asperiores obcaecati eveniet quia libero praesentium quam quibusdam saepe totam dolorum.
@@ -38,13 +38,13 @@
                   <p class="red-btn" role="presentation"><a class="content__task-link" href={{contest_name}}/task/{{uuid}}>To task</a></p>
                </div>
             </article>
-            <!-- {% endfor %} -->
+            {% endfor %}
          </section>
-         <!-- {if admin is defined %}
-               {%if admin%} -->
+          {%if admin is defined %}
+               {%if admin%}
                <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_name}}/upload">You can add your own task</a></p>
-               <!-- {% endif %}
-         {% endif %} -->
+               {% endif %}
+         {% endif %}
       </div>
    </main>
 
