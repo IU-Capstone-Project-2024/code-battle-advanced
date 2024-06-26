@@ -1,53 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Code battle advanced</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
-    <link rel="stylesheet" href="../static/general.css">
-    <link rel="stylesheet" href="../static/header.css">
-    <link rel="stylesheet" href="../static/main.css">
-    <link rel="stylesheet" href="../static/footer.css">
-    <link rel="stylesheet" href="../static/single_item.css">
-    <link rel="stylesheet" href="../static/buttons.css">
-    <link rel="stylesheet" href="../static/upload.css">
-  </head>
+<head>
+  <title>Code battle advanced</title>
 
-  <body>
-    <header>
-      <div class="container">
-        <nav class="nav">
-          <h1 class="nav__header"><a href="main" class="nav__header-link">Code Battle Advanced</a></h1>
-          <!-- {%if username is defined %} -->
-          <ul class="nav__list nav-pills pull-right">
-            <p class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></p>
-          </ul>
-          <!-- {%endif%} -->
-        </nav>
-      </div>
-    </header>
+</head>
 
-    <main class="main">
-      <div class="container">
-        <div class="main__wrapper">
-          <!-- {%if admin is defined %}
-            {%if admin%} -->
-            <form class="form" action = "/contest/{{contest_name}}" method="post" enctype="multipart/form-data">   
-                  <input id="choose-file" type="file" name="zip" hidden />
-                  <label class="green-btn" for="choose-file">Choose file</label>
-                  <input class="purple-btn" type="submit" value="Upload">
-            </form>
-            <!-- {%endif%}
-          {%endif%} -->
-        </div>
-      </div>
-    </main>
+<body>
+<h1>Code Battle Advanced</h1>
+<div class="container">
+  <div class="header">
+    <nav>
+      <ul class="nav nav-pills pull-right">
+        <li role="presentation" ><a href="/index">Home</a></li>
+      </ul>
+    </nav>
+  </div>
+{%if admin is defined %}
+{%if admin%}
+
+
+<form method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form1" style="display:block;">
+    <h2>Input+checker</h2>
+    <p> Input file: </p>
+    <p> </p>
+    <input type="file" name="input-file">
+    <p> Checker file: </p>
+    <p> </p>
+    <input type="file" name="checker-file">
+    <p> </p>
+    <p> Description file: </p>
+    <p> </p>
+    <input type="file" name="md-file">
+    <p> </p>
+    <select name="judgement_mod" id="judgement_mod">
+    <option value="first">Until first error</option>
+    <option value="all">All tests</option>
+    </select><br>
+    <label>Available languages: </label>
+    <input type="checkbox" id="py" name="py" checked />
+    <label for="scales">Python</label>
+	
+    <input type="checkbox" id="java" name="java" checked />
+    <label for="scales">Java</label>
     
-    <footer class="footer">
-      <div class="container">
-        <p class="footer__copyright">&copy; Copyright</p>
-      </div>
-    </footer>
-  </body>
-</html>
+    <input type="checkbox" id="cpp" name="cpp" checked />
+    <label for="scales">C++</label><br>
+    
+    <label for="name">Name:</label> 
+        <input type="name" id="name" name="name"> <br><br>
+    <label for="tags">Tags:</label> 
+        <input type="tags" id="tags" name="tags"> <br><br>
+    
+    <button type="submit">Submit</button>
+
+</form>
+
+<form method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form2" style="display:none;">
+    <h2>Input+solution</h2>
+    <p> Input file: </p>
+    <p> </p>
+    <input type="file" name="input-file">
+    <p> Solution file: </p>
+    <p> </p>
+    <input type="file" name="solution-file">
+    <p> </p>
+    <p> Description file: </p>
+    <p> </p>
+    <input type="file" name="md-file">
+    <p> </p>
+    <select name="judgement_mod" id="judgement_mod">
+    <option value="first">Until first error</option>
+    <option value="all">All tests</option>
+    </select><br>
+    <label>Available languages: </label>
+    <input type="checkbox" id="py" name="py" checked />
+    <label for="scales">Python</label>
+	
+    <input type="checkbox" id="java" name="java" checked />
+    <label for="scales">Java</label>
+    
+    <input type="checkbox" id="cpp" name="cpp" checked />
+    <label for="scales">C++</label><br>
+    
+    <label for="name">Name:</label> 
+        <input type="name" id="name" name="name"> <br><br>
+    <label for="tags">Tags:</label> 
+        <input type="tags" id="tags" name="tags"> <br><br>
+    
+    <button type="submit">Submit</button>
+</form>
+
+<form method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form3" style="display:none;">
+    <h2>Input+interactive</h2>
+    <p> Input file: </p>
+    <p> </p>
+    <input type="file" name="input-file">
+    <p> Interactive file: </p>
+    <p> </p>
+    <input type="file" name="interactive-file">
+    <p> </p>
+    <p> Description file: </p>
+    <p> </p>
+    <input type="file" name="md-file">
+    <p> </p>
+    <select name="judgement_mod" id="judgement_mod">
+    <option value="first">Until first error</option>
+    <option value="all">All tests</option>
+    </select><br>
+    <label>Available languages: </label>
+    <input type="checkbox" id="py" name="py" checked />
+    <label for="scales">Python</label>
+	
+    <input type="checkbox" id="java" name="java" checked />
+    <label for="scales">Java</label>
+    
+    <input type="checkbox" id="cpp" name="cpp" checked />
+    <label for="scales">C++</label><br>
+    
+    <label for="name">Name:</label> 
+        <input type="name" id="name" name="name"> <br><br>
+    <label for="tags">Tags:</label> 
+        <input type="tags" id="tags" name="tags"> <br><br>
+    
+    <button type="submit">Submit</button>
+</form>
+
+<form method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form4" style="display:none;">
+    <h2>Input+output</h2>
+    <p> Input file: </p>
+    <p> </p>
+    <input type="file" name="input-file">
+    <p> Output file: </p>
+    <p> </p>
+    <input type="file" name="output-file">
+    <p> </p>
+    <p> Description file: </p>
+    <p> </p>
+    <input type="file" name="md-file">
+    <p> </p>
+    <select name="judgement_mod" id="judgement_mod">
+    <option value="first">Until first error</option>
+    <option value="all">All tests</option>
+    </select><br>
+    <label>Available languages: </label>
+    <input type="checkbox" id="py" name="py" checked />
+    <label for="scales">Python</label>
+	
+    <input type="checkbox" id="java" name="java" checked />
+    <label for="scales">Java</label>
+    
+    <input type="checkbox" id="cpp" name="cpp" checked />
+    <label for="scales">C++</label><br>
+    
+    <label for="name">Name:</label> 
+        <input type="name" id="name" name="name"> <br><br>
+    <label for="tags">Tags:</label> 
+        <input type="tags" id="tags" name="tags"> <br><br>
+    
+    <button type="submit">Submit</button>>
+</form>
+
+<select name="form_selector" onchange="showForm()">
+    <option value="form1">Input+checker</option>
+    <option value="form2">Input+solution</option>
+    <option value="form3">Input+interactive</option>
+    <option value="form4">Input+output</option>
+</select>
+
+<script>
+function showForm() {
+    var selectedForm = document.querySelector('select[name="form_selector"]').value;
+    
+    document.getElementById('form1').style.display = 'none';
+    document.getElementById('form2').style.display = 'none';
+    document.getElementById('form3').style.display = 'none';
+    document.getElementById('form4').style.display = 'none';
+    document.getElementById(selectedForm).style.display = 'block';
+}
+</script>
+
+{%endif%}
+{%endif%}
+</body>

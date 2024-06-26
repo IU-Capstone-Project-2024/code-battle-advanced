@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: judge
+  name: contest
   labels:
-    app: judge
+    app: contest
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: judge
+      app: contest
   template:
     metadata:
       labels:
-        app: judge
+        app: contest
     spec:
       containers:
-      - name: judge
-        image: judge
+      - name: contest
+        image: contest
         imagePullPolicy: Never
 

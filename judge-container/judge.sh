@@ -15,7 +15,7 @@ if [ "$compiler" = "cpp" ]; then
 	g++ -x c++ $code -o compiledCode
 	exitCode=$?
 	if [ ! $exitCode -eq 0 ]  ; then
-		echo CE
+		echo CE 0 0
 		exit
 	fi
 fi
@@ -37,15 +37,15 @@ do
 		fi fi # Cool way to see the number of compilers
 		
 		if [ $exitCode -eq 137 ]  ; then
-			echo TL $fileId '\n'
+			echo TL $fileId 0 '\n'
 		else if [ $exitCode -eq 124 ]  ; then
-			echo TL $fileId '\n'
+			echo TL $fileId 0 '\n'
 		else if [ ! $exitCode -eq 0 ]  ; then
-			echo RE $fileId '\n'
+			echo RE $fileId 0 '\n'
 		else if [ ! $(sh ./tasks/$task/checker.sh $file temp.out) = "True" ] ; then
-			echo WA $fileId '\n'
+			echo WA $fileId 0 '\n'
 		else
-			echo AC $fileId '\n'
+			echo AC $fileId 1 '\n'
 		fi fi fi fi
 		rm temp.out
 	fi
