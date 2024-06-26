@@ -85,7 +85,7 @@ def contest(contest_name):
 
         if file_id not in mongo.db.contests.find_one({'name': contest_name}, {'tasks.id'}):
             mongo.db.contests.update_one({'name': contest_name},
-                                         {'$push': {'tasks': {'id': file_id, 'taskname': request.form['name']}}})
+                                         {'$push': {'tasks': {'id': file_id, 'name': zip_handle.filename}}})
 
         for info in zip_handle.infolist():
             if info.filename.endswith('/'):
@@ -106,7 +106,7 @@ def contest(contest_name):
                         {'id': file_id},
                         {'$set': {f'{taskname[1].split(".")[1]}': {'name': taskname[1], 'value': value}}})
 
-    tasks = mongo.db.contests.find({'name': contest_name}, {"tasks.taskname"})
+    tasks = mongo.db.contests.find({'name': contest_name}, {"tasks.name"})
 
     return render_template('contest.html', admin=admin,
                            listOfTasks=tasks, contest_name=contest_name, username=session['username'])
@@ -144,7 +144,7 @@ def contest_task(contest_name, task_name):
     if 'username' not in session:
         return render_template('unauthorized.html')
 
-    task_id = mongo.db.contests.find_one({'name': contest_name, "tasks.taskname": task_name}, {'id': 1})
+    task_id = mongo.db.contests.find_one({'name': contest_name, "tasks.name": task_name})['tasks']['id']
     task = mongo.db.tasks.find_one({'id': task_id})
 
 
@@ -214,8 +214,7 @@ def contest_success(contest_name, task_name):
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
-                                               'in_contest_name': mongo.db.tasks.find_one({"uuid":
-                                                                                               task_name})["task_name"],
+                                               'in_contest_name': task_name,
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': contest_name,
@@ -234,8 +233,7 @@ def success(task_name):
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
-                                               'in_contest_name': mongo.db.tasks.find_one({"uuid":
-                                                                                               task_name})["task_name"],
+                                               'in_contest_name': task_name,
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'contest': 'No contest',
@@ -354,7 +352,7 @@ def tasks_archive():
     if 'username' not in session:
         return render_template('unauthorized.html')
     else:
-        contest_archive = [i for i in mongo.db.contests.find()
+        contest_archive = [i for i in mongo.db.contests.find()['tasks']
                            if i['name'] not in session['contests'] and datetime.now(pytz.utc) >
                            i['startTime'].astimezone(pytz.utc)
                            + timedelta(minutes=int(i['duration']))]
