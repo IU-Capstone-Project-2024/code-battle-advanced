@@ -66,6 +66,7 @@ header {
     display: inline-block;
     text-transform: capitalize;
     padding: 11.5px 16.5px;
+    text-align: center;
 }
 
 .nav__item > a {
@@ -74,4 +75,38 @@ header {
 
 .nav__item.active > a {
     color: #5F5F5F;
+}
+
+.nav__item.logged {
+    border: none;
+}
+
+.nav__item.logged:hover {
+    background-color: transparent;
+}
+
+.nav__item.logged:hover > a {
+    color: #00C643;
+}
+
+@media (max-width: 500px) {
+    .nav__header {
+        font-size: 24px;
+        padding-left: 48px;
+    }
+
+    .nav__header::before {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+@media (max-width: 360px) {
+    .nav__header {
+        font-size: 0;
+    }
+
+    .nav__item {
+        font-size: 16px;
+    }
 }

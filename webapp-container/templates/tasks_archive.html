@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="../static/header.css">
         <link rel="stylesheet" href="../static/main.css">
         <link rel="stylesheet" href="../static/footer.css">
+        <link rel="stylesheet" href="../static/buttons.css">
         <link rel="stylesheet" href="../static/main_nav.css">
         <link rel="stylesheet" href="../static/task_archive.css">
     </head>
@@ -18,33 +19,33 @@
             <nav class="nav">
                 <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
                 <ul class="nav__list nav-pills pull-right">
-                    {%if username is defined %}
-                  <li class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></li>
+                    <!-- {%if username is defined %} -->
+                    <li class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></li>
                     <li class="nav__item" role="presentation"><a class="nav__link" href="/logout">Logout</a></li>
-                    {% else %}
-                    <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">Get started</a></li>
-                    <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">Sign Up</a></li>
-                    {% endif %}
+                    <!-- {% else %} -->
+                    <!-- <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">Get started</a></li>
+                    <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">Sign Up</a></li> -->
+                    <!-- {% endif %} -->
                 </ul>
             </nav>
         </header>
 
         <main class="main">
             <div class="container">
-                <div class="jumbotron">
+                <section class="jumbotron">
                     <h1 class="main__archive-header">Tasks_archive</h1>
-                    {% for contest, uuid, task_name in all_tasks %}
+                        <!-- {% for contest, uuid, task_name in all_tasks %} -->
                         <article class="task">
-                        <h2 class="task__header">{{contest}}: {{task_name}}</h2>
-                        <p class="task__desc">Description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eveniet nemo, molestiae atque repudiandae doloremque perferendis eos non? Assumenda asperiores obcaecati eveniet quia libero praesentium quam quibusdam saepe totam dolorum.
-                        Quibusdam ullam soluta consequatur voluptate, error voluptates repellat deserunt officia possimus distinctio accusamus cum maxime, quidem ducimus aut sit earum omnis amet? Accusamus nulla sunt corrupti repudiandae quo, repellendus unde.
-                        Itaque, ea. Laborum, placeat reiciendis tempora, numquam, dolore pariatur quos deleniti consequuntur provident laudantium praesentium repellendus? Quasi, nesciunt aliquam? Laudantium temporibus quia esse deleniti obcaecati?</p>
-                        <div class="task__buttons">
-                            <p role="presentation" class="main__nav-item"><a href="#" class="main__nav-link">To contest</a></p>
-                        </div>
+                            <h2 class="task__header">{{contest}}: {{task_name}}</h2>
+                            <p class="task__desc">Description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eveniet nemo, molestiae atque repudiandae doloremque perferendis eos non? Assumenda asperiores obcaecati eveniet quia libero praesentium quam quibusdam saepe totam dolorum.
+                            Quibusdam ullam soluta consequatur voluptate, error voluptates repellat deserunt officia possimus distinctio accusamus cum maxime, quidem ducimus aut sit earum omnis amet? Accusamus nulla sunt corrupti repudiandae quo, repellendus unde.
+                            Itaque, ea. Laborum, placeat reiciendis tempora, numquam, dolore pariatur quos deleniti consequuntur provident laudantium praesentium repellendus? Quasi, nesciunt aliquam? Laudantium temporibus quia esse deleniti obcaecati?</p>
+                            <div class="task__buttons">
+                                <p role="presentation" class="red-btn"><a href="#" class="main__nav-link">To contest</a></p>
+                            </div>
                         </article>
-                    {% endfor %}
-                 </div>
+                        <!-- {% endfor %} -->
+                </section>
             </div>
         </main>
 

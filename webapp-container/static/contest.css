@@ -1,22 +1,40 @@
+.header {
+    margin-bottom: 3em;
+}
+
 .main {
     display: block;
+    background-color: #ffffff;
 }
 
 .contest {
     margin-bottom: 6em;
+    padding: 30px;
+    border-radius: 1em;
+}
+
+.contest:nth-child(2n+1) {
+    background-color: #E2E2E2;
 }
 
 .contest__header {
     font-size: 30px;
+    color: #000000;
     margin-bottom: 1em;
 }
 
 .task__header {
     margin-bottom: 0.5em;
+    color: #000000;
+}
+
+.task:not(:last-child) {
+    margin-bottom: 1em;
 }
 
 .task__desc {
     margin-bottom: 0.5em;
+    color: #000000;
 }
 
 .contest__create, .content__task {
@@ -36,6 +54,4 @@
     padding: 0.5em 1em;
 }
 
-.task {
-    margin-bottom: 1em;
-}
+

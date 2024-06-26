@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../static/main.css">
     <link rel="stylesheet" href="../static/footer.css">
     <link rel="stylesheet" href="../static/single_item.css">
+    <link rel="stylesheet" href="../static/buttons.css">
     <link rel="stylesheet" href="../static/create.css">
   </head>
   <body>
@@ -23,8 +24,8 @@
     <main class="main">
       <div class="container">
         <div class="main__wrapper">
-          {%if admin is defined%} 
-            {%if admin%}
+          <!-- {%if admin is defined%} 
+            {%if admin%} -->
             <form class="form-contest" action="/create" method="post">
               <label for="inputName" class="sr-only">Contest name:</label>
               <input type="ContestName" name="ContestName" id="ContestName" class="form-control" placeholder="Contest name" required autofocus>
@@ -32,10 +33,10 @@
               <input type="StartTime" name="StartTime" id="StartTime" class="form-control" placeholder="DD/MM/YYYY HH:MM:SS" required autofocus>
               <label for="inputName" class="sr-only">Duration in minutes:</label>
               <input type="duration" name="duration" id="duration" class="form-control" placeholder="" required autofocus>
-              <button id="Submit" class="btn btn-lg btn-primary btn-block form__submit" onclick = 'this.form.submit();' type="button">Submit</button>
+              <button id="Submit" class="btn-lg btn-primary btn-block purple-btn" onclick = 'this.form.submit();' type="button">Submit</button>
             </form>
-            {%endif%}
-          {%endif%}
+            <!-- {%endif%}
+          {%endif%} -->
         </div>
       </div>
     </main>

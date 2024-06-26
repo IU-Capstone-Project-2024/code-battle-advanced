@@ -7,28 +7,22 @@
     font-size: 24px;
 }
 
-.form__submit, .form__select {
-    font-size: 16px;
-    text-transform: capitalize;
-    background-color: #00C643;
-    color: white;
-    padding: 0.5rem;
-    font-family: sans-serif;
-    border-radius: 1em;
-    cursor: pointer;
-    margin-top: 1em;
-    margin-bottom: 0;
+input {
+    font-size: 20px;
 }
 
-.form__submit {
-    background-color: #7a1e5f;
-    transition: background-color 0.3s;
-}
-
-.form__submit:hover {
-    background-color: #000000;
+#Submit {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.4em 0.8em;
 }
 
 #ContestName, #StartTime, #duration {
     border-bottom: 2px solid #000000;
+}
+
+@media (max-width: 360px) {
+    .nav__header {
+        margin: 0 auto;
+    }
 }

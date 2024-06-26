@@ -1,6 +1,7 @@
-.main__wrapper {
+.submission__wrapper {
     flex-direction: column;
     justify-content: center;
+    text-align: center;
 }
 
 .submission__header {
@@ -8,14 +9,12 @@
     margin-bottom: 1em;
 }
 
-.submission__check-link {
-    background-color: #7a1e5f;
-    padding: 0.8em 1.6em;
-    font-size: 24px;
-    border-radius: 1em;
-    transition: background-color 0.3s;
+a.purple-btn {
+    display: inline-block;
 }
 
-.submission__check-link:hover {
-    background-color: #000000;
+@media (max-width: 360px) {
+    .nav__header {
+        margin: 0 auto;
+    }
 }

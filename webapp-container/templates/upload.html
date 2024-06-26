@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../static/main.css">
     <link rel="stylesheet" href="../static/footer.css">
     <link rel="stylesheet" href="../static/single_item.css">
+    <link rel="stylesheet" href="../static/buttons.css">
     <link rel="stylesheet" href="../static/upload.css">
   </head>
 
@@ -18,11 +19,11 @@
       <div class="container">
         <nav class="nav">
           <h1 class="nav__header"><a href="main" class="nav__header-link">Code Battle Advanced</a></h1>
-          {%if username is defined %}
+          <!-- {%if username is defined %} -->
           <ul class="nav__list nav-pills pull-right">
             <p class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></p>
           </ul>
-          {%endif%}
+          <!-- {%endif%} -->
         </nav>
       </div>
     </header>
@@ -30,15 +31,15 @@
     <main class="main">
       <div class="container">
         <div class="main__wrapper">
-          {%if admin is defined %}
-            {%if admin%}
+          <!-- {%if admin is defined %}
+            {%if admin%} -->
             <form class="form" action = "/contest/{{contest_name}}" method="post" enctype="multipart/form-data">   
                   <input id="choose-file" type="file" name="zip" hidden />
-                  <label for="choose-file">Choose File</label>
-                  <input class="form__submit" type="submit" value="Upload">
+                  <label class="green-btn" for="choose-file">Choose file</label>
+                  <input class="purple-btn" type="submit" value="Upload">
             </form>
-            {%endif%}
-          {%endif%}
+            <!-- {%endif%}
+          {%endif%} -->
         </div>
       </div>
     </main>
