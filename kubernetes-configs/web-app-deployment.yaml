@@ -31,10 +31,3 @@ spec:
             secretKeyRef:
               name: mongo-creds
               key: password
-        volumeMounts:
-        - name: "tasks-dir"
-          mountPath: "/tasks"
-      volumes:
-      - name: "tasks-dir"
-        persistentVolumeClaim:
-          claimName: "tasks-data"
