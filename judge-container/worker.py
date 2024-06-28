@@ -33,7 +33,7 @@ def test_task(task_id):
     
     submission_info = db.submissions.find_one({"_id": ObjectId(task_id)})
     
-    submission_file = "/source"
+    submission_file = f"/{submission_info['filename']}"
     f = open(submission_file, "wb")
     f.write(submission_info["source"])
     f.close()
