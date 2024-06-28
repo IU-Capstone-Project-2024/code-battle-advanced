@@ -230,6 +230,7 @@ def contest_success(contest_name, task_name):
                                                                                                task_name})["task_name"],
                                                'source': src, 'n_try': n,
                                                'language': lang,
+                                               'filename': request.files['file'].filename,
                                                'contest': contest_name,
                                                'verdict': "N/A",
                                                'final_verdict': "N/A"}).inserted_id
@@ -251,6 +252,7 @@ def success(task_name):
                                                                                                task_name})["task_name"],
                                                'source': src, 'n_try': n,
                                                'language': lang,
+                                               'filename': request.files['file'].filename,
                                                'contest': 'No contest',
                                                'verdict': [("N/A", 0)],
                                                'final_verdict': "N/A"}).inserted_id
