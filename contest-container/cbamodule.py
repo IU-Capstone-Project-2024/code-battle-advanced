@@ -13,7 +13,7 @@ class ContestantData(ContestantDataTemplate):
         for i in self.widgets:
             i.parent = self
     
-    def event_handler(self, event_data: str):
+    def event_handler(self, caller: str, event_data: str):
         pass
     
     def get_test_verdict(self, task: str) -> str:

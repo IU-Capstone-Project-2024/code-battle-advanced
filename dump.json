@@ -1,0 +1,1032 @@
+{
+"widgets":
+[
+    {
+        "_id": {
+            "$oid": "667e91675776a7f5501b69f5"
+        },
+        "name": "Test123",
+        "widget": {
+            "filename": "99.in",
+            "file_data": {
+                "$binary": {
+                    "base64": "LTg2NjczNTk4NDYxNzIzNzUwNC4wMDAwMDAgNjU5NzQ5MTAwMTYyNjY3NTIwLjAwMDAwMA==",
+                    "subType": "00"
+                }
+            }
+        }
+    }
+]
+,
+"contests":
+[
+    {
+        "_id": {
+            "$oid": "667e91675776a7f5501b69f4"
+        },
+        "name": "Test123",
+        "tasks": [
+            "d4438089-8b6f-4596-825c-d56de9ac00f9"
+        ],
+        "duration": "66666666",
+        "startTime": {
+            "$date": "2024-05-18T18:09:00Z"
+        },
+        "allowed_teams": "No",
+        "widgets": {
+            "filename": "99.in",
+            "file_data": {
+                "$binary": {
+                    "base64": "LTg2NjczNTk4NDYxNzIzNzUwNC4wMDAwMDAgNjU5NzQ5MTAwMTYyNjY3NTIwLjAwMDAwMA==",
+                    "subType": "00"
+                }
+            }
+        }
+    }
+]
+,
+"tasks":
+[
+    {
+        "_id": {
+            "$oid": "667e91c65776a7f5501b69f6"
+        },
+        "uuid": "d4438089-8b6f-4596-825c-d56de9ac00f9",
+        "task_name": "A+B",
+        "input": [
+            {
+                "filename": "99.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg2NjczNTk4NDYxNzIzNzUwNC4wMDAwMDAgNjU5NzQ5MTAwMTYyNjY3NTIwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "98.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTg2NTc1OTI3NzcwOTA0MzIwLjAwMDAwMCAzMTc3NzkzMzIzMTIxNzEyNjQuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "97.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTM3NzQwOTI3MzAyMDA3MDQuMDAwMDAwIDY2ODE1NjIwNDE3MjI0MDM4NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "96.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzU2MTc2NTY3MDUwOTgyNjU2LjAwMDAwMCAtNzQ4MzIwNTYxNTY5ODMyOTYuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "95.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTgzNzUzODY4NjY1NzU3MTg0LjAwMDAwMCAtNjA1MzgxNjU5NTkyNzQ1OTg0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "94.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQxMTY0NTIwNDQ0MTMyOTY2NC4wMDAwMDAgNjU1MTU3ODMxMTUyMTg3OTA0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "93.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjMyMzg1NDc2MDc2MzMyODAuMDAwMDAwIDk4NzExNjY5MjE3MzUwODg2NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "92.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTIwMzk2MTIzMDY2MzUwNTkyLjAwMDAwMCAtOTM1MTU0OTc0OTE3NDIzMTA0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "91.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NDU2NTYwNDEwODg5MzM4ODguMDAwMDAwIDc2OTE5ODU2NDY4OTkyNzY4MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "90.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTczNTk1OTczMjgwNzkzMDExMi4wMDAwMDAgMjMxMDcxMDM2MjY3MDk4MTEyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "89.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc1ODM2NTc1ODExMTUzNTM2MC4wMDAwMDAgNTM3NDcxNjA4NDAyMjExMDcyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "88.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg2ODg0NzE5MTk5MTM0MTQ0MC4wMDAwMDAgNDY2ODUxNjQxNjgxMjU0MTQ0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "87.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg2ODc0Mjg1Mzc1Mzc0NDg5Ni4wMDAwMDAgLTMyODEyNjQ3NzUzMDA4MTI4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "86.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTM0NzAxMjkxMjIyNTU3OTUyLjAwMDAwMCAtNTEzMDQ5ODQ1MzA1ODA3NjgwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "85.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MzE5OTAwMDY3ODU4OTUyMTkyLjAwMDAwMCAtNDQ4MTAyNjkzMzI2MjQxNzI4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "84.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI3OTY4NjgzOTYxODA3ODcyMC4wMDAwMDAgOTk5MjA4NTM3NjIzMzg3MTM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "83.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjE3NTk3OTM1NTYzNDU2NTEyLjAwMDAwMCAtNzc5MjYwODc3NjEwMzM2NzY4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "82.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc4NzgwMDM2ODA1MTc3MTc3Ni4wMDAwMDAgLTMzMDk1MDY1NDE5OTk1Njk5Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "81.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTQyMjk0OTY3NzE0NzE2OTI4LjAwMDAwMCA3ODg3NjAzNjcwMTYzNDA5OTIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "80.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTM4NjgwMDc1NzYwMzU0NDU3Ni4wMDAwMDAgMTc2ODg1NjI2MjQ3OTI0NDgwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "79.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjQxMTg0ODUyMTM4NzE3OTUyLjAwMDAwMCAtNjYxMjMzODc1OTY2OTEwNDY0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "78.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc4Njk0MDg4MzAwMjQwNjkxMi4wMDAwMDAgLTU5OTk3MTM0NzQ5NTE3Mjg2NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "77.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI1Mzk3MTMxNjk4ODc2MTYuMDAwMDAwIC02OTk3NDQzOTU1MTY0MjcyNjQuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "76.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzA1NDI3NDk0MTc5MDc1MzI4LjAwMDAwMCAtNTU2MDU3MzQ2MzY0MDMwNzg0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "75.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc4MzgzMDk5NTQ5NDI5MTcxMi4wMDAwMDAgODYzMzg1NDAzMDk5ODY2NjI0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "74.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQ5MDAyNDg5ODQyMDAwODY0MC4wMDAwMDAgMjgzMTgxODcwNzU2NTM1Mjk2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "73.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY5Njg0MTI5MDE0MjIyNDY0MC4wMDAwMDAgLTI1OTcwMTMzOTgyMjM1NjQ4MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "72.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NDMxOTI2NTE1OTg2Mjg2MzM2LjAwMDAwMCAtNjgwODM5MDcyMjA0NzExMDQwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "71.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTY4Mjk3NDMzMjc0MTk2NDguMDAwMDAwIDQ1NTMyMDI2ODQwOTEwMjg0OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "70.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTA2Mzg0OTUxNjU5MDI2MTc2LjAwMDAwMCAtODQ1MjY5MjQ5NTM1Njk3NDA4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "69.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjA5MTkwNTk4MTc0OTQ3ODQwLjAwMDAwMCAtMTI5NDQ0NDIxNjkzNDcwMDgwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "68.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjgwODkxMzI4MjU4NDkxNjQ4LjAwMDAwMCA5MTkzMTk1Njg5MjgxNjUxMjAuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "67.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTcwODY1NDQwNzY4MDU5MTM2LjAwMDAwMCAtMzM1NzgxOTEwMTE5MTg3MjAwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "66.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "Nzk4NDEwNjM0MzA2NzI4NDQ4LjAwMDAwMCAtNTE2OTcwMjQ2NjUzODg4MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "65.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTk5MzQwNDI0ODU1MTU0NTYwLjAwMDAwMCA0NjMzNDAxMjEzNDI0MDc2OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "64.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQwOTQzMzc5NDA1MzM2NzY4MC4wMDAwMDAgMTg1OTg0NDc5NDY4MjI5ODg4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "63.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTE1NTI0MjQ1NzYyMzEyOTYuMDAwMDAwIC03MTc2OTIyNDg0NzUzNTk2MTYuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "62.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjA5MDg5ODE2NTY5NjEyOC4wMDAwMDAgMjA3ODU1NDc3OTU2MzI2MTQ0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "61.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTgwMTk4NTAzMTYxNDA2MzYxNi4wMDAwMDAgLTcwMjUzMDI5MTY4Mjc0NTA4OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "60.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTg5OTI3NjYxOTkwNzkwNjU2LjAwMDAwMCAtNTA3NzU3NTgyMzk4ODMzNjAwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "59.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODYxNDA4NjI5ODU3MjAyMTc2LjAwMDAwMCAtOTY5MDg4MDY5MzAwMjM3NDQwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "58.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjE2MTk3OTc3MzIxNDM0ODguMDAwMDAwIDU3NzY2NzczMjI3NzgyMDkyOC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "57.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTIwNTcwODYxNDE2ODgwNTM3Ni4wMDAwMDAgLTIwODE0NjM4MjUxOTA3MDU5Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "56.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTIyOTkwMzUwMjgxNDcxNjkyOC4wMDAwMDAgLTMyMTYxODQ4MjYwMDYyNTAyNC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "55.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc0NjgyNzc0NDIxOTA1NzE1Mi4wMDAwMDAgLTUwNjgyMTMwMjQzMDc4MzI5Ni4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "54.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODkwMjE0NDExNDM2MDUyNzM2LjAwMDAwMCA1MzMxMjYzNDgwODEwMDA5Ni4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "53.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzQ0NzkwMjYwMzY5NzM2OTYwLjAwMDAwMCA1MzQwMjIyNTgyNDc5MjI5NDQuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "52.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MzUzMjc0Njc2NTMzOTE3NDQwLjAwMDAwMCAxNDE0OTUwNzM4Mzg0ODgzMjAuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "51.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg4MzUwMTYzMTgzNTQ0Mzg0MC4wMDAwMDAgNDkzMzE1NDEwNDgxMjI3MDA4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "50.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTEzMzk3MTk2Mzk5Mjc5NTM5Mi4wMDAwMDAgLTcyNjA3NDYxNjcxNTg3NjczNi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "49.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTg1MzIzOTMxMTA3MjQxOTg0LjAwMDAwMCAtOTM4Mjk0MTUyNTM4MjE0MDE2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "48.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NDIwMzI5NTk5NDk3NzgzMDQwLjAwMDAwMCAtNDU4NzQ0MTgyOTQzNDgxNTM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "47.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI0OTEzMzA5ODgxNjA3ODIwOC4wMDAwMDAgODUyODcwMjA5ODczOTM2MTI4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "46.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MzQ0Mjc5MDAxODY0MjI5MTIuMDAwMDAwIDYyNTUyOTg1NTU0NjczNzQwOC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "45.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc5MDY1MDQ0NDkzNDMxMzcyOC4wMDAwMDAgNDc2NzIwNjQxODExMDkwNjg4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "44.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTEyNDkwMjg3NTIzOTIxMjY3Mi4wMDAwMDAgOTY1Nzk3NzQ0MTk5MDI4NzM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "43.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQyNDI3NDY0NDA5MDIxMTkwNC4wMDAwMDAgNjcwNzUwMTE4Nzg5MTUxNDg4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "42.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQ2MDg1MDMzODA4ODAzNzMxMi4wMDAwMDAgMjk5OTUyMTY4MTk2MjU3MDI0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "41.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg4NzcxODI2ODk4Mzg3MTYxNi4wMDAwMDAgLTQ0MDE3MDE2NjU1MzI5NTEwNC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "40.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY4MzA0MTYxMzU0ODYzNjE2LjAwMDAwMCA1ODE4MDE3MDQ1MjM5NjA4MzIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "39.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODA5MTI3NjgxMTEyMDkwMTEyLjAwMDAwMCAtNDY0MDk4NTI4ODcxOTM0NTkyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "38.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg0OTc2NDY5ODUyMDQ4NzY4MC4wMDAwMDAgLTk0MTg3MTMwNzcyMjU1MTU1Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "37.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI4OTEyNjI0NTIwOTU4NzQ1Ni4wMDAwMDAgODM5NjM2Mjk4OTIzODEzNjMyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "36.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY4OTUwODUyNjk1NjM0MDQ4MC4wMDAwMDAgMTUwMTQ5NjA0NTgyOTAyMjcyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "35.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTk4MzM4ODM4MzQyNjcwOTI0OC4wMDAwMDAgLTc3ODI5MjM4MTk3OTA2NzM5Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "34.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTEwOTQ3ODg1MDMyMzEyNzE2OC4wMDAwMDAgLTI4NTQ4NjUxODU0MTU2NzM2MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "33.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY5MzIyNzY1NDYzNjA0Mzc3Ni4wMDAwMDAgLTc5NjQ4MzU4MDkxODYzMzQ3Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "32.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "Mzc5Njc3ODk2MDYwMDc4MzM2LjAwMDAwMCAtNTY0MzAwMjA2ODYwNDExNzEyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "31.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTU2NDM3MTUxMzM1NjE3MjQxNi4wMDAwMDAgLTM3NDk1NDEyMjY0OTEwMjg0OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "30.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODM2NjU2MzQxMzI0NDE0NDY0LjAwMDAwMCAtNTk0MTM4MzkwODM3OTQzMTY4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "29.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODIzMDQ2NjYxMDg2MTk1MjAwLjAwMDAwMCAyNDY1Mjk5OTI2ODk0NTA3NTIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "28.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTUwMDY5OTMyMTYzNTg3OTY4LjAwMDAwMCAyODAxMjE2NDc2NTk2Mjk4MjQuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "27.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjA4OTk1NTA0ODAxOTQwNDgwLjAwMDAwMCAyOTUwMjg1Nzc5MDMzNzgxNzYuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "26.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjI3MzcxMzM4OTk0MzU2NzM2LjAwMDAwMCAxMzA0MjMyMjMwNTAzODk2MzIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "25.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTgzMDc2OTI0NDc3MjQ0NTMxMi4wMDAwMDAgNjM3Mzc3ODc3MDk0MjkxOTY4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "24.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTg3MjIwNDc0MjY5MTAzODcyLjAwMDAwMCAtMzIzOTk1NTgyODA5NTQyNDAwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "23.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzI3NjgzOTQwMjk2OTA2MjQwLjAwMDAwMCA5NDE3MDA1NzMxMzExODkyNDguMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "22.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "Nzk0MjI5MTc0MjgwMjUwODgwLjAwMDAwMCAtOTgxOTg5Mzk5NzM5MDQxMTUyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "21.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTkyODc4MTEyMDM1NzUwMDU0NC4wMDAwMDAgLTI1NjA5MzI2MDM4NzUxMjA2NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "20.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTE3ODA0NjUzNzc5MzQ2NTg1Ni4wMDAwMDAgLTY3ODgxMjYyMTU3NzM4MDIyNC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "19.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTk5MTc0NjQ0ODk5NTkzOTMyOC4wMDAwMDAgNjk4MjIyMjk2OTc5NjU3MjE2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "18.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTY3ODg2ODgzNTEzNDEzMzc2LjAwMDAwMCAtMTIwNDQ4ODY1NDM4MDMzOTIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "17.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjM2OTQ0MjUxMjE1Mzc3NjY0LjAwMDAwMCA0MzY0MTM1NDgwMjA1MzQ1MjguMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "16.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTkzMDc2MjI1NzI3MzA5Njk2LjAwMDAwMCA0NTY1OTM4MTM2NTEwNTc5Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "15.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTE5MTA5MDc5OTQwOTAwOTY2NC4wMDAwMDAgLTI5MTY4MjYwODMzNjkzNDE0NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "14.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc1MDAyMzUxNzY0MDc3NDQwLjAwMDAwMCAxMTcyNDc3OTYzMTY2NzA3MjAuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "13.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc3MTA3NDkxNDY1MzgzNTAwOC4wMDAwMDAgLTc5NDM2OTkwODQxMTc4NTQ3Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "12.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjI3MDU0MzUxNDczODQ4NTc2LjAwMDAwMCAtOTU1OTU4MzEyNDQwNjYwNzM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "11.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODg1ODA3MDM0MDc1NDc5Mjk2LjAwMDAwMCA1ODY4Mjg1NTI5NzI5NzA3NTIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "10.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTU5MDE1ODMxOTYwNzg3MTIzMi4wMDAwMDAgLTQ1ODk0MjU0Nzk3ODQyOTk1Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "9.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjM2NzUwMDAyMTYxMjg3NDI0LjAwMDAwMCA4NDYwNTg5MDkzOTMyNDkyODAuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "8.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI5MjQ3NzQ0Nzg3MzAzOTIzMi4wMDAwMDAgLTczMTM2MjMwNjU2MjA1Nzk4NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "7.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTczNTI4NTMwNDU1NTE2NDE2LjAwMDAwMCAtNDc0NTg0Nzk1OTkzODUwMDQ4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "6.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODAwNjQ0MTA4NTM5NDI1NzkyLjAwMDAwMCAtMzc2NzkyNzUyODkyOTMwMTc2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "5.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg1MjA1NDExNTk3MjkyMDQ0OC4wMDAwMDAgLTI0NjUyOTMyODEyNDI4NzEwNC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "4.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc0MjkzNzM3MDU2MDEwNDMyMC4wMDAwMDAgLTk3NjUxNTU2MzU3NDY2NzkwNC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "3.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzIxMTQwMjAyOTI4MzI5MjE2LjAwMDAwMCAtNjcyMDk0NjUwMDc1MjcxOTM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "2.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjAgNDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "1.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MSAtMg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "0.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MSAy",
+                        "subType": "00"
+                    }
+                }
+            }
+        ],
+        "checker": [
+            {
+                "filename": "checker.sh",
+                "file_data": {
+                    "$binary": {
+                        "base64": "cHl0aG9uMyAkKGRpcm5hbWUgIiQwIikvY2hlY2tlci5weSAkMSAkMgo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "checker.py",
+                "file_data": {
+                    "$binary": {
+                        "base64": "aW1wb3J0IHN5cwoKdHJ5OgoJZjEgPSBzeXMuYXJndlsxXQoJZjIgPSBzeXMuYXJndlsyXQoJCgkKCglmMSA9IG9wZW4oc3lzLmFyZ3ZbMV0sICJyIikucmVhZCgpCglmMiA9IG9wZW4oc3lzLmFyZ3ZbMl0sICJyIikucmVhZCgpCgoJaWYgZmxvYXQoZjIpID09IHN1bShtYXAoZmxvYXQsIGYxLnNwbGl0KCkpKToKCQlwcmludChUcnVlKQoJZWxzZToKCQlwcmludChGYWxzZSkKZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgoJcHJpbnQoRmFsc2UpCg==",
+                        "subType": "00"
+                    }
+                }
+            }
+        ],
+        "judgement_mod": "first",
+        "available": [
+            "py",
+            "java",
+            "cpp"
+        ],
+        "tags": [
+            "beginner"
+        ],
+        "md": [
+            {
+                "filename": "description.md",
+                "file_data": {
+                    "$binary": {
+                        "base64": "DQojIEErQg0KDQpZb3VyIHRhc2sgaXMgdG8gW2FkZF0oaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQWRkaXRpb24pIDIgbnVtYmVycyBhbmQgcHJpbnQgdGhlIHJlc3VsdC4NCg0KIVtXaGF0IHlvdSBtdXN0IGRvXSguL3Jlcy9pbWFnZS5wbmcpDQoNCiMjIElucHV0IGZvcm1hdA0KDQpZb3UgYXJlIGdpdmVuIGEgYW5kIGIgKC0xMF4xOCA8IGEsIGIgPCAxMF4xOCkgb24gYSBzaW5nbGUgbGluZQ0Kc2VwYXJhdGVkIGJ5IGEgc3BhY2UuIFRoZSBudW1iZXJzIG1heSBiZSBmbG9hdGluZyBwb2ludCB3aXRoIHZlcnkgaGlnaCBwcmVjaXNpb24uDQoNCiMjIE91dHB1dCBmb3JtYXQNCg0KT25lIG51bWJlciB3aGljaCBpcyB0aGUgcmVzdWwNCnQgb2YgYStiDQoNCg==",
+                        "subType": "00"
+                    }
+                }
+            }
+        ]
+    }
+]
+,
+"users":
+[
+    {
+        "_id": {
+            "$oid": "667e915673f9553d21a5d479"
+        },
+        "username": "Tedor",
+        "password": {
+            "$binary": {
+                "base64": "JDJiJDE0JGZkb2tBdTJScTYxSU4yR0VRQnJXaC54RHhQMC9RYUtaUER1aFVVcENlWW9qU1lSNFlnTUFh",
+                "subType": "00"
+            }
+        },
+        "email": "idc_lol",
+        "admin": true
+    },
+    {
+        "_id": {
+            "$oid": "667e915673f9553d21a5d47a"
+        },
+        "username": "Pedor",
+        "password": {
+            "$binary": {
+                "base64": "JDJiJDE0JDhady9WcGtSOEN6NVJQWTBPa2ZQOU81cGpLRkV3S28uZDlvN0tWNFBYb2ZOMUJ4NFliVEVX",
+                "subType": "00"
+            }
+        },
+        "email": "idc_lol1",
+        "admin": true
+    }
+]
+}

@@ -14,8 +14,6 @@ from shutil import rmtree
 from zipfile import ZipFile
 import os
 
-import cbacontest, cbahelper
-
 import grpc
 
 import contest_pb2 as pb2
@@ -37,31 +35,36 @@ def test_task(task_id):
     
     submission_file = "/source"
     f = open(submission_file, "wb")
-    print(submission_info["source"])
     f.write(submission_info["source"])
     f.close()
     
     task_name = submission_info["task_name"]
     
     task = db.tasks.find_one({"uuid": task_name})
-        
-    f = open("/temp.zip", "wb")
-    f.write(task["source"])
-    f.close()
-        
-    zip_handle = ZipFile("/temp.zip")
-    for info in zip_handle.infolist():
-        zip_handle.extract(info.filename, "tasks/")
-    for info in zip_handle.infolist():
-        if info.is_dir() and info.filename.count("/") == 1:
-            if os.path.isdir(f"tasks/{task_name}"):
-                rmtree(f"tasks/{task_name}")
-            os.rename("tasks/" + info.filename, "tasks/" + task_name)
+    
+    rmtree("/tasks/current")
+    os.mkdir("/tasks/current")
+    os.mkdir("/tasks/current/tests")
+    
+    for i in task["input"]:
+        open(f'/tasks/current/tests/{i["filename"]}', "wb").write(i["file_data"])
+    
+    for i in task["checker"]:
+        open(f'/tasks/current/{i["filename"]}', "wb").write(i["file_data"])
+    
+    #zip_handle = ZipFile("/temp.zip")
+    #for info in zip_handle.infolist():
+    #    zip_handle.extract(info.filename, "tasks/")
+    #for info in zip_handle.infolist():
+    #    if info.is_dir() and info.filename.count("/") == 1:
+    #        if os.path.isdir(f"tasks/{task_name}"):
+    #            rmtree(f"tasks/{task_name}")
+    #        os.rename("tasks/" + info.filename, "tasks/" + task_name)
     
     compiler = submission_info["language"]
     time_limit_ms = "2000"
     verdict = open("verdict.temp", "w")
-    code = subprocess.check_call(["unshare", "-rn", "bash", "judge.sh", submission_file, task_name, compiler, time_limit_ms], stdout=verdict)
+    code = subprocess.check_call(["unshare", "-rn", "bash", "judge.sh", submission_file, "current", compiler, time_limit_ms], stdout=verdict)
     verdict.close()
     
     if code != 0:
@@ -81,7 +84,7 @@ def test_task(task_id):
                                    participant_id=submission_info["sender"],
                                    caller="Judge",
                                    data=submission_info["task_name"]))
-    stub.UpdateTask(pb2.UpdateData(submission_id=task_id))
+    stub.UpdateTask(pb2.UpdateMessage(submission_id=task_id))
                                
     
 

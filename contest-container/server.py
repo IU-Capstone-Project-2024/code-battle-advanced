@@ -3,8 +3,11 @@ from time import time
 from random import uniform
 from threading import Thread, Lock
 import pymongo
+from bson import ObjectId
 
 import grpc
+
+import cbahelper, cbacontest
 
 import contest_pb2 as pb2
 import contest_pb2_grpc as pb2_grpc
@@ -18,7 +21,9 @@ class Handler(pb2_grpc.ContestServicer):
     
     def check_entry(self, contest, participant):
         if db.participants.find_one({"contest_id": contest, "participant_id": participant}) == None:
-            contest_data = db.contests.find_one({"name": submission_info["contest"]})
+            contest_data = db.contests.find_one({"name": contest})
+            if contest_data == None:
+                raise ValueError(f"{contest} does not exist")
         
             profile = cbahelper.load_data(contest, participant)
         
@@ -39,6 +44,7 @@ class Handler(pb2_grpc.ContestServicer):
         contest = submission_info["contest"]
         participant = submission_info["sender"]
         task = submission_info["task_name"]
+        verdict = submission_info["verdict"]
     
         self.check_entry(contest, participant)
         
@@ -56,6 +62,8 @@ class Handler(pb2_grpc.ContestServicer):
                                {"$set":{"points": new_points}})
                                
         db.submissions.update_one({"_id": ObjectId(request.submission_id)}, {"$set":{"final_verdict":final_verdict}})
+        
+        return pb2.UpdateResponse(changed=False)
 
 
     def HandleEvent(self, request, context):
@@ -69,6 +77,8 @@ class Handler(pb2_grpc.ContestServicer):
         profile = cbahelper.load_data(contest, participant)
         profile.event_handler(caller, data)
         cbahelper.save_data(contest, participant, profile)
+        
+        return pb2.UpdateResponse(changed=False)
         
 
 

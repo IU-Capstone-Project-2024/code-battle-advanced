@@ -7,7 +7,7 @@ import markdown.extensions.fenced_code
 import uuid
 import os
 from datetime import datetime, timezone, timedelta
-from zipfile import ZipFile
+from zipfile import ZipFile, is_zipfile
 import math
 import pytz
 import shutil
@@ -70,14 +70,16 @@ def index():
 
 
 def return_bson(name):
-    uploaded_file = request.files[name]
-    filename = uploaded_file.filename
-    file_data = uploaded_file.read()
-    bson_document = {
-        'filename': filename,
-        'file_data': bson.Binary(file_data)
-    }
-    return bson_document
+    uploaded_files = request.files.getlist(name)
+    bson_documents = []
+    for i in uploaded_files:
+        filename = i.filename
+        file_data = i.read()
+        bson_documents.append({
+            'filename': filename,
+            'file_data': bson.Binary(file_data)
+        })
+    return bson_documents
 
 
 @app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
@@ -97,7 +99,7 @@ def contest(contest_name):
     if request.method == 'POST':
         filename = str(uuid.uuid4())
         available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
-        md = return_bson('md-file')
+        md = return_bson('md-file')[0]
         if 'input-file' in request.files and 'checker-file' in request.files:
             input1 = return_bson('input-file')
             checker = return_bson('checker-file')
@@ -197,7 +199,7 @@ def contest_task(contest_name, task_name):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
 
-    md_template_string += render_template('task.html', url=task_name, username=session['username'])
+    md_template_string += render_template('task.html', url=task_name, username=session['username'], contest_name=contest_name)
     return md_template_string
 
 

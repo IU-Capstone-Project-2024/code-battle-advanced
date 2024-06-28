@@ -1,7 +1,7 @@
-import cbacontest
+import cbacontest, cbamodule
 import bson
 
-def save_data(contest_id: str, participant_id: str, contestant: cbacontest.ContestantData):
+def save_data(contest_id: str, participant_id: str, contestant: cbamodule.ContestantData):
     import pymongo
     mongo_uri_docker = "mongodb://sUbskr1bet0:1celypuZZl3s@192.168.49.2:32000/CBA_database?authSource=admin"
     
@@ -18,7 +18,7 @@ def save_data(contest_id: str, participant_id: str, contestant: cbacontest.Conte
     
     
 
-def load_data(contest_id: str, participant_id: str) -> cbacontest.ContestantData:
+def load_data(contest_id: str, participant_id: str) -> cbamodule.ContestantData:
     import pymongo
     mongo_uri_docker = "mongodb://sUbskr1bet0:1celypuZZl3s@192.168.49.2:32000/CBA_database?authSource=admin"
     
@@ -38,4 +38,4 @@ def load_data(contest_id: str, participant_id: str) -> cbacontest.ContestantData
         task_results = part_data["task_results"]
         storage = part_data["storage"]
     
-    return cbacontest.ContestantData(storage, task_results, tasks)
+    return cbamodule.ContestantData(storage, task_results, tasks)
