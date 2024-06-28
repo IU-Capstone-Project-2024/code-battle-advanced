@@ -17,8 +17,9 @@ COPY ./judge.sh /judge.sh
 COPY ./contest_pb2.py /contest_pb2.py
 COPY ./contest_pb2.pyi /contest_pb2.pyi
 COPY ./contest_pb2_grpc.py /contest_pb2_grpc.py
-COPY ./cbahelper.py /cbahelper.py
-COPY ./cbacontest.py /cbacontest.py
+
+RUN mkdir /tasks
+RUN mkdir /tasks/current
 
 EXPOSE 5000
 
