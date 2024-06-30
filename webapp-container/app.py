@@ -204,7 +204,7 @@ def contest_task(contest_name, task_name):
 
 
 def success_support_func(task_name):
-    languages = {"Python 3.19": "python3", "C++ 17": "cpp"}
+    languages = {"Python 3.19": "python3", "C++ 17": "cpp", "Java":"java"}
     language = request.form['language']
     number = get_number(session["username"], task_name)
     f = request.files['file']
