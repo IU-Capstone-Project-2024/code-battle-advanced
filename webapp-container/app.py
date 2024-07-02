@@ -158,7 +158,7 @@ def task(task_name):
     if 'username' not in session:
         return render_template('unauthorized.html')
 
-    result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_name"]
+    result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_data"]
 
     md_template_string = markdown.markdown(
         result.decode(), extensions=["fenced_code"]
@@ -178,14 +178,16 @@ def task(task_name):
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
 def contest_task(contest_name, task_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
+    
+    if 'username' not in session:
+        return render_template('unauthorized.html')
+        
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
     start_time = pytz.utc.localize(my_contest['startTime'])
     if (not start_time
             <= datetime.now(pytz.utc) <= start_time
             + timedelta(minutes=int(my_contest['duration'])) and not (admin and start_time > datetime.now(pytz.utc))):
         return render_template("error.html")
-    if 'username' not in session:
-        return render_template('unauthorized.html')
 
     result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_data"]
     md_template_string = markdown.markdown(
@@ -199,7 +201,7 @@ def contest_task(contest_name, task_name):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
 
-    md_template_string += render_template('task.html', url=task_name, username=session['username'], contest_name=contest_name)
+    md_template_string = render_template('task_top.html', url=task_name, username=session['username'], contest_name=contest_name) + md_template_string + render_template('task_bottom.html', url=task_name, username=session['username'], contest_name=contest_name)
     return md_template_string
 
 
@@ -324,7 +326,7 @@ def create_contest():
                                       'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
                                                                                        "%d/%m/%Y %H:%M:%S")),
                                       'allowed_teams': 'teams' in request.form,
-                                      'widgets': bson_document})
+                                      'config': bson_document})
         mongo.db.widgets.insert_one({'name': request.form['ContestName'], 'widget': bson_document})
 
     return render_template('create.html', admin=admin)
