@@ -1,0 +1,39 @@
+    
+          {%if contest_name is defined%}
+          <form class="form" action="/contest/{{contest_name}}/task/{{url}}/success" method="post" enctype="multipart/form-data">
+            <div class="form__select-wrapper">
+              <input id="choose-file" type="file" name="file" hidden />
+              <label class="green-btn" for="choose-file">Choose File</label>
+              <select class="green-btn" name='language' id='language'>
+                <option value="C++ 17">C++ 17</option>
+                <option value="Python 3.19">Python 3.19</option>
+                <option value="Java">Java</option>
+              </select>
+            </div>
+            <input class="purple-btn" type="submit" value="Upload">
+          </form>
+          {%else%}
+          <form class="form" action="/task/{{url}}/success" method="post" enctype="multipart/form-data">   
+            <div class="form__select-wrapper">
+              <input id="choose-file" type="file" name="file" hidden />
+              <label class="green-btn" for="choose-file">Choose File</label>
+              <select class="green-btn" name='language' id='language'>
+                <option value="C++ 17">C++ 17</option>
+                <option value="Python 3.19">Python 3.19</option>
+                <option value="Java">Java</option>
+              </select>
+            </div>
+            <input class="purple-btn" type="submit" value="Upload">
+          </form>
+          {%endif%}
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__copyright">&copy; Copyright</p>
+      </div>
+    </footer>
+  </body>
+</html>
