@@ -1,5 +1,6 @@
 .footer {
     background-color: #1F1F1F;
+    flex: 0 1 40px;
 }
 
 .footer__copyright {

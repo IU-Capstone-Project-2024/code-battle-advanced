@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Battle Advanced</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <link rel="stylesheet" href="../static/general.css">
+    <link rel="stylesheet" href="../static/header.css">
+    <link rel="stylesheet" href="../static/main.css">
+    <link rel="stylesheet" href="../static/footer.css">
+    <link rel="stylesheet" href="../static/buttons.css">
+    <link rel="stylesheet" href="../static/create.css">
+    <link rel="stylesheet" href="../static/checkbox.css">
 </head>
 <body>
-    <h1>Code Battle Advanced</h1>
-    <div class="container">
-        <div class="header">
-            <nav>
-                <ul class="nav nav-pills pull-right">
-                    <li role="presentation"><a href="index">Home</a></li>
-                </ul>
-            </nav>
+    <header class="header">
+        <div class="container">
+          <nav class="nav">
+            <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
+          </nav>
         </div>
-        {% if admin is defined %}
-        {% if admin %}
-        <form class="form-contest" action="/create" method="post" enctype="multipart/form-data">
-            <p>Contest name:</p>
-            <input type="text" name="ContestName" id="ContestName" class="form-control" placeholder="ContestName" required autofocus>
-            <p>Start time in UTC:</p>
-            <input type="text" name="StartTime" id="StartTime" class="form-control" placeholder="DD/MM/YYYY HH:MM:SS" required autofocus>
-            <p>Duration in minutes:</p>
-            <input type="text" name="duration" id="duration" class="form-control" placeholder="" required autofocus>
-            <p>You can upload your own type of contest in python format:</p>
-            <input type="file" name="type_python">
-            <input type="checkbox" name="teams" id="teams" value="No">
-            <label for="teams"> Teams are allowed</label><br>
-            <button id="Submit" class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-        </form>
-        {% endif %}
-        {% endif %}
-    </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            {% if admin is defined %}
+            {% if admin %}
+            <form class="form-contest" action="/create" method="post" enctype="multipart/form-data">
+                <label for="ContestName">Contest name:</label>
+                <input type="text" name="ContestName" id="ContestName" class="form-control" placeholder="Contest's title" required autofocus>
+                <label for="StartTime">Start time in UTC:</label>
+                <input type="text" name="StartTime" id="StartTime" class="form-control" placeholder="Format: DD/MM/YYYY HH:MM:SS" required autofocus>
+                <label for="duration">Duration in minutes:</label>
+                <input type="text" name="duration" id="duration" class="form-control" placeholder="Duration" required autofocus>
+                <p class="form__contest-upload">You can upload your own type of contest in python format:</p>
+                <label class="green-btn" for="choose-file">Choose File</label>
+                <input type="file" name="type_python" id="choose-file" hidden>
+                <input class="form-check-input" type="checkbox" value="No" id="teams" name="teams">
+                <label for="teams">Teams are allowed</label>
+                <button id="Submit" class="purple-btn btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__copyright">&copy; Copyright</p>
+        </div>
+    </footer>
 </body>
 </html>

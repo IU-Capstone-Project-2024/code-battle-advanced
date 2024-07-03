@@ -1,16 +1,48 @@
-.main__wrapper {
-    justify-content: center;
+.form {
+    max-width: 400px;
+    row-gap: 1em;
 }
 
-.form {
+.form, .form__lang-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.form__choose-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 1em;
+    margin-bottom: 0.5em;
+    justify-content: center;
 }
 
-.purple-btn, .green-btn {
-    min-width: 170px;
-    width: fit-content;
+.green-btn {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.form__selector {
+    width: 100%;
+    text-align: center;
+    color: #000000;
+    background-color: #00C643;
+    border: none;
+    outline: none;
+    border-radius: 1em;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form__selector-option {
+    background-color: #00C643;
+    color: #000000;
+}
+
+.form__input {
+    border-bottom: 3px solid #000000;
+    border-radius: 0.4em;
+    padding: 0 0.4em;
+    font-size: 18px;
+    margin-bottom: 1em;
 }
 
