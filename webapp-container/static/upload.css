@@ -1,6 +1,12 @@
 .form {
+    margin-top: 0.5em;
     max-width: 400px;
     row-gap: 1em;
+    margin: 0 auto;
+}
+
+.form > h2 {
+    text-align: center;
 }
 
 .form, .form__lang-wrapper {

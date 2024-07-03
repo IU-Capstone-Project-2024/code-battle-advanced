@@ -24,188 +24,71 @@
             </div>
         </header>
     
-    <main class="main">
-        <div class="container">
-            <!-- {%if admin is defined %}
-            {%if admin%} -->
-            <select class="form__selector" name="form_selector" onchange="showForm()">
-                <option class="form__selector-option" value="form1">Input+checker</option>
-                <option class="form__selector-option" value="form2">Input+solution</option>
-                <option class="form__selector-option" value="form3">Input+interactive</option>
-                <option class="form__selector-option" value="form4">Input+output</option>
-            </select>
-            <form class="form" method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form1">
-                <h2>Input + checker</h2>
-                <div class="form__choose-wrapper">
-                    <label class="green-btn">Input file</label>
-                    <input type="file" name="input-file" multiple hidden>
-                    <label class="green-btn">Checker file</label>
-                    <input type="file" name="checker-file" multiple hidden>
-                    <label class="green-btn">Description file</label>
-                    <input type="file" name="md-file" hidden>
-                </div>
-                
-                <select class="form__selector" name="judgement_mod" id="judgement_mod">
-                    <option class="form__selector-option" value="first">Until first error</option>
-                    <option class="form__selector-option" value="all">All tests</option>
-                </select>
+        <main class="main">
+            <div class="container">
+                {%if admin is defined %}
+                    {%if admin%}
+                    <select class="form__selector" name="form_selector" onchange="showForm()">
+                        <option class="form__selector-option" value="Input+checker">Input + checker</option>
+                        <option class="form__selector-option" value="Input+solution">Input + solution</option>
+                        <option class="form__selector-option" value="Input+interactive">Input + interactive</option>
+                        <option class="form__selector-option" value="Input+output">Input + output</option>
+                    </select>
+                    <form class="form" method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form1">
+                        <h2 id="form-header">Input + checker</h2>
+                        <div class="form__choose-wrapper">
+                            <label class="green-btn">Input file</label>
+                            <input type="file" name="input-file" multiple hidden>
+                            <label class="green-btn">Checker file</label>
+                            <input type="file" name="checker-file" multiple hidden>
+                            <label class="green-btn">Description file</label>
+                            <input type="file" name="md-file" hidden>
+                        </div>
+                        
+                        <select class="form__selector" name="judgement_mod" id="judgement_mod">
+                            <option class="form__selector-option" value="first">Until first error</option>
+                            <option class="form__selector-option" value="all">All tests</option>
+                        </select>
 
-                <div class="form__lang-wrapper">
-                    <label>Available languages: </label>
-                    <input class="form-check-input" type="checkbox" id="py" name="py" checked/>
-                    <label for="py">Python</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="java" name="java" checked/>
-                    <label for="java">Java</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="cpp" name="cpp" checked/>
-                    <label for="cpp">C++</label>
-                </div>
+                        <div class="form__lang-wrapper">
+                            <label>Available languages: </label>
+                            <input class="form-check-input" type="checkbox" id="py" name="py" checked/>
+                            <label for="py">Python</label>
+                            
+                            <input class="form-check-input" type="checkbox" id="java" name="java" checked/>
+                            <label for="java">Java</label>
+                            
+                            <input class="form-check-input" type="checkbox" id="cpp" name="cpp" checked/>
+                            <label for="cpp">C++</label>
+                        </div>
 
-                <div class="form__data-wrapper">
-                    <label for="name">Name:</label> 
-                    <input class="form__input" type="name" id="name" name="name">
-                    <label for="tags">Tags:</label> 
-                    <input class="form__input" type="tags" id="tags" name="tags">
-                </div>
-                
-                <button class="purple-btn" type="submit">Submit</button>
-            </form>
+                        <div class="form__data-wrapper">
+                            <label for="name">Name:</label> 
+                            <input class="form__input" type="name" id="name" name="name">
+                            <label for="tags">Tags:</label> 
+                            <input class="form__input" type="tags" id="tags" name="tags">
+                        </div>
+                        
+                        <button class="purple-btn" type="submit">Submit</button>
+                    </form>
+                    {%endif%}
+                {%endif%}
+            </div>
+        </main>
 
-            <form class="form" method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form2">
-                <h2>Input + solution</h2>
-                <div class="form__choose-wrapper">
-                    <label class="green-btn">Input file</label>
-                    <input type="file" name="input-file" multiple hidden>
-                    <label class="green-btn">Checker file</label>
-                    <input type="file" name="checker-file" multiple hidden>
-                    <label class="green-btn">Description file</label>
-                    <input type="file" name="md-file" hidden>
-                </div>
+        <footer class="footer">
+            <div class="container">
+                <p class="footer__copyright">&copy; Copyright</p>
+            </div>
+        </footer>
 
-                <select class="form__selector" name="judgement_mod" id="judgement_mod">
-                    <option class="form__selector-option" value="first">Until first error</option>
-                    <option value="all">All tests</option>
-                </select>
+        <script>
+            function showForm() {
+                const selectedForm = document.querySelector('select[name="form_selector"]').value;
+                const changedHeader = document.getElementById('form-header');
 
-                <div class="form__lang-wrapper">
-                    <label>Available languages: </label>
-                    <input class="form-check-input" type="checkbox" id="py" name="py" checked/>
-                    <label for="py">Python</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="java" name="java" checked/>
-                    <label for="java">Java</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="cpp" name="cpp" checked/>
-                    <label for="cpp">C++</label>
-                </div>
-                
-                <div class="form__data-wrapper">
-                    <label for="name">Name:</label> 
-                    <input class="form__input" type="name" id="name" name="name">
-                    <label for="tags">Tags:</label> 
-                    <input class="form__input" type="tags" id="tags" name="tags">
-                </div>
-                
-                <button class="purple-btn" type="submit">Submit</button>
-            </form>
-
-            <form class="form" method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form3" style="display: none;">
-                <h2>Input + interactive</h2>
-                <div class="form__choose-wrapper">
-                    <label class="green-btn">Input file</label>
-                    <input type="file" name="input-file" multiple hidden>
-                    <label class="green-btn">Checker file</label>
-                    <input type="file" name="checker-file" multiple hidden>
-                    <label class="green-btn">Description file</label>
-                    <input type="file" name="md-file" hidden>
-                </div>
-
-                <select class="form__selector" name="judgement_mod" id="judgement_mod">
-                    <option class="form__selector-option" value="first">Until first error</option>
-                    <option value="all">All tests</option>
-                </select>
-
-                <div class="form__lang-wrapper">
-                    <label>Available languages: </label>
-                    <input class="form-check-input" type="checkbox" id="py" name="py" checked/>
-                    <label for="py">Python</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="java" name="java" checked/>
-                    <label for="java">Java</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="cpp" name="cpp" checked/>
-                    <label for="cpp">C++</label>
-                </div>
-                
-                <div class="form__data-wrapper">
-                    <label for="name">Name:</label> 
-                    <input class="form__input" type="name" id="name" name="name">
-                    <label for="tags">Tags:</label> 
-                    <input class="form__input" type="tags" id="tags" name="tags">
-                </div>
-                
-                <button class="purple-btn" type="submit">Submit</button>
-            </form>
-
-            <form class="form" method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form4" style="display:none;">
-                <h2>Input + output</h2>
-                <div class="form__choose-wrapper">
-                    <label class="green-btn">Input file</label>
-                    <input type="file" name="input-file" multiple hidden>
-                    <label class="green-btn">Checker file</label>
-                    <input type="file" name="checker-file" multiple hidden>
-                    <label class="green-btn">Description file</label>
-                    <input type="file" name="md-file" hidden>
-                </div>
-                
-                <select class="form__selector" name="judgement_mod" id="judgement_mod">
-                    <option class="form__selector-option" value="first">Until first error</option>
-                    <option value="all">All tests</option>
-                </select>
-
-                <div class="form__lang-wrapper">
-                    <label>Available languages: </label>
-                    <input class="form-check-input" type="checkbox" id="py" name="py" checked/>
-                    <label for="py">Python</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="java" name="java" checked/>
-                    <label for="java">Java</label>
-                    
-                    <input class="form-check-input" type="checkbox" id="cpp" name="cpp" checked/>
-                    <label for="cpp">C++</label>
-                </div>
-
-                <div class="form__data-wrapper">
-                    <label for="name">Name:</label> 
-                    <input class="form__input" type="name" id="name" name="name">
-                    <label for="tags">Tags:</label> 
-                    <input class="form__input" type="tags" id="tags" name="tags">
-                </div>
-                
-                <button class="purple-btn" type="submit">Submit</button>
-            </form>
-            <!-- {%endif%}
-            {%endif%} -->
-        </div>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p class="footer__copyright">&copy; Copyright</p>
-        </div>
-    </footer>
-
-    <script>
-        function showForm() {
-            var selectedForm = document.querySelector('select[name="form_selector"]').value;
-            
-            document.getElementById('form1').style.display = 'none';
-            document.getElementById('form2').style.display = 'none';
-            document.getElementById('form3').style.display = 'none';
-            document.getElementById('form4').style.display = 'none';
-            document.getElementById(selectedForm).style.display = 'flex';
-        }
-    </script>
+                changedHeader.textContent = selectedForm;
+            }
+        </script>
     </body>
 </html>
