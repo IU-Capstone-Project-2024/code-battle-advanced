@@ -326,8 +326,9 @@ def create_contest():
                                       'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
                                                                                        "%d/%m/%Y %H:%M:%S")),
                                       'allowed_teams': 'teams' in request.form,
-                                      'config': bson_document})
-        mongo.db.widgets.insert_one({'name': request.form['ContestName'], 'widget': bson_document})
+                                      'config': bson_document,
+                                      'new_global_events': [(0, "Start", {})],
+                                      'global_events': []})
 
     return render_template('create.html', admin=admin)
 
