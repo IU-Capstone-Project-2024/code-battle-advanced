@@ -173,7 +173,7 @@ def task(contest_name=None, task_name=None):
         result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_data"]
 
     md_template_string = markdown.markdown(
-        result.decode(), extensions=["fenced_code"]
+        result.decode(), extensions=["fenced_code", 'tables']
     )
 
     # Copy static resources and update paths in the Markdown content
@@ -183,8 +183,7 @@ def task(contest_name=None, task_name=None):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
 
-    md_template_string += render_template('task.html', url=task_name, username=session['username'],
-                                          contest_name=contest_name)
+    md_template_string = render_template('task_top.html', url=task_name, username=session['username'], contest_name=contest_name) + md_template_string + render_template('task_bottom.html', url=task_name, username=session['username'], contest_name=contest_name)
     return md_template_string
 
 
@@ -370,7 +369,7 @@ def available_contests(type_contests):
         session['contests'] = []
         for i in mongo.db.contests.find():
             start_time = pytz.utc.localize(i['startTime'])
-            if error(admin, i):
+            if not error(admin, i):
                 session['contests'].append(i['name'])
         if type_contests == 'available':
             return render_template('available.html', listOfUrls=session['contests'], admin=admin,

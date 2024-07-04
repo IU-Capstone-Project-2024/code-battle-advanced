@@ -30,7 +30,7 @@
             <h2 class="contest__header">{{contest_name}}</h2>
             {% for name, uuid in listOfTasks %}
             <article class="task">
-               <h3 class="task__header">{{name}}</h3>
+               <h2 class="task__header">{{name}}</h2>
                <p class="red-btn" role="presentation"><a class="content__task-link" href={{contest_name}}/task/{{uuid}}>To task</a></p>
             </article>
             {% endfor %}
