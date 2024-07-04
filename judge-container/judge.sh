@@ -5,11 +5,6 @@ task=$2
 compiler=$3
 mstime=$4
 numberOfFiles=$(ls -1 ./tasks/$task/tests| wc -l)
-code=$1
-task="A+B"
-compiler=$3
-mstime=$4
-numberOfFiles=$(ls -1 ./tasks/$task/tests| wc -l)
 
 if [ ! -e "./tasks/$2/checker.sh" ]
 then
@@ -21,7 +16,7 @@ if [ "$compiler" = "cpp" ]; then
 	g++ -x c++ $code -o compiledCode
 	exitCode=$?
 	if [ ! $exitCode -eq 0 ]  ; then
-		echo CE
+		echo CE 0 0
 		exit
 	fi
 fi
@@ -30,7 +25,7 @@ if [ "$compiler" = "java" ]; then
 	javac -d "$PWD" $code
 	exitCode=$?
 	if [ ! $exitCode -eq 0 ]  ; then
-		echo CE
+		echo CE 0 0
 		exit
 	fi
 	compiledClass=${code##*/}
@@ -57,15 +52,15 @@ do
 		
 		
 		if [ $exitCode -eq 137 ]  ; then
-			echo TL $fileId
+			echo TL $fileId 0
 		else if [ $exitCode -eq 124 ]  ; then
-			echo TL $fileId
+			echo TL $fileId 0
 		else if [ ! $exitCode -eq 0 ]  ; then
-			echo RE $fileId
+			echo RE $fileId 0
 		else if [ ! $(sh ./tasks/$task/checker.sh $file temp.out) = "True" ] ; then
-			echo WA $fileId
+			echo WA $fileId 0
 		else
-			echo AC $fileId
+			echo AC $fileId 1
 		fi fi fi fi
 		rm temp.out
 	fi

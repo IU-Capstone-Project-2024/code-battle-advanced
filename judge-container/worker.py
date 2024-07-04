@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import time
+from datetime import datetime, timedelta
 import pymongo
 from bson import ObjectId
 import json
@@ -79,12 +80,10 @@ def test_task(task_id):
     pathlib.Path.unlink(submission_file)
     db.submissions.update_one({"_id": ObjectId(task_id)}, {"$set":{"verdict":verdict}})
     
-    stub = get_stub()
-    stub.HandleEvent(pb2.EventData(contest_id=submission_info["contest"], 
-                                   participant_id=submission_info["sender"],
-                                   caller="Judge",
-                                   data=submission_info["task_name"]))
-    stub.UpdateTask(pb2.UpdateMessage(submission_id=task_id))
+    cur_contest_time = datetime.utcnow() - db.contests.find_one({"name":submission_info['contest']})['startTime']
+    cur_contest_time = int(cur_contest_time / timedelta(milliseconds=1))
+    
+    get_stub().UpdateTask(pb2.UpdateMessage(time=cur_contest_time, submission_id=task_id))
                                
     
 
