@@ -32,9 +32,9 @@ class Handler(pb2_grpc.ContestServicer):
         contest = db.contests.find_one({"name":contest_id})
         part_data = db.participants.find_one({"contest_id": contest_id, "participant_id": participant_id})
     
-        #config_file = open("cbamodule.py", "wb")
-        #config_file.write(contest["config"]['file_data'])
-        #config_file.close()
+        config_file = open("cbamodule.py", "wb")
+        config_file.write(contest["config"]['file_data'])
+        config_file.close()
         config = import_module("cbamodule")
         
         tasks = contest["tasks"]
