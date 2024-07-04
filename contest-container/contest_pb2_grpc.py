@@ -24,6 +24,11 @@ class ContestStub(object):
                 request_serializer=contest__pb2.EventData.SerializeToString,
                 response_deserializer=contest__pb2.UpdateResponse.FromString,
                 )
+        self.GoToTime = channel.unary_unary(
+                '/Contest/GoToTime',
+                request_serializer=contest__pb2.GoToTimeMessage.SerializeToString,
+                response_deserializer=contest__pb2.UpdateResponse.FromString,
+                )
 
 
 class ContestServicer(object):
@@ -41,6 +46,12 @@ class ContestServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GoToTime(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ContestServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -52,6 +63,11 @@ def add_ContestServicer_to_server(servicer, server):
             'HandleEvent': grpc.unary_unary_rpc_method_handler(
                     servicer.HandleEvent,
                     request_deserializer=contest__pb2.EventData.FromString,
+                    response_serializer=contest__pb2.UpdateResponse.SerializeToString,
+            ),
+            'GoToTime': grpc.unary_unary_rpc_method_handler(
+                    servicer.GoToTime,
+                    request_deserializer=contest__pb2.GoToTimeMessage.FromString,
                     response_serializer=contest__pb2.UpdateResponse.SerializeToString,
             ),
     }
@@ -94,6 +110,23 @@ class Contest(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Contest/HandleEvent',
             contest__pb2.EventData.SerializeToString,
+            contest__pb2.UpdateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GoToTime(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Contest/GoToTime',
+            contest__pb2.GoToTimeMessage.SerializeToString,
             contest__pb2.UpdateResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

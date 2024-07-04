@@ -1,50 +1,4 @@
 {
-"widgets":
-[
-    {
-        "_id": {
-            "$oid": "667e91675776a7f5501b69f5"
-        },
-        "name": "Test123",
-        "widget": {
-            "filename": "99.in",
-            "file_data": {
-                "$binary": {
-                    "base64": "LTg2NjczNTk4NDYxNzIzNzUwNC4wMDAwMDAgNjU5NzQ5MTAwMTYyNjY3NTIwLjAwMDAwMA==",
-                    "subType": "00"
-                }
-            }
-        }
-    }
-]
-,
-"contests":
-[
-    {
-        "_id": {
-            "$oid": "667e91675776a7f5501b69f4"
-        },
-        "name": "Test123",
-        "tasks": [
-            "d4438089-8b6f-4596-825c-d56de9ac00f9"
-        ],
-        "duration": "66666666",
-        "startTime": {
-            "$date": "2024-05-18T18:09:00Z"
-        },
-        "allowed_teams": "No",
-        "widgets": {
-            "filename": "99.in",
-            "file_data": {
-                "$binary": {
-                    "base64": "LTg2NjczNTk4NDYxNzIzNzUwNC4wMDAwMDAgNjU5NzQ5MTAwMTYyNjY3NTIwLjAwMDAwMA==",
-                    "subType": "00"
-                }
-            }
-        }
-    }
-]
-,
 "tasks":
 [
     {
@@ -984,16 +938,3668 @@
         "tags": [
             "beginner"
         ],
-        "md": [
+        "md": {
+            "filename": "description.md",
+            "file_data": {
+                "$binary": {
+                    "base64": "DQojIEErQg0KDQpZb3VyIHRhc2sgaXMgdG8gW2FkZF0oaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQWRkaXRpb24pIDIgbnVtYmVycyBhbmQgcHJpbnQgdGhlIHJlc3VsdC4NCg0KIVtXaGF0IHlvdSBtdXN0IGRvXSguL3Jlcy9pbWFnZS5wbmcpDQoNCiMjIElucHV0IGZvcm1hdA0KDQpZb3UgYXJlIGdpdmVuIGEgYW5kIGIgKC0xMF4xOCA8IGEsIGIgPCAxMF4xOCkgb24gYSBzaW5nbGUgbGluZQ0Kc2VwYXJhdGVkIGJ5IGEgc3BhY2UuIFRoZSBudW1iZXJzIG1heSBiZSBmbG9hdGluZyBwb2ludCB3aXRoIHZlcnkgaGlnaCBwcmVjaXNpb24uDQoNCiMjIE91dHB1dCBmb3JtYXQNCg0KT25lIG51bWJlciB3aGljaCBpcyB0aGUgcmVzdWwNCnQgb2YgYStiDQoNCg==",
+                    "subType": "00"
+                }
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6685cab229bf8092645d06ed"
+        },
+        "uuid": "9bf43136-9df2-4ebf-8f34-4d310e7b223e",
+        "task_name": "A+B2",
+        "input": [
             {
-                "filename": "description.md",
+                "filename": "99.in",
                 "file_data": {
                     "$binary": {
-                        "base64": "DQojIEErQg0KDQpZb3VyIHRhc2sgaXMgdG8gW2FkZF0oaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQWRkaXRpb24pIDIgbnVtYmVycyBhbmQgcHJpbnQgdGhlIHJlc3VsdC4NCg0KIVtXaGF0IHlvdSBtdXN0IGRvXSguL3Jlcy9pbWFnZS5wbmcpDQoNCiMjIElucHV0IGZvcm1hdA0KDQpZb3UgYXJlIGdpdmVuIGEgYW5kIGIgKC0xMF4xOCA8IGEsIGIgPCAxMF4xOCkgb24gYSBzaW5nbGUgbGluZQ0Kc2VwYXJhdGVkIGJ5IGEgc3BhY2UuIFRoZSBudW1iZXJzIG1heSBiZSBmbG9hdGluZyBwb2ludCB3aXRoIHZlcnkgaGlnaCBwcmVjaXNpb24uDQoNCiMjIE91dHB1dCBmb3JtYXQNCg0KT25lIG51bWJlciB3aGljaCBpcyB0aGUgcmVzdWwNCnQgb2YgYStiDQoNCg==",
+                        "base64": "LTg2NjczNTk4NDYxNzIzNzUwNC4wMDAwMDAgNjU5NzQ5MTAwMTYyNjY3NTIwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "98.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTg2NTc1OTI3NzcwOTA0MzIwLjAwMDAwMCAzMTc3NzkzMzIzMTIxNzEyNjQuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "97.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTM3NzQwOTI3MzAyMDA3MDQuMDAwMDAwIDY2ODE1NjIwNDE3MjI0MDM4NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "96.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzU2MTc2NTY3MDUwOTgyNjU2LjAwMDAwMCAtNzQ4MzIwNTYxNTY5ODMyOTYuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "95.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTgzNzUzODY4NjY1NzU3MTg0LjAwMDAwMCAtNjA1MzgxNjU5NTkyNzQ1OTg0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "94.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQxMTY0NTIwNDQ0MTMyOTY2NC4wMDAwMDAgNjU1MTU3ODMxMTUyMTg3OTA0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "93.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjMyMzg1NDc2MDc2MzMyODAuMDAwMDAwIDk4NzExNjY5MjE3MzUwODg2NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "92.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTIwMzk2MTIzMDY2MzUwNTkyLjAwMDAwMCAtOTM1MTU0OTc0OTE3NDIzMTA0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "91.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NDU2NTYwNDEwODg5MzM4ODguMDAwMDAwIDc2OTE5ODU2NDY4OTkyNzY4MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "90.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTczNTk1OTczMjgwNzkzMDExMi4wMDAwMDAgMjMxMDcxMDM2MjY3MDk4MTEyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "89.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc1ODM2NTc1ODExMTUzNTM2MC4wMDAwMDAgNTM3NDcxNjA4NDAyMjExMDcyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "88.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg2ODg0NzE5MTk5MTM0MTQ0MC4wMDAwMDAgNDY2ODUxNjQxNjgxMjU0MTQ0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "87.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg2ODc0Mjg1Mzc1Mzc0NDg5Ni4wMDAwMDAgLTMyODEyNjQ3NzUzMDA4MTI4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "86.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTM0NzAxMjkxMjIyNTU3OTUyLjAwMDAwMCAtNTEzMDQ5ODQ1MzA1ODA3NjgwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "85.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MzE5OTAwMDY3ODU4OTUyMTkyLjAwMDAwMCAtNDQ4MTAyNjkzMzI2MjQxNzI4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "84.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI3OTY4NjgzOTYxODA3ODcyMC4wMDAwMDAgOTk5MjA4NTM3NjIzMzg3MTM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "83.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjE3NTk3OTM1NTYzNDU2NTEyLjAwMDAwMCAtNzc5MjYwODc3NjEwMzM2NzY4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "82.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc4NzgwMDM2ODA1MTc3MTc3Ni4wMDAwMDAgLTMzMDk1MDY1NDE5OTk1Njk5Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "81.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTQyMjk0OTY3NzE0NzE2OTI4LjAwMDAwMCA3ODg3NjAzNjcwMTYzNDA5OTIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "80.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTM4NjgwMDc1NzYwMzU0NDU3Ni4wMDAwMDAgMTc2ODg1NjI2MjQ3OTI0NDgwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "79.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjQxMTg0ODUyMTM4NzE3OTUyLjAwMDAwMCAtNjYxMjMzODc1OTY2OTEwNDY0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "78.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc4Njk0MDg4MzAwMjQwNjkxMi4wMDAwMDAgLTU5OTk3MTM0NzQ5NTE3Mjg2NC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "77.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI1Mzk3MTMxNjk4ODc2MTYuMDAwMDAwIC02OTk3NDQzOTU1MTY0MjcyNjQuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "76.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzA1NDI3NDk0MTc5MDc1MzI4LjAwMDAwMCAtNTU2MDU3MzQ2MzY0MDMwNzg0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "75.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc4MzgzMDk5NTQ5NDI5MTcxMi4wMDAwMDAgODYzMzg1NDAzMDk5ODY2NjI0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "74.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQ5MDAyNDg5ODQyMDAwODY0MC4wMDAwMDAgMjgzMTgxODcwNzU2NTM1Mjk2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "73.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY5Njg0MTI5MDE0MjIyNDY0MC4wMDAwMDAgLTI1OTcwMTMzOTgyMjM1NjQ4MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "72.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NDMxOTI2NTE1OTg2Mjg2MzM2LjAwMDAwMCAtNjgwODM5MDcyMjA0NzExMDQwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "71.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTY4Mjk3NDMzMjc0MTk2NDguMDAwMDAwIDQ1NTMyMDI2ODQwOTEwMjg0OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "70.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTA2Mzg0OTUxNjU5MDI2MTc2LjAwMDAwMCAtODQ1MjY5MjQ5NTM1Njk3NDA4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "69.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjA5MTkwNTk4MTc0OTQ3ODQwLjAwMDAwMCAtMTI5NDQ0NDIxNjkzNDcwMDgwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "68.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjgwODkxMzI4MjU4NDkxNjQ4LjAwMDAwMCA5MTkzMTk1Njg5MjgxNjUxMjAuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "67.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTcwODY1NDQwNzY4MDU5MTM2LjAwMDAwMCAtMzM1NzgxOTEwMTE5MTg3MjAwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "66.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "Nzk4NDEwNjM0MzA2NzI4NDQ4LjAwMDAwMCAtNTE2OTcwMjQ2NjUzODg4MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "65.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTk5MzQwNDI0ODU1MTU0NTYwLjAwMDAwMCA0NjMzNDAxMjEzNDI0MDc2OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "64.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQwOTQzMzc5NDA1MzM2NzY4MC4wMDAwMDAgMTg1OTg0NDc5NDY4MjI5ODg4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "63.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTE1NTI0MjQ1NzYyMzEyOTYuMDAwMDAwIC03MTc2OTIyNDg0NzUzNTk2MTYuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "62.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjA5MDg5ODE2NTY5NjEyOC4wMDAwMDAgMjA3ODU1NDc3OTU2MzI2MTQ0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "61.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTgwMTk4NTAzMTYxNDA2MzYxNi4wMDAwMDAgLTcwMjUzMDI5MTY4Mjc0NTA4OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "60.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NTg5OTI3NjYxOTkwNzkwNjU2LjAwMDAwMCAtNTA3NzU3NTgyMzk4ODMzNjAwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "59.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODYxNDA4NjI5ODU3MjAyMTc2LjAwMDAwMCAtOTY5MDg4MDY5MzAwMjM3NDQwLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "58.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjE2MTk3OTc3MzIxNDM0ODguMDAwMDAwIDU3NzY2NzczMjI3NzgyMDkyOC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "57.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTIwNTcwODYxNDE2ODgwNTM3Ni4wMDAwMDAgLTIwODE0NjM4MjUxOTA3MDU5Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "56.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTIyOTkwMzUwMjgxNDcxNjkyOC4wMDAwMDAgLTMyMTYxODQ4MjYwMDYyNTAyNC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "55.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc0NjgyNzc0NDIxOTA1NzE1Mi4wMDAwMDAgLTUwNjgyMTMwMjQzMDc4MzI5Ni4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "54.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODkwMjE0NDExNDM2MDUyNzM2LjAwMDAwMCA1MzMxMjYzNDgwODEwMDA5Ni4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "53.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzQ0NzkwMjYwMzY5NzM2OTYwLjAwMDAwMCA1MzQwMjIyNTgyNDc5MjI5NDQuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "52.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MzUzMjc0Njc2NTMzOTE3NDQwLjAwMDAwMCAxNDE0OTUwNzM4Mzg0ODgzMjAuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "51.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg4MzUwMTYzMTgzNTQ0Mzg0MC4wMDAwMDAgNDkzMzE1NDEwNDgxMjI3MDA4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "50.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTEzMzk3MTk2Mzk5Mjc5NTM5Mi4wMDAwMDAgLTcyNjA3NDYxNjcxNTg3NjczNi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "49.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTg1MzIzOTMxMTA3MjQxOTg0LjAwMDAwMCAtOTM4Mjk0MTUyNTM4MjE0MDE2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "48.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NDIwMzI5NTk5NDk3NzgzMDQwLjAwMDAwMCAtNDU4NzQ0MTgyOTQzNDgxNTM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "47.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI0OTEzMzA5ODgxNjA3ODIwOC4wMDAwMDAgODUyODcwMjA5ODczOTM2MTI4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "46.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MzQ0Mjc5MDAxODY0MjI5MTIuMDAwMDAwIDYyNTUyOTg1NTU0NjczNzQwOC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "45.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc5MDY1MDQ0NDkzNDMxMzcyOC4wMDAwMDAgNDc2NzIwNjQxODExMDkwNjg4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "44.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTEyNDkwMjg3NTIzOTIxMjY3Mi4wMDAwMDAgOTY1Nzk3NzQ0MTk5MDI4NzM2LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "43.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQyNDI3NDY0NDA5MDIxMTkwNC4wMDAwMDAgNjcwNzUwMTE4Nzg5MTUxNDg4LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "42.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTQ2MDg1MDMzODA4ODAzNzMxMi4wMDAwMDAgMjk5OTUyMTY4MTk2MjU3MDI0LjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "41.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg4NzcxODI2ODk4Mzg3MTYxNi4wMDAwMDAgLTQ0MDE3MDE2NjU1MzI5NTEwNC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "40.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY4MzA0MTYxMzU0ODYzNjE2LjAwMDAwMCA1ODE4MDE3MDQ1MjM5NjA4MzIuMDAwMDAw",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "39.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODA5MTI3NjgxMTEyMDkwMTEyLjAwMDAwMCAtNDY0MDk4NTI4ODcxOTM0NTkyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "38.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg0OTc2NDY5ODUyMDQ4NzY4MC4wMDAwMDAgLTk0MTg3MTMwNzcyMjU1MTU1Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "37.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI4OTEyNjI0NTIwOTU4NzQ1Ni4wMDAwMDAgODM5NjM2Mjk4OTIzODEzNjMyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "36.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY4OTUwODUyNjk1NjM0MDQ4MC4wMDAwMDAgMTUwMTQ5NjA0NTgyOTAyMjcyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "35.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTk4MzM4ODM4MzQyNjcwOTI0OC4wMDAwMDAgLTc3ODI5MjM4MTk3OTA2NzM5Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "34.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTEwOTQ3ODg1MDMyMzEyNzE2OC4wMDAwMDAgLTI4NTQ4NjUxODU0MTU2NzM2MC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "33.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTY5MzIyNzY1NDYzNjA0Mzc3Ni4wMDAwMDAgLTc5NjQ4MzU4MDkxODYzMzQ3Mi4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "32.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "Mzc5Njc3ODk2MDYwMDc4MzM2LjAwMDAwMCAtNTY0MzAwMjA2ODYwNDExNzEyLjAwMDAwMA==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "31.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTU2NDM3MTUxMzM1NjE3MjQxNi4wMDAwMDAgLTM3NDk1NDEyMjY0OTEwMjg0OC4wMDAwMDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "30.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODM2NjU2MzQxMzI0NDE0NDY0IC01OTQxMzgzOTA4Mzc5NDMxNjgK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "29.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODIzMDQ2NjYxMDg2MTk1MjAwIDI0NjUyOTk5MjY4OTQ1MDc1Mgo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "28.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTUwMDY5OTMyMTYzNTg3OTY4IDI4MDEyMTY0NzY1OTYyOTgyNAo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "27.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjA4OTk1NTA0ODAxOTQwNDgwIDI5NTAyODU3NzkwMzM3ODE3Ngo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "26.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjI3MzcxMzM4OTk0MzU2NzM2IDEzMDQyMzIyMzA1MDM4OTYzMgo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "25.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTgzMDc2OTI0NDc3MjQ0NTMxMiA2MzczNzc4NzcwOTQyOTE5NjgK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "24.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTg3MjIwNDc0MjY5MTAzODcyIC0zMjM5OTU1ODI4MDk1NDI0MDAK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "23.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzI3NjgzOTQwMjk2OTA2MjQwIDk0MTcwMDU3MzEzMTE4OTI0OAo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "22.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "Nzk0MjI5MTc0MjgwMjUwODgwIC05ODE5ODkzOTk3MzkwNDExNTIK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "21.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTkyODc4MTEyMDM1NzUwMDU0NCAtMjU2MDkzMjYwMzg3NTEyMDY0Cg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "20.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTE3ODA0NjUzNzc5MzQ2NTg1NiAtNjc4ODEyNjIxNTc3MzgwMjI0Cg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "19.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTk5MTc0NjQ0ODk5NTkzOTMyOCA2OTgyMjIyOTY5Nzk2NTcyMTYK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "18.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "OTY3ODg2ODgzNTEzNDEzMzc2IC0xMjA0NDg4NjU0MzgwMzM5Mgo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "17.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjM2OTQ0MjUxMjE1Mzc3NjY0IDQzNjQxMzU0ODAyMDUzNDUyOAo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "16.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTkzMDc2MjI1NzI3MzA5Njk2IDQ1NjU5MzgxMzY1MTA1NzkyCg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "15.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTE5MTA5MDc5OTQwOTAwOTY2NCAtMjkxNjgyNjA4MzM2OTM0MTQ0Cg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "14.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc1MDAyMzUxNzY0MDc3NDQwIDExNzI0Nzc5NjMxNjY3MDcyMAo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "13.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc3MTA3NDkxNDY1MzgzNTAwOCAtNzk0MzY5OTA4NDExNzg1NDcyCg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "12.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjI3MDU0MzUxNDczODQ4NTc2IC05NTU5NTgzMTI0NDA2NjA3MzYK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "11.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODg1ODA3MDM0MDc1NDc5Mjk2IDU4NjgyODU1Mjk3Mjk3MDc1Mgo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "10.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTU5MDE1ODMxOTYwNzg3MTIzMiAtNDU4OTQyNTQ3OTc4NDI5OTUyCg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "9.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NjM2NzUwMDAyMTYxMjg3NDI0IDg0NjA1ODkwOTM5MzI0OTI4MAo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "8.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTI5MjQ3NzQ0Nzg3MzAzOTIzMiAtNzMxMzYyMzA2NTYyMDU3OTg0Cg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "7.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MTczNTI4NTMwNDU1NTE2NDE2IC00NzQ1ODQ3OTU5OTM4NTAwNDgK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "6.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "ODAwNjQ0MTA4NTM5NDI1NzkyIC0zNzY3OTI3NTI4OTI5MzAxNzYK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "5.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTg1MjA1NDExNTk3MjkyMDQ0OCAtMjQ2NTI5MzI4MTI0Mjg3MTA0Cg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "4.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "LTc0MjkzNzM3MDU2MDEwNDMyMCAtOTc2NTE1NTYzNTc0NjY3OTA0Cg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "3.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "NzIxMTQwMjAyOTI4MzI5MjE2IC02NzIwOTQ2NTAwNzUyNzE5MzYK",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "2.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MjAgNDA=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "1.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MSAtMg==",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "0.in",
+                "file_data": {
+                    "$binary": {
+                        "base64": "MSAy",
                         "subType": "00"
                     }
                 }
             }
+        ],
+        "checker": [
+            {
+                "filename": "checker.sh",
+                "file_data": {
+                    "$binary": {
+                        "base64": "cHl0aG9uMyAkKGRpcm5hbWUgIiQwIikvY2hlY2tlci5weSAkMSAkMgo=",
+                        "subType": "00"
+                    }
+                }
+            },
+            {
+                "filename": "checker.py",
+                "file_data": {
+                    "$binary": {
+                        "base64": "aW1wb3J0IHN5cwoKdHJ5OgoJZjEgPSBzeXMuYXJndlsxXQoJZjIgPSBzeXMuYXJndlsyXQoJCgkKCglmMSA9IG9wZW4oc3lzLmFyZ3ZbMV0sICJyIikucmVhZCgpCglmMiA9IG9wZW4oc3lzLmFyZ3ZbMl0sICJyIikucmVhZCgpCgoJaWYgZmxvYXQoZjIpID09IHN1bShtYXAoZmxvYXQsIGYxLnNwbGl0KCkpKToKCQlwcmludChUcnVlKQoJZWxzZToKCQlwcmludChGYWxzZSkKZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgoJcHJpbnQoRmFsc2UpCg==",
+                        "subType": "00"
+                    }
+                }
+            }
+        ],
+        "judgement_mod": "all",
+        "available": [
+            "py",
+            "java",
+            "cpp"
+        ],
+        "tags": [
+            "fixed"
+        ],
+        "md": {
+            "filename": "description.md",
+            "file_data": {
+                "$binary": {
+                    "base64": "DQojIEErQg0KDQpZb3VyIHRhc2sgaXMgdG8gW2FkZF0oaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQWRkaXRpb24pIDIgbnVtYmVycyBhbmQgcHJpbnQgdGhlIHJlc3VsdC4NCg0KIVtXaGF0IHlvdSBtdXN0IGRvXSguL3Jlcy9pbWFnZS5wbmcpDQoNCiMjIElucHV0IGZvcm1hdA0KDQpZb3UgYXJlIGdpdmVuIGEgYW5kIGIgKC0xMF4xOCA8IGEsIGIgPCAxMF4xOCkgb24gYSBzaW5nbGUgbGluZQ0Kc2VwYXJhdGVkIGJ5IGEgc3BhY2UuIFRoZSBudW1iZXJzIG1heSBiZSBmbG9hdGluZyBwb2ludCB3aXRoIHZlcnkgaGlnaCBwcmVjaXNpb24uDQoNCiMjIE91dHB1dCBmb3JtYXQNCg0KT25lIG51bWJlciB3aGljaCBpcyB0aGUgcmVzdWwNCnQgb2YgYStiDQoNCg==",
+                    "subType": "00"
+                }
+            }
+        }
+    }
+]
+,
+"widgets":
+[
+    {
+        "_id": {
+            "$oid": "667e91675776a7f5501b69f5"
+        },
+        "name": "Test123",
+        "widget": {
+            "filename": "99.in",
+            "file_data": {
+                "$binary": {
+                    "base64": "LTg2NjczNTk4NDYxNzIzNzUwNC4wMDAwMDAgNjU5NzQ5MTAwMTYyNjY3NTIwLjAwMDAwMA==",
+                    "subType": "00"
+                }
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6685ca6629bf8092645d06ec"
+        },
+        "name": "Test",
+        "widget": {
+            "filename": "cbamodule.py",
+            "file_data": {
+                "$binary": {
+                    "base64": "ZnJvbSBjYmFjb250ZXN0IGltcG9ydCAqCgpjbGFzcyBDb250ZXN0YW50RGF0YShDb250ZXN0YW50RGF0YVRlbXBsYXRlKToKICAgIGRlZiBnZXRfdGVzdF92ZXJkaWN0KHNlbGYsIHRhc2s6IHN0cikgLT4gc3RyOgogICAgICAgIGZvciBpIGluIHJhbmdlKGxlbihzZWxmLnRhc2tfcmVzdWx0c1t0YXNrXSkpOgogICAgICAgICAgICBpZiBzZWxmLnRhc2tfcmVzdWx0c1t0YXNrXVtpXVswXSAhPSAiQUMiOgogICAgICAgICAgICAgICAgcmV0dXJuIGYie3NlbGYudGFza19yZXN1bHRzW3Rhc2tdW2ldWzBdfSB7aX0iCiAgICAgICAgcmV0dXJuICJBQyIKICAgIAogICAgZGVmIGdldF9wb2ludHMoc2VsZikgLT4gZmxvYXQ6CiAgICAgICAgcmV0dXJuIHN1bShbKHNlbGYuZ2V0X3Rlc3RfdmVyZGljdChpKSA9PSAiQUMiKSBmb3IgaSBpbiBzZWxmLnRhc2tfcmVzdWx0c10pCg==",
+                    "subType": "00"
+                }
+            }
+        }
+    }
+]
+,
+"submissions":
+[
+    {
+        "_id": {
+            "$oid": "6685c9f629bf8092645d06ea"
+        },
+        "sender": "Tedor",
+        "datetime in UTC": {
+            "$date": "2024-07-03T22:00:22.433Z"
+        },
+        "task_name": "d4438089-8b6f-4596-825c-d56de9ac00f9",
+        "in_contest_name": "A+B",
+        "source": {
+            "$binary": {
+                "base64": "I2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8aW9tYW5pcD4KCnVzaW5nIG5hbWVzcGFjZSBzdGQ7CgppbnQgbWFpbigpewoJbG9uZyBkb3VibGUgYSwgYjsKCWNpbiA+PiBhID4+IGI7CgkKCWNvdXQgPDwgZml4ZWQgPDwgc2V0cHJlY2lzaW9uKDIwKSA8PCBhK2I7Cn0K",
+                "subType": "00"
+            }
+        },
+        "n_try": 1,
+        "language": "cpp",
+        "filename": "test_sol_cpp.cpp",
+        "contest": "Test123",
+        "verdict": [
+            [
+                "AC",
+                0,
+                1
+            ],
+            [
+                "AC",
+                1,
+                1
+            ],
+            [
+                "AC",
+                2,
+                1
+            ],
+            [
+                "AC",
+                3,
+                1
+            ],
+            [
+                "AC",
+                4,
+                1
+            ],
+            [
+                "AC",
+                5,
+                1
+            ],
+            [
+                "AC",
+                6,
+                1
+            ],
+            [
+                "AC",
+                7,
+                1
+            ],
+            [
+                "AC",
+                8,
+                1
+            ],
+            [
+                "AC",
+                9,
+                1
+            ],
+            [
+                "AC",
+                10,
+                1
+            ],
+            [
+                "AC",
+                11,
+                1
+            ],
+            [
+                "AC",
+                12,
+                1
+            ],
+            [
+                "AC",
+                13,
+                1
+            ],
+            [
+                "AC",
+                14,
+                1
+            ],
+            [
+                "AC",
+                15,
+                1
+            ],
+            [
+                "AC",
+                16,
+                1
+            ],
+            [
+                "AC",
+                17,
+                1
+            ],
+            [
+                "AC",
+                18,
+                1
+            ],
+            [
+                "AC",
+                19,
+                1
+            ],
+            [
+                "AC",
+                20,
+                1
+            ],
+            [
+                "AC",
+                21,
+                1
+            ],
+            [
+                "AC",
+                22,
+                1
+            ],
+            [
+                "AC",
+                23,
+                1
+            ],
+            [
+                "AC",
+                24,
+                1
+            ],
+            [
+                "AC",
+                25,
+                1
+            ],
+            [
+                "AC",
+                26,
+                1
+            ],
+            [
+                "AC",
+                27,
+                1
+            ],
+            [
+                "AC",
+                28,
+                1
+            ],
+            [
+                "AC",
+                29,
+                1
+            ],
+            [
+                "AC",
+                30,
+                1
+            ],
+            [
+                "AC",
+                31,
+                1
+            ],
+            [
+                "AC",
+                32,
+                1
+            ],
+            [
+                "AC",
+                33,
+                1
+            ],
+            [
+                "AC",
+                34,
+                1
+            ],
+            [
+                "AC",
+                35,
+                1
+            ],
+            [
+                "AC",
+                36,
+                1
+            ],
+            [
+                "AC",
+                37,
+                1
+            ],
+            [
+                "AC",
+                38,
+                1
+            ],
+            [
+                "AC",
+                39,
+                1
+            ],
+            [
+                "AC",
+                40,
+                1
+            ],
+            [
+                "AC",
+                41,
+                1
+            ],
+            [
+                "AC",
+                42,
+                1
+            ],
+            [
+                "AC",
+                43,
+                1
+            ],
+            [
+                "AC",
+                44,
+                1
+            ],
+            [
+                "AC",
+                45,
+                1
+            ],
+            [
+                "AC",
+                46,
+                1
+            ],
+            [
+                "AC",
+                47,
+                1
+            ],
+            [
+                "AC",
+                48,
+                1
+            ],
+            [
+                "AC",
+                49,
+                1
+            ],
+            [
+                "AC",
+                50,
+                1
+            ],
+            [
+                "AC",
+                51,
+                1
+            ],
+            [
+                "AC",
+                52,
+                1
+            ],
+            [
+                "AC",
+                53,
+                1
+            ],
+            [
+                "AC",
+                54,
+                1
+            ],
+            [
+                "AC",
+                55,
+                1
+            ],
+            [
+                "AC",
+                56,
+                1
+            ],
+            [
+                "AC",
+                57,
+                1
+            ],
+            [
+                "AC",
+                58,
+                1
+            ],
+            [
+                "AC",
+                59,
+                1
+            ],
+            [
+                "AC",
+                60,
+                1
+            ],
+            [
+                "AC",
+                61,
+                1
+            ],
+            [
+                "AC",
+                62,
+                1
+            ],
+            [
+                "AC",
+                63,
+                1
+            ],
+            [
+                "AC",
+                64,
+                1
+            ],
+            [
+                "AC",
+                65,
+                1
+            ],
+            [
+                "AC",
+                66,
+                1
+            ],
+            [
+                "AC",
+                67,
+                1
+            ],
+            [
+                "AC",
+                68,
+                1
+            ],
+            [
+                "AC",
+                69,
+                1
+            ],
+            [
+                "AC",
+                70,
+                1
+            ],
+            [
+                "AC",
+                71,
+                1
+            ],
+            [
+                "AC",
+                72,
+                1
+            ],
+            [
+                "AC",
+                73,
+                1
+            ],
+            [
+                "AC",
+                74,
+                1
+            ],
+            [
+                "AC",
+                75,
+                1
+            ],
+            [
+                "AC",
+                76,
+                1
+            ],
+            [
+                "AC",
+                77,
+                1
+            ],
+            [
+                "AC",
+                78,
+                1
+            ],
+            [
+                "AC",
+                79,
+                1
+            ],
+            [
+                "AC",
+                80,
+                1
+            ],
+            [
+                "AC",
+                81,
+                1
+            ],
+            [
+                "AC",
+                82,
+                1
+            ],
+            [
+                "AC",
+                83,
+                1
+            ],
+            [
+                "AC",
+                84,
+                1
+            ],
+            [
+                "AC",
+                85,
+                1
+            ],
+            [
+                "AC",
+                86,
+                1
+            ],
+            [
+                "AC",
+                87,
+                1
+            ],
+            [
+                "AC",
+                88,
+                1
+            ],
+            [
+                "AC",
+                89,
+                1
+            ],
+            [
+                "AC",
+                90,
+                1
+            ],
+            [
+                "AC",
+                91,
+                1
+            ],
+            [
+                "AC",
+                92,
+                1
+            ],
+            [
+                "AC",
+                93,
+                1
+            ],
+            [
+                "AC",
+                94,
+                1
+            ],
+            [
+                "AC",
+                95,
+                1
+            ],
+            [
+                "AC",
+                96,
+                1
+            ],
+            [
+                "AC",
+                97,
+                1
+            ],
+            [
+                "AC",
+                98,
+                1
+            ],
+            [
+                "AC",
+                99,
+                1
+            ]
+        ],
+        "final_verdict": "N/A"
+    },
+    {
+        "_id": {
+            "$oid": "6685cac929bf8092645d06ee"
+        },
+        "sender": "Tedor",
+        "datetime in UTC": {
+            "$date": "2024-07-03T22:03:53.176Z"
+        },
+        "task_name": "9bf43136-9df2-4ebf-8f34-4d310e7b223e",
+        "in_contest_name": "A+B2",
+        "source": {
+            "$binary": {
+                "base64": "I2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8aW9tYW5pcD4KCnVzaW5nIG5hbWVzcGFjZSBzdGQ7CgppbnQgbWFpbigpewoJbG9uZyBkb3VibGUgYSwgYjsKCWNpbiA+PiBhID4+IGI7CgkKCWNvdXQgPDwgZml4ZWQgPDwgc2V0cHJlY2lzaW9uKDIwKSA8PCBhK2I7Cn0K",
+                "subType": "00"
+            }
+        },
+        "n_try": 1,
+        "language": "cpp",
+        "filename": "test_sol_cpp.cpp",
+        "contest": "Test",
+        "verdict": [
+            [
+                "AC",
+                0,
+                1
+            ],
+            [
+                "AC",
+                1,
+                1
+            ],
+            [
+                "AC",
+                2,
+                1
+            ],
+            [
+                "AC",
+                3,
+                1
+            ],
+            [
+                "AC",
+                4,
+                1
+            ],
+            [
+                "AC",
+                5,
+                1
+            ],
+            [
+                "AC",
+                6,
+                1
+            ],
+            [
+                "AC",
+                7,
+                1
+            ],
+            [
+                "AC",
+                8,
+                1
+            ],
+            [
+                "AC",
+                9,
+                1
+            ],
+            [
+                "AC",
+                10,
+                1
+            ],
+            [
+                "AC",
+                11,
+                1
+            ],
+            [
+                "AC",
+                12,
+                1
+            ],
+            [
+                "AC",
+                13,
+                1
+            ],
+            [
+                "AC",
+                14,
+                1
+            ],
+            [
+                "AC",
+                15,
+                1
+            ],
+            [
+                "AC",
+                16,
+                1
+            ],
+            [
+                "AC",
+                17,
+                1
+            ],
+            [
+                "AC",
+                18,
+                1
+            ],
+            [
+                "AC",
+                19,
+                1
+            ],
+            [
+                "AC",
+                20,
+                1
+            ],
+            [
+                "AC",
+                21,
+                1
+            ],
+            [
+                "AC",
+                22,
+                1
+            ],
+            [
+                "AC",
+                23,
+                1
+            ],
+            [
+                "AC",
+                24,
+                1
+            ],
+            [
+                "AC",
+                25,
+                1
+            ],
+            [
+                "AC",
+                26,
+                1
+            ],
+            [
+                "AC",
+                27,
+                1
+            ],
+            [
+                "AC",
+                28,
+                1
+            ],
+            [
+                "AC",
+                29,
+                1
+            ],
+            [
+                "AC",
+                30,
+                1
+            ],
+            [
+                "AC",
+                31,
+                1
+            ],
+            [
+                "AC",
+                32,
+                1
+            ],
+            [
+                "AC",
+                33,
+                1
+            ],
+            [
+                "AC",
+                34,
+                1
+            ],
+            [
+                "AC",
+                35,
+                1
+            ],
+            [
+                "AC",
+                36,
+                1
+            ],
+            [
+                "AC",
+                37,
+                1
+            ],
+            [
+                "AC",
+                38,
+                1
+            ],
+            [
+                "AC",
+                39,
+                1
+            ],
+            [
+                "AC",
+                40,
+                1
+            ],
+            [
+                "AC",
+                41,
+                1
+            ],
+            [
+                "AC",
+                42,
+                1
+            ],
+            [
+                "AC",
+                43,
+                1
+            ],
+            [
+                "AC",
+                44,
+                1
+            ],
+            [
+                "AC",
+                45,
+                1
+            ],
+            [
+                "AC",
+                46,
+                1
+            ],
+            [
+                "AC",
+                47,
+                1
+            ],
+            [
+                "AC",
+                48,
+                1
+            ],
+            [
+                "AC",
+                49,
+                1
+            ],
+            [
+                "AC",
+                50,
+                1
+            ],
+            [
+                "AC",
+                51,
+                1
+            ],
+            [
+                "AC",
+                52,
+                1
+            ],
+            [
+                "AC",
+                53,
+                1
+            ],
+            [
+                "AC",
+                54,
+                1
+            ],
+            [
+                "AC",
+                55,
+                1
+            ],
+            [
+                "AC",
+                56,
+                1
+            ],
+            [
+                "AC",
+                57,
+                1
+            ],
+            [
+                "AC",
+                58,
+                1
+            ],
+            [
+                "AC",
+                59,
+                1
+            ],
+            [
+                "AC",
+                60,
+                1
+            ],
+            [
+                "AC",
+                61,
+                1
+            ],
+            [
+                "AC",
+                62,
+                1
+            ],
+            [
+                "AC",
+                63,
+                1
+            ],
+            [
+                "AC",
+                64,
+                1
+            ],
+            [
+                "AC",
+                65,
+                1
+            ],
+            [
+                "AC",
+                66,
+                1
+            ],
+            [
+                "AC",
+                67,
+                1
+            ],
+            [
+                "AC",
+                68,
+                1
+            ],
+            [
+                "AC",
+                69,
+                1
+            ],
+            [
+                "AC",
+                70,
+                1
+            ],
+            [
+                "AC",
+                71,
+                1
+            ],
+            [
+                "AC",
+                72,
+                1
+            ],
+            [
+                "AC",
+                73,
+                1
+            ],
+            [
+                "AC",
+                74,
+                1
+            ],
+            [
+                "AC",
+                75,
+                1
+            ],
+            [
+                "AC",
+                76,
+                1
+            ],
+            [
+                "AC",
+                77,
+                1
+            ],
+            [
+                "AC",
+                78,
+                1
+            ],
+            [
+                "AC",
+                79,
+                1
+            ],
+            [
+                "AC",
+                80,
+                1
+            ],
+            [
+                "AC",
+                81,
+                1
+            ],
+            [
+                "AC",
+                82,
+                1
+            ],
+            [
+                "AC",
+                83,
+                1
+            ],
+            [
+                "AC",
+                84,
+                1
+            ],
+            [
+                "AC",
+                85,
+                1
+            ],
+            [
+                "AC",
+                86,
+                1
+            ],
+            [
+                "AC",
+                87,
+                1
+            ],
+            [
+                "AC",
+                88,
+                1
+            ],
+            [
+                "AC",
+                89,
+                1
+            ],
+            [
+                "AC",
+                90,
+                1
+            ],
+            [
+                "AC",
+                91,
+                1
+            ],
+            [
+                "AC",
+                92,
+                1
+            ],
+            [
+                "AC",
+                93,
+                1
+            ],
+            [
+                "AC",
+                94,
+                1
+            ],
+            [
+                "AC",
+                95,
+                1
+            ],
+            [
+                "AC",
+                96,
+                1
+            ],
+            [
+                "AC",
+                97,
+                1
+            ],
+            [
+                "AC",
+                98,
+                1
+            ],
+            [
+                "AC",
+                99,
+                1
+            ]
+        ],
+        "final_verdict": "N/A"
+    },
+    {
+        "_id": {
+            "$oid": "6685cd5f7a016e4bbd054cb1"
+        },
+        "sender": "Tedor",
+        "datetime in UTC": {
+            "$date": "2024-07-03T22:14:55.433Z"
+        },
+        "task_name": "9bf43136-9df2-4ebf-8f34-4d310e7b223e",
+        "in_contest_name": "A+B2",
+        "source": {
+            "$binary": {
+                "base64": "I2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8aW9tYW5pcD4KCnVzaW5nIG5hbWVzcGFjZSBzdGQ7CgppbnQgbWFpbigpewoJbG9uZyBkb3VibGUgYSwgYjsKCWNpbiA+PiBhID4+IGI7CgkKCWNvdXQgPDwgZml4ZWQgPDwgc2V0cHJlY2lzaW9uKDIwKSA8PCBhK2I7Cn0K",
+                "subType": "00"
+            }
+        },
+        "n_try": 2,
+        "language": "cpp",
+        "filename": "test_sol_cpp.cpp",
+        "contest": "Test",
+        "verdict": [
+            [
+                "AC",
+                0,
+                1
+            ],
+            [
+                "AC",
+                1,
+                1
+            ],
+            [
+                "AC",
+                2,
+                1
+            ],
+            [
+                "AC",
+                3,
+                1
+            ],
+            [
+                "AC",
+                4,
+                1
+            ],
+            [
+                "AC",
+                5,
+                1
+            ],
+            [
+                "AC",
+                6,
+                1
+            ],
+            [
+                "AC",
+                7,
+                1
+            ],
+            [
+                "AC",
+                8,
+                1
+            ],
+            [
+                "AC",
+                9,
+                1
+            ],
+            [
+                "AC",
+                10,
+                1
+            ],
+            [
+                "AC",
+                11,
+                1
+            ],
+            [
+                "AC",
+                12,
+                1
+            ],
+            [
+                "AC",
+                13,
+                1
+            ],
+            [
+                "AC",
+                14,
+                1
+            ],
+            [
+                "AC",
+                15,
+                1
+            ],
+            [
+                "AC",
+                16,
+                1
+            ],
+            [
+                "AC",
+                17,
+                1
+            ],
+            [
+                "AC",
+                18,
+                1
+            ],
+            [
+                "AC",
+                19,
+                1
+            ],
+            [
+                "AC",
+                20,
+                1
+            ],
+            [
+                "AC",
+                21,
+                1
+            ],
+            [
+                "AC",
+                22,
+                1
+            ],
+            [
+                "AC",
+                23,
+                1
+            ],
+            [
+                "AC",
+                24,
+                1
+            ],
+            [
+                "AC",
+                25,
+                1
+            ],
+            [
+                "AC",
+                26,
+                1
+            ],
+            [
+                "AC",
+                27,
+                1
+            ],
+            [
+                "AC",
+                28,
+                1
+            ],
+            [
+                "AC",
+                29,
+                1
+            ],
+            [
+                "AC",
+                30,
+                1
+            ],
+            [
+                "AC",
+                31,
+                1
+            ],
+            [
+                "AC",
+                32,
+                1
+            ],
+            [
+                "AC",
+                33,
+                1
+            ],
+            [
+                "AC",
+                34,
+                1
+            ],
+            [
+                "AC",
+                35,
+                1
+            ],
+            [
+                "AC",
+                36,
+                1
+            ],
+            [
+                "AC",
+                37,
+                1
+            ],
+            [
+                "AC",
+                38,
+                1
+            ],
+            [
+                "AC",
+                39,
+                1
+            ],
+            [
+                "AC",
+                40,
+                1
+            ],
+            [
+                "AC",
+                41,
+                1
+            ],
+            [
+                "AC",
+                42,
+                1
+            ],
+            [
+                "AC",
+                43,
+                1
+            ],
+            [
+                "AC",
+                44,
+                1
+            ],
+            [
+                "AC",
+                45,
+                1
+            ],
+            [
+                "AC",
+                46,
+                1
+            ],
+            [
+                "AC",
+                47,
+                1
+            ],
+            [
+                "AC",
+                48,
+                1
+            ],
+            [
+                "AC",
+                49,
+                1
+            ],
+            [
+                "AC",
+                50,
+                1
+            ],
+            [
+                "AC",
+                51,
+                1
+            ],
+            [
+                "AC",
+                52,
+                1
+            ],
+            [
+                "AC",
+                53,
+                1
+            ],
+            [
+                "AC",
+                54,
+                1
+            ],
+            [
+                "AC",
+                55,
+                1
+            ],
+            [
+                "AC",
+                56,
+                1
+            ],
+            [
+                "AC",
+                57,
+                1
+            ],
+            [
+                "AC",
+                58,
+                1
+            ],
+            [
+                "AC",
+                59,
+                1
+            ],
+            [
+                "AC",
+                60,
+                1
+            ],
+            [
+                "AC",
+                61,
+                1
+            ],
+            [
+                "AC",
+                62,
+                1
+            ],
+            [
+                "AC",
+                63,
+                1
+            ],
+            [
+                "AC",
+                64,
+                1
+            ],
+            [
+                "AC",
+                65,
+                1
+            ],
+            [
+                "AC",
+                66,
+                1
+            ],
+            [
+                "AC",
+                67,
+                1
+            ],
+            [
+                "AC",
+                68,
+                1
+            ],
+            [
+                "AC",
+                69,
+                1
+            ],
+            [
+                "AC",
+                70,
+                1
+            ],
+            [
+                "AC",
+                71,
+                1
+            ],
+            [
+                "AC",
+                72,
+                1
+            ],
+            [
+                "AC",
+                73,
+                1
+            ],
+            [
+                "AC",
+                74,
+                1
+            ],
+            [
+                "AC",
+                75,
+                1
+            ],
+            [
+                "AC",
+                76,
+                1
+            ],
+            [
+                "AC",
+                77,
+                1
+            ],
+            [
+                "AC",
+                78,
+                1
+            ],
+            [
+                "AC",
+                79,
+                1
+            ],
+            [
+                "AC",
+                80,
+                1
+            ],
+            [
+                "AC",
+                81,
+                1
+            ],
+            [
+                "AC",
+                82,
+                1
+            ],
+            [
+                "AC",
+                83,
+                1
+            ],
+            [
+                "AC",
+                84,
+                1
+            ],
+            [
+                "AC",
+                85,
+                1
+            ],
+            [
+                "AC",
+                86,
+                1
+            ],
+            [
+                "AC",
+                87,
+                1
+            ],
+            [
+                "AC",
+                88,
+                1
+            ],
+            [
+                "AC",
+                89,
+                1
+            ],
+            [
+                "AC",
+                90,
+                1
+            ],
+            [
+                "AC",
+                91,
+                1
+            ],
+            [
+                "AC",
+                92,
+                1
+            ],
+            [
+                "AC",
+                93,
+                1
+            ],
+            [
+                "AC",
+                94,
+                1
+            ],
+            [
+                "AC",
+                95,
+                1
+            ],
+            [
+                "AC",
+                96,
+                1
+            ],
+            [
+                "AC",
+                97,
+                1
+            ],
+            [
+                "AC",
+                98,
+                1
+            ],
+            [
+                "AC",
+                99,
+                1
+            ]
+        ],
+        "final_verdict": "AC"
+    }
+]
+,
+"participants":
+[
+    {
+        "_id": {
+            "$oid": "6685c9f82050f9783e8a6b81"
+        },
+        "contest_id": "Test123",
+        "participant_id": "Tedor",
+        "final_task_results": {
+            "d4438089-8b6f-4596-825c-d56de9ac00f9": ""
+        },
+        "points": 0,
+        "task_results": {
+            "d4438089-8b6f-4596-825c-d56de9ac00f9": [
+                [
+                    "AC",
+                    0,
+                    1
+                ],
+                [
+                    "AC",
+                    1,
+                    1
+                ],
+                [
+                    "AC",
+                    2,
+                    1
+                ],
+                [
+                    "AC",
+                    3,
+                    1
+                ],
+                [
+                    "AC",
+                    4,
+                    1
+                ],
+                [
+                    "AC",
+                    5,
+                    1
+                ],
+                [
+                    "AC",
+                    6,
+                    1
+                ],
+                [
+                    "AC",
+                    7,
+                    1
+                ],
+                [
+                    "AC",
+                    8,
+                    1
+                ],
+                [
+                    "AC",
+                    9,
+                    1
+                ],
+                [
+                    "AC",
+                    10,
+                    1
+                ],
+                [
+                    "AC",
+                    11,
+                    1
+                ],
+                [
+                    "AC",
+                    12,
+                    1
+                ],
+                [
+                    "AC",
+                    13,
+                    1
+                ],
+                [
+                    "AC",
+                    14,
+                    1
+                ],
+                [
+                    "AC",
+                    15,
+                    1
+                ],
+                [
+                    "AC",
+                    16,
+                    1
+                ],
+                [
+                    "AC",
+                    17,
+                    1
+                ],
+                [
+                    "AC",
+                    18,
+                    1
+                ],
+                [
+                    "AC",
+                    19,
+                    1
+                ],
+                [
+                    "AC",
+                    20,
+                    1
+                ],
+                [
+                    "AC",
+                    21,
+                    1
+                ],
+                [
+                    "AC",
+                    22,
+                    1
+                ],
+                [
+                    "AC",
+                    23,
+                    1
+                ],
+                [
+                    "AC",
+                    24,
+                    1
+                ],
+                [
+                    "AC",
+                    25,
+                    1
+                ],
+                [
+                    "AC",
+                    26,
+                    1
+                ],
+                [
+                    "AC",
+                    27,
+                    1
+                ],
+                [
+                    "AC",
+                    28,
+                    1
+                ],
+                [
+                    "AC",
+                    29,
+                    1
+                ],
+                [
+                    "AC",
+                    30,
+                    1
+                ],
+                [
+                    "AC",
+                    31,
+                    1
+                ],
+                [
+                    "AC",
+                    32,
+                    1
+                ],
+                [
+                    "AC",
+                    33,
+                    1
+                ],
+                [
+                    "AC",
+                    34,
+                    1
+                ],
+                [
+                    "AC",
+                    35,
+                    1
+                ],
+                [
+                    "AC",
+                    36,
+                    1
+                ],
+                [
+                    "AC",
+                    37,
+                    1
+                ],
+                [
+                    "AC",
+                    38,
+                    1
+                ],
+                [
+                    "AC",
+                    39,
+                    1
+                ],
+                [
+                    "AC",
+                    40,
+                    1
+                ],
+                [
+                    "AC",
+                    41,
+                    1
+                ],
+                [
+                    "AC",
+                    42,
+                    1
+                ],
+                [
+                    "AC",
+                    43,
+                    1
+                ],
+                [
+                    "AC",
+                    44,
+                    1
+                ],
+                [
+                    "AC",
+                    45,
+                    1
+                ],
+                [
+                    "AC",
+                    46,
+                    1
+                ],
+                [
+                    "AC",
+                    47,
+                    1
+                ],
+                [
+                    "AC",
+                    48,
+                    1
+                ],
+                [
+                    "AC",
+                    49,
+                    1
+                ],
+                [
+                    "AC",
+                    50,
+                    1
+                ],
+                [
+                    "AC",
+                    51,
+                    1
+                ],
+                [
+                    "AC",
+                    52,
+                    1
+                ],
+                [
+                    "AC",
+                    53,
+                    1
+                ],
+                [
+                    "AC",
+                    54,
+                    1
+                ],
+                [
+                    "AC",
+                    55,
+                    1
+                ],
+                [
+                    "AC",
+                    56,
+                    1
+                ],
+                [
+                    "AC",
+                    57,
+                    1
+                ],
+                [
+                    "AC",
+                    58,
+                    1
+                ],
+                [
+                    "AC",
+                    59,
+                    1
+                ],
+                [
+                    "AC",
+                    60,
+                    1
+                ],
+                [
+                    "AC",
+                    61,
+                    1
+                ],
+                [
+                    "AC",
+                    62,
+                    1
+                ],
+                [
+                    "AC",
+                    63,
+                    1
+                ],
+                [
+                    "AC",
+                    64,
+                    1
+                ],
+                [
+                    "AC",
+                    65,
+                    1
+                ],
+                [
+                    "AC",
+                    66,
+                    1
+                ],
+                [
+                    "AC",
+                    67,
+                    1
+                ],
+                [
+                    "AC",
+                    68,
+                    1
+                ],
+                [
+                    "AC",
+                    69,
+                    1
+                ],
+                [
+                    "AC",
+                    70,
+                    1
+                ],
+                [
+                    "AC",
+                    71,
+                    1
+                ],
+                [
+                    "AC",
+                    72,
+                    1
+                ],
+                [
+                    "AC",
+                    73,
+                    1
+                ],
+                [
+                    "AC",
+                    74,
+                    1
+                ],
+                [
+                    "AC",
+                    75,
+                    1
+                ],
+                [
+                    "AC",
+                    76,
+                    1
+                ],
+                [
+                    "AC",
+                    77,
+                    1
+                ],
+                [
+                    "AC",
+                    78,
+                    1
+                ],
+                [
+                    "AC",
+                    79,
+                    1
+                ],
+                [
+                    "AC",
+                    80,
+                    1
+                ],
+                [
+                    "AC",
+                    81,
+                    1
+                ],
+                [
+                    "AC",
+                    82,
+                    1
+                ],
+                [
+                    "AC",
+                    83,
+                    1
+                ],
+                [
+                    "AC",
+                    84,
+                    1
+                ],
+                [
+                    "AC",
+                    85,
+                    1
+                ],
+                [
+                    "AC",
+                    86,
+                    1
+                ],
+                [
+                    "AC",
+                    87,
+                    1
+                ],
+                [
+                    "AC",
+                    88,
+                    1
+                ],
+                [
+                    "AC",
+                    89,
+                    1
+                ],
+                [
+                    "AC",
+                    90,
+                    1
+                ],
+                [
+                    "AC",
+                    91,
+                    1
+                ],
+                [
+                    "AC",
+                    92,
+                    1
+                ],
+                [
+                    "AC",
+                    93,
+                    1
+                ],
+                [
+                    "AC",
+                    94,
+                    1
+                ],
+                [
+                    "AC",
+                    95,
+                    1
+                ],
+                [
+                    "AC",
+                    96,
+                    1
+                ],
+                [
+                    "AC",
+                    97,
+                    1
+                ],
+                [
+                    "AC",
+                    98,
+                    1
+                ],
+                [
+                    "AC",
+                    99,
+                    1
+                ]
+            ]
+        },
+        "widgets": [],
+        "new_events": [
+            [
+                3988284555,
+                "Judge",
+                {}
+            ],
+            [
+                3988466415,
+                "Judge",
+                {}
+            ]
+        ],
+        "events": []
+    },
+    {
+        "_id": {
+            "$oid": "6685cacb2050f9783e8a6b82"
+        },
+        "contest_id": "Test",
+        "participant_id": "Tedor",
+        "final_task_results": {
+            "9bf43136-9df2-4ebf-8f34-4d310e7b223e": "AC"
+        },
+        "points": 1,
+        "task_results": {
+            "9bf43136-9df2-4ebf-8f34-4d310e7b223e": [
+                [
+                    "AC",
+                    0,
+                    1
+                ],
+                [
+                    "AC",
+                    1,
+                    1
+                ],
+                [
+                    "AC",
+                    2,
+                    1
+                ],
+                [
+                    "AC",
+                    3,
+                    1
+                ],
+                [
+                    "AC",
+                    4,
+                    1
+                ],
+                [
+                    "AC",
+                    5,
+                    1
+                ],
+                [
+                    "AC",
+                    6,
+                    1
+                ],
+                [
+                    "AC",
+                    7,
+                    1
+                ],
+                [
+                    "AC",
+                    8,
+                    1
+                ],
+                [
+                    "AC",
+                    9,
+                    1
+                ],
+                [
+                    "AC",
+                    10,
+                    1
+                ],
+                [
+                    "AC",
+                    11,
+                    1
+                ],
+                [
+                    "AC",
+                    12,
+                    1
+                ],
+                [
+                    "AC",
+                    13,
+                    1
+                ],
+                [
+                    "AC",
+                    14,
+                    1
+                ],
+                [
+                    "AC",
+                    15,
+                    1
+                ],
+                [
+                    "AC",
+                    16,
+                    1
+                ],
+                [
+                    "AC",
+                    17,
+                    1
+                ],
+                [
+                    "AC",
+                    18,
+                    1
+                ],
+                [
+                    "AC",
+                    19,
+                    1
+                ],
+                [
+                    "AC",
+                    20,
+                    1
+                ],
+                [
+                    "AC",
+                    21,
+                    1
+                ],
+                [
+                    "AC",
+                    22,
+                    1
+                ],
+                [
+                    "AC",
+                    23,
+                    1
+                ],
+                [
+                    "AC",
+                    24,
+                    1
+                ],
+                [
+                    "AC",
+                    25,
+                    1
+                ],
+                [
+                    "AC",
+                    26,
+                    1
+                ],
+                [
+                    "AC",
+                    27,
+                    1
+                ],
+                [
+                    "AC",
+                    28,
+                    1
+                ],
+                [
+                    "AC",
+                    29,
+                    1
+                ],
+                [
+                    "AC",
+                    30,
+                    1
+                ],
+                [
+                    "AC",
+                    31,
+                    1
+                ],
+                [
+                    "AC",
+                    32,
+                    1
+                ],
+                [
+                    "AC",
+                    33,
+                    1
+                ],
+                [
+                    "AC",
+                    34,
+                    1
+                ],
+                [
+                    "AC",
+                    35,
+                    1
+                ],
+                [
+                    "AC",
+                    36,
+                    1
+                ],
+                [
+                    "AC",
+                    37,
+                    1
+                ],
+                [
+                    "AC",
+                    38,
+                    1
+                ],
+                [
+                    "AC",
+                    39,
+                    1
+                ],
+                [
+                    "AC",
+                    40,
+                    1
+                ],
+                [
+                    "AC",
+                    41,
+                    1
+                ],
+                [
+                    "AC",
+                    42,
+                    1
+                ],
+                [
+                    "AC",
+                    43,
+                    1
+                ],
+                [
+                    "AC",
+                    44,
+                    1
+                ],
+                [
+                    "AC",
+                    45,
+                    1
+                ],
+                [
+                    "AC",
+                    46,
+                    1
+                ],
+                [
+                    "AC",
+                    47,
+                    1
+                ],
+                [
+                    "AC",
+                    48,
+                    1
+                ],
+                [
+                    "AC",
+                    49,
+                    1
+                ],
+                [
+                    "AC",
+                    50,
+                    1
+                ],
+                [
+                    "AC",
+                    51,
+                    1
+                ],
+                [
+                    "AC",
+                    52,
+                    1
+                ],
+                [
+                    "AC",
+                    53,
+                    1
+                ],
+                [
+                    "AC",
+                    54,
+                    1
+                ],
+                [
+                    "AC",
+                    55,
+                    1
+                ],
+                [
+                    "AC",
+                    56,
+                    1
+                ],
+                [
+                    "AC",
+                    57,
+                    1
+                ],
+                [
+                    "AC",
+                    58,
+                    1
+                ],
+                [
+                    "AC",
+                    59,
+                    1
+                ],
+                [
+                    "AC",
+                    60,
+                    1
+                ],
+                [
+                    "AC",
+                    61,
+                    1
+                ],
+                [
+                    "AC",
+                    62,
+                    1
+                ],
+                [
+                    "AC",
+                    63,
+                    1
+                ],
+                [
+                    "AC",
+                    64,
+                    1
+                ],
+                [
+                    "AC",
+                    65,
+                    1
+                ],
+                [
+                    "AC",
+                    66,
+                    1
+                ],
+                [
+                    "AC",
+                    67,
+                    1
+                ],
+                [
+                    "AC",
+                    68,
+                    1
+                ],
+                [
+                    "AC",
+                    69,
+                    1
+                ],
+                [
+                    "AC",
+                    70,
+                    1
+                ],
+                [
+                    "AC",
+                    71,
+                    1
+                ],
+                [
+                    "AC",
+                    72,
+                    1
+                ],
+                [
+                    "AC",
+                    73,
+                    1
+                ],
+                [
+                    "AC",
+                    74,
+                    1
+                ],
+                [
+                    "AC",
+                    75,
+                    1
+                ],
+                [
+                    "AC",
+                    76,
+                    1
+                ],
+                [
+                    "AC",
+                    77,
+                    1
+                ],
+                [
+                    "AC",
+                    78,
+                    1
+                ],
+                [
+                    "AC",
+                    79,
+                    1
+                ],
+                [
+                    "AC",
+                    80,
+                    1
+                ],
+                [
+                    "AC",
+                    81,
+                    1
+                ],
+                [
+                    "AC",
+                    82,
+                    1
+                ],
+                [
+                    "AC",
+                    83,
+                    1
+                ],
+                [
+                    "AC",
+                    84,
+                    1
+                ],
+                [
+                    "AC",
+                    85,
+                    1
+                ],
+                [
+                    "AC",
+                    86,
+                    1
+                ],
+                [
+                    "AC",
+                    87,
+                    1
+                ],
+                [
+                    "AC",
+                    88,
+                    1
+                ],
+                [
+                    "AC",
+                    89,
+                    1
+                ],
+                [
+                    "AC",
+                    90,
+                    1
+                ],
+                [
+                    "AC",
+                    91,
+                    1
+                ],
+                [
+                    "AC",
+                    92,
+                    1
+                ],
+                [
+                    "AC",
+                    93,
+                    1
+                ],
+                [
+                    "AC",
+                    94,
+                    1
+                ],
+                [
+                    "AC",
+                    95,
+                    1
+                ],
+                [
+                    "AC",
+                    96,
+                    1
+                ],
+                [
+                    "AC",
+                    97,
+                    1
+                ],
+                [
+                    "AC",
+                    98,
+                    1
+                ],
+                [
+                    "AC",
+                    99,
+                    1
+                ]
+            ]
+        },
+        "widgets": [],
+        "new_events": [
+            [
+                3988495704,
+                "Judge",
+                {}
+            ],
+            [
+                3989180416,
+                "Judge",
+                {}
+            ]
+        ],
+        "events": []
+    }
+]
+,
+"contests":
+[
+    {
+        "_id": {
+            "$oid": "6685ca6629bf8092645d06eb"
+        },
+        "name": "Test",
+        "tasks": [
+            "9bf43136-9df2-4ebf-8f34-4d310e7b223e"
+        ],
+        "duration": "66666666",
+        "startTime": {
+            "$date": "2024-05-18T18:09:00Z"
+        },
+        "allowed_teams": true,
+        "config": {
+            "filename": "cbamodule.py",
+            "file_data": {
+                "$binary": {
+                    "base64": "ZnJvbSBjYmFjb250ZXN0IGltcG9ydCAqCgpjbGFzcyBDb250ZXN0YW50RGF0YShDb250ZXN0YW50RGF0YVRlbXBsYXRlKToKICAgIGRlZiBnZXRfdGVzdF92ZXJkaWN0KHNlbGYsIHRhc2s6IHN0cikgLT4gc3RyOgogICAgICAgIGZvciBpIGluIHJhbmdlKGxlbihzZWxmLnRhc2tfcmVzdWx0c1t0YXNrXSkpOgogICAgICAgICAgICBpZiBzZWxmLnRhc2tfcmVzdWx0c1t0YXNrXVtpXVswXSAhPSAiQUMiOgogICAgICAgICAgICAgICAgcmV0dXJuIGYie3NlbGYudGFza19yZXN1bHRzW3Rhc2tdW2ldWzBdfSB7aX0iCiAgICAgICAgcmV0dXJuICJBQyIKICAgIAogICAgZGVmIGdldF9wb2ludHMoc2VsZikgLT4gZmxvYXQ6CiAgICAgICAgcmV0dXJuIHN1bShbKHNlbGYuZ2V0X3Rlc3RfdmVyZGljdChpKSA9PSAiQUMiKSBmb3IgaSBpbiBzZWxmLnRhc2tfcmVzdWx0c10pCg==",
+                    "subType": "00"
+                }
+            }
+        },
+        "new_global_events": [],
+        "global_events": [
+            [
+                0,
+                "Start",
+                {}
+            ]
         ]
     }
 ]

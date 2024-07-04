@@ -17,7 +17,6 @@ COPY ./contest_pb2.pyi /contest_pb2.pyi
 COPY ./contest_pb2_grpc.py /contest_pb2_grpc.py
 
 COPY ./cbamodule.py /cbamodule.py
-COPY ./cbahelper.py /cbahelper.py
 COPY ./cbacontest.py /cbacontest.py
 
 EXPOSE 5000
