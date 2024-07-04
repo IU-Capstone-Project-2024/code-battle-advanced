@@ -5,20 +5,37 @@
     margin: 0 auto;
     gap: 1em;
     font-size: 24px;
+    max-width: 400px;
+}
+
+label {
+    text-transform: capitalize;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.form__contest-upload {
+    font-size: 20px;
 }
 
 input {
     font-size: 20px;
+    padding: 0 0.4em;
+}
+
+.green-btn {
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #Submit {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 0.4em 0.8em;
 }
 
 #ContestName, #StartTime, #duration {
-    border-bottom: 2px solid #000000;
+    border-bottom: 3px solid #000000;
+    border-radius: 0.4em;
 }
 
 @media (max-width: 360px) {

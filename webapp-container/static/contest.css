@@ -20,20 +20,19 @@
 .contest__header {
     font-size: 30px;
     color: #000000;
-    margin-bottom: 1em;
 }
 
-.task__header {
-    margin-bottom: 0.5em;
-    color: #000000;
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .task:not(:last-child) {
     margin-bottom: 1em;
 }
 
-.task__desc {
-    margin-bottom: 0.5em;
+.task__header {
     color: #000000;
 }
 

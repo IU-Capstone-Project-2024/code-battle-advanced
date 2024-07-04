@@ -1,5 +1,6 @@
 header {
     background-color: #5F5F5F;
+    flex: 0 1 auto;
 }
 
 .nav {
