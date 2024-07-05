@@ -87,6 +87,7 @@ def error(admin, my_contest):
         return True
     return False
 
+
 def get_widgets_for_page(widgets):
     widgets_for_page = []
 
@@ -115,6 +116,8 @@ def contest(contest_name):
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
 
     if request.method == 'POST':
+        if request.form.get('btn'):
+            pass
         filename = str(uuid.uuid4())
         available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
         md = return_bson('md-file')[0]
