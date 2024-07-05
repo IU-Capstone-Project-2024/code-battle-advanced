@@ -87,6 +87,18 @@ def error(admin, my_contest):
         return True
     return False
 
+def get_widgets_for_page(widgets):
+    widgets_for_page = []
+
+    for i in widgets:
+        if "TextButtonWidget(\'" in i:
+            widgets_for_page.append(['button'] +
+                                    [i.lstrip("TextWidget(\'").rstrip("\')").split('\' ,')])
+        else:
+            widgets_for_page.append(['text'] +
+                                    [i.lstrip("TextButtonWidget(\'").rstrip("\')").split('\' ,')])
+    return widgets_for_page
+
 
 @app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
 def contest(contest_name):
@@ -95,8 +107,7 @@ def contest(contest_name):
     widgets = list(mongo.db.participants.find({'contest_id': contest_name, 'participant_id': session['username']}))
     name, text = None, None
     has_widgets = len(widgets) > 0
-    if len(widgets) > 0:
-        name, text = [i.lstrip("TextWidget(\'").rstrip("\'").split('\' ,') for i in widgets]
+    widgets_for_page = get_widgets_for_page(widgets)
     if error(admin, my_contest):
         return render_template('error.html')
     if 'username' not in session:
@@ -154,7 +165,7 @@ def contest(contest_name):
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
     return render_template('contest.html', admin=admin,
                            listOfTasks=tasks, contest_name=contest_name, username=session['username'],
-                           widget_name=name, widget_text=text, has_widgets=has_widgets)
+                           widgets=widgets_for_page, has_widgets=has_widgets)
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
