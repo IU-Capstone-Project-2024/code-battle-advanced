@@ -12,6 +12,12 @@ import pytz
 import shutil
 import redis
 import ast
+import bson
+
+import grpc
+
+import contest_pb2 as pb2
+import contest_pb2_grpc as pb2_grpc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
@@ -23,6 +29,10 @@ p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
 
+
+def get_stub():
+    channel = grpc.insecure_channel("192.168.49.2:32002")
+    return pb2_grpc.ContestStub(channel)
 
 @app.route("/")
 @app.route("/main")
@@ -93,20 +103,27 @@ def get_widgets_for_page(widgets):
     widgets_for_page = []
 
     for i in widgets:
-        if "TextButtonWidget(\'" in i:
-            widgets_for_page.append(['button'] +
-                                    [i.lstrip("TextWidget(\'").rstrip("\')").split('\' ,')])
+        if "TextButtonWidget(\'" not in i:
+            widgets_for_page.append([False] +
+                                    i.replace("TextWidget(\'", '').replace("\')", '').split('\', \''))
         else:
-            widgets_for_page.append(['text'] +
-                                    [i.lstrip("TextButtonWidget(\'").rstrip("\')").split('\' ,')])
+            widgets_for_page.append([True] +
+                                    i.replace("TextButtonWidget(\'", '').replace("\')", '').split('\', \''))
     return widgets_for_page
 
+    
 
 @app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
 def contest(contest_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    widgets = list(mongo.db.participants.find({'contest_id': contest_name, 'participant_id': session['username']}))
+    cur_contest_time = datetime.utcnow() - my_contest['startTime']
+    cur_contest_time = int(cur_contest_time / timedelta(milliseconds=1))
+    get_stub().GoToTime(pb2.GoToTimeMessage(contest_id=contest_name,
+                                            participant_id=session['username'],
+                                            time=cur_contest_time))
+    
+    widgets = mongo.db.participants.find_one({'contest_id': contest_name, 'participant_id': session['username']})['widgets']
     name, text = None, None
     has_widgets = len(widgets) > 0
     widgets_for_page = get_widgets_for_page(widgets)
@@ -118,52 +135,57 @@ def contest(contest_name):
 
     if request.method == 'POST':
         if request.form.get('btn'):
-            pass
-        filename = str(uuid.uuid4())
-        available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
-        md = return_bson('md-file')[0]
-        if 'input-file' in request.files and 'checker-file' in request.files:
-            input1 = return_bson('input-file')
-            checker = return_bson('checker-file')
-            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+            get_stub().HandleEvent(pb2.EventData(contest_id=contest_name,
+                                                 participant_id=session['username'],
+                                                 time=cur_contest_time,
+                                                 caller=request.form['btn'],
+                                                 data="{}"))
+        else:
+            filename = str(uuid.uuid4())
+            available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
+            md = return_bson('md-file')[0]
+            if 'input-file' in request.files and 'checker-file' in request.files:
+                input1 = return_bson('input-file')
+                checker = return_bson('checker-file')
+                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
                                        "input": input1,
                                        "checker": checker,
                                        "judgement_mod": request.form["judgement_mod"],
                                        "available": available_languages,
                                        "tags": request.form['tags'].split(","),
                                        'md': md})
-        elif 'input-file' in request.files and 'solution-file' in request.files:
-            input1 = return_bson('input-file')
-            solution = return_bson('solution-file')
-            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+            elif 'input-file' in request.files and 'solution-file' in request.files:
+                input1 = return_bson('input-file')
+                solution = return_bson('solution-file')
+                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
                                        "input": input1,
                                        "solution": solution,
                                        "judgement_mod": request.form["judgement_mod"],
                                        "available": available_languages,
                                        "tags": request.form['tags'].split(","),
                                        'md': md})
-        elif 'input-file' in request.files and 'interactive-file' in request.files:
-            input1 = return_bson('input-file')
-            interactive = return_bson('interactive-file')
-            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+            elif 'input-file' in request.files and 'interactive-file' in request.files:
+                input1 = return_bson('input-file')
+                interactive = return_bson('interactive-file')
+                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
                                        "input": input1,
                                        "interactive": interactive,
                                        "judgement_mod": request.form["judgement_mod"],
                                        "available": available_languages,
                                        "tags": request.form['tags'].split(","),
                                        'md': md})
-        elif 'input-file' in request.files and 'output-file' in request.files:
-            input1 = return_bson('input-file')
-            output = return_bson('output-file')
-            mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
+            elif 'input-file' in request.files and 'output-file' in request.files:
+                input1 = return_bson('input-file')
+                output = return_bson('output-file')
+                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
                                        "input": input1,
                                        "output": output,
                                        "judgement_mod": request.form["judgement_mod"],
                                        "available": available_languages,
                                        "tags": request.form['tags'].split(","),
                                        'md': md})
-        if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
-            mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
+            if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
+                mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
 
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]

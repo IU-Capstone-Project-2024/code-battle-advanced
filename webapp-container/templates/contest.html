@@ -8,13 +8,17 @@
    <body> 
       <h1>{{contest_name}}</h1>
    </body>
-   {%if has_widgets%} 
+   {%if has_widgets%}
+        <form method="post" enctype="multipart/form-data">
    	{%for is_button, name, text in widgets%}
-		<p>{{text}}</p>
    		{%if is_button%}
-			<input type="submit" name="btn" value={{name}}>
+			<button type="submit" name="btn" value={{name}}>{{text}}</button>
+		{%else%}
+		        <p>{{text}}</p>
  		{%endif%}
-   {%endfor%}
+ 		
+        {%endfor%}
+        </form>
    {%endif%}
    {% for name, uuid in listOfTasks %}    
  		<li role="presentation"><a href={{contest_name}}/task/{{uuid}}>{{name}}</a>
