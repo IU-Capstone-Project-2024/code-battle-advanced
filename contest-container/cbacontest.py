@@ -13,7 +13,7 @@ class Widget():
         self.name = name
     
     def __repr__(self):
-        return f"Widget({self.name})"
+        return f"Widget('{self.name}')"
     
 class TextWidget(Widget):
     text = "Test Widget"
@@ -27,7 +27,7 @@ class TextWidget(Widget):
         self.dirty = True
     
     def __repr__(self):
-        return f"TextWidget({self.name}, {self.text})"
+        return f"TextWidget('{self.name}', '{self.text}')"
     
 #class ImageWidget(Widget):
 #    image = "test ignore"
@@ -50,7 +50,7 @@ class TextButtonWidget(Widget):
         self.parent.event_handler(self.name, "Pressed")
     
     def __repr__(self):
-        return f"TextButtonWidget({self.name}, {self.text})"
+        return f"TextButtonWidget('{self.name}', '{self.text}')"
         
 #class ImageButtonWidget(Widget):
 #    text = "Test"

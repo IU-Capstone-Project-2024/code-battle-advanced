@@ -12,6 +12,7 @@ import pytz
 import shutil
 import bson
 import redis
+import ast
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
@@ -264,6 +265,9 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+def prune_vulnerabilities(file_str):
+    tree = ast.parse(file_str)
+
 
 @app.route('/create', methods=['GET', 'POST'])
 def create_contest():
@@ -275,6 +279,7 @@ def create_contest():
         uploaded_file = request.files['type_python']
         filename = uploaded_file.filename
         file_data = uploaded_file.read()
+        prune_vulnerabilities(file_data)
         bson_document = {
             'filename': filename,
             'file_data': bson.Binary(file_data)
@@ -285,8 +290,7 @@ def create_contest():
                                                                                        "%d/%m/%Y %H:%M:%S")),
                                       'allowed_teams': 'teams' in request.form,
                                       'config': bson_document,
-                                      'new_global_events': [(0, "Start", {})],
-                                      'global_events': []})
+                                      'global_events': [(0, "Start", {})]})
 
     return render_template('create.html', admin=admin)
 
