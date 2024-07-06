@@ -10,7 +10,6 @@ from datetime import datetime, timezone, timedelta
 import math
 import pytz
 import shutil
-import bson
 import redis
 import ast
 
@@ -90,10 +89,27 @@ def error(admin, my_contest):
     return False
 
 
+def get_widgets_for_page(widgets):
+    widgets_for_page = []
+
+    for i in widgets:
+        if "TextButtonWidget(\'" in i:
+            widgets_for_page.append(['button'] +
+                                    [i.lstrip("TextWidget(\'").rstrip("\')").split('\' ,')])
+        else:
+            widgets_for_page.append(['text'] +
+                                    [i.lstrip("TextButtonWidget(\'").rstrip("\')").split('\' ,')])
+    return widgets_for_page
+
+
 @app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
 def contest(contest_name):
     my_contest = mongo.db.contests.find_one({"name": contest_name})
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    widgets = list(mongo.db.participants.find({'contest_id': contest_name, 'participant_id': session['username']}))
+    name, text = None, None
+    has_widgets = len(widgets) > 0
+    widgets_for_page = get_widgets_for_page(widgets)
     if error(admin, my_contest):
         return render_template('error.html')
     if 'username' not in session:
@@ -101,6 +117,8 @@ def contest(contest_name):
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
 
     if request.method == 'POST':
+        if request.form.get('btn'):
+            pass
         filename = str(uuid.uuid4())
         available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
         md = return_bson('md-file')[0]
@@ -149,12 +167,9 @@ def contest(contest_name):
 
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
-    if admin:
-        return render_template('contest.html', admin=admin,
-                               listOfTasks=tasks, contest_name=contest_name, username=session['username'])
-    else:
-        return render_template('contest.html', listOfTasks=tasks, contest_name=contest_name,
-                               username=session['username'])
+    return render_template('contest.html', admin=admin,
+                           listOfTasks=tasks, contest_name=contest_name, username=session['username'],
+                           widgets=widgets_for_page, has_widgets=has_widgets)
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
@@ -184,7 +199,9 @@ def task(contest_name=None, task_name=None):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
 
-    md_template_string = render_template('task_top.html', url=task_name, username=session['username'], contest_name=contest_name) + md_template_string + render_template('task_bottom.html', url=task_name, username=session['username'], contest_name=contest_name)
+    md_template_string = render_template('task_top.html', url=task_name, username=session['username'],
+                                         contest_name=contest_name) + md_template_string + render_template(
+        'task_bottom.html', url=task_name, username=session['username'], contest_name=contest_name)
     return md_template_string
 
 
@@ -219,7 +236,6 @@ def contest_success(contest_name=None, task_name=None):
                                                'final_verdict': "N/A"}).inserted_id
         if not isinstance(_id, str):
             _id = str(_id)
-
         q.lpush("job2", _id + ":3")
         return render_template("acknowledgement.html")
 
@@ -350,6 +366,11 @@ def tasks_archive():
     if 'username' not in session:
         return render_template('unauthorized.html')
     else:
+        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+        session['contests'] = []
+        for i in mongo.db.contests.find():
+            if not error(admin, i):
+                session['contests'].append(i['name'])
         contest_archive = [i for i in mongo.db.contests.find()
                            if i['name'] not in session['contests'] and datetime.now(pytz.utc) >
                            i['startTime'].astimezone(pytz.utc)
