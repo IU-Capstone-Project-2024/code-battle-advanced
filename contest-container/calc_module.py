@@ -45,11 +45,11 @@ class ContestantData(ContestantDataTemplate):
                 if self.op == "+":
                     self.num += self.savenum
                 elif self.op == "-":
-                    self.num -= self.savenum
+                    self.num = self.savenum - self.num
                 elif self.op == "*":
                     self.num *= self.savenum
                 elif self.op == "/":
-                    self.num //= self.savenum
+                    self.num = self.savenum // self.num
                 self.op = "+"
                 self.savenum = 0
             elif caller[1] == "C":
