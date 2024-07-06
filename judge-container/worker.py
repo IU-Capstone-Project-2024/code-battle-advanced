@@ -75,7 +75,7 @@ def test_task(task_id):
     verdict = open("verdict.temp", "r").read().strip()
     verdict = [i.split() for i in verdict.split('\n')]
     
-    verdict = [(i[0], int(i[1]), int(i[2])) for i in verdict]
+    verdict = [(i[0], int(i[1]), float(i[2])) for i in verdict]
     
     pathlib.Path.unlink(submission_file)
     db.submissions.update_one({"_id": ObjectId(task_id)}, {"$set":{"verdict":verdict}})

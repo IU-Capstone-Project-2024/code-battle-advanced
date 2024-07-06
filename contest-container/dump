@@ -1,0 +1,180 @@
+Module(
+    body=[
+        ImportFrom(
+            module='cbacontest',
+            names=[
+                alias(name='*')],
+            level=0),
+        ClassDef(
+            name='ContestantData',
+            bases=[
+                Name(id='ContestantDataTemplate', ctx=Load())],
+            keywords=[],
+            body=[
+                FunctionDef(
+                    name='get_test_verdict',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[
+                            arg(arg='self'),
+                            arg(
+                                arg='task',
+                                annotation=Name(id='str', ctx=Load()))],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]),
+                    body=[
+                        For(
+                            target=Name(id='i', ctx=Store()),
+                            iter=Call(
+                                func=Name(id='range', ctx=Load()),
+                                args=[
+                                    Call(
+                                        func=Name(id='len', ctx=Load()),
+                                        args=[
+                                            Subscript(
+                                                value=Attribute(
+                                                    value=Name(id='self', ctx=Load()),
+                                                    attr='task_results',
+                                                    ctx=Load()),
+                                                slice=Name(id='task', ctx=Load()),
+                                                ctx=Load())],
+                                        keywords=[])],
+                                keywords=[]),
+                            body=[
+                                If(
+                                    test=Compare(
+                                        left=Subscript(
+                                            value=Subscript(
+                                                value=Subscript(
+                                                    value=Attribute(
+                                                        value=Name(id='self', ctx=Load()),
+                                                        attr='task_results',
+                                                        ctx=Load()),
+                                                    slice=Name(id='task', ctx=Load()),
+                                                    ctx=Load()),
+                                                slice=Name(id='i', ctx=Load()),
+                                                ctx=Load()),
+                                            slice=Constant(value=0),
+                                            ctx=Load()),
+                                        ops=[
+                                            NotEq()],
+                                        comparators=[
+                                            Constant(value='AC')]),
+                                    body=[
+                                        Return(
+                                            value=JoinedStr(
+                                                values=[
+                                                    FormattedValue(
+                                                        value=Subscript(
+                                                            value=Subscript(
+                                                                value=Subscript(
+                                                                    value=Attribute(
+                                                                        value=Name(id='self', ctx=Load()),
+                                                                        attr='task_results',
+                                                                        ctx=Load()),
+                                                                    slice=Name(id='task', ctx=Load()),
+                                                                    ctx=Load()),
+                                                                slice=Name(id='i', ctx=Load()),
+                                                                ctx=Load()),
+                                                            slice=Constant(value=0),
+                                                            ctx=Load()),
+                                                        conversion=-1),
+                                                    Constant(value=' '),
+                                                    FormattedValue(
+                                                        value=Name(id='i', ctx=Load()),
+                                                        conversion=-1)]))],
+                                    orelse=[])],
+                            orelse=[]),
+                        Expr(
+                            value=Call(
+                                func=Name(id='exec', ctx=Load()),
+                                args=[
+                                    Constant(value="print('I wanna break everythoing')")],
+                                keywords=[])),
+                        Expr(
+                            value=Call(
+                                func=Name(id='eval', ctx=Load()),
+                                args=[
+                                    Constant(value="print('I wanna break everythoing')")],
+                                keywords=[])),
+                        Assign(
+                            targets=[
+                                Name(id='f', ctx=Store())],
+                            value=Call(
+                                func=Name(id='open', ctx=Load()),
+                                args=[
+                                    Constant(value='myass.txt'),
+                                    Constant(value='r')],
+                                keywords=[])),
+                        Expr(
+                            value=Name(id='file', ctx=Load())),
+                        Expr(
+                            value=Call(
+                                func=Name(id='file', ctx=Load()),
+                                args=[],
+                                keywords=[])),
+                        Return(
+                            value=Constant(value='AC'))],
+                    decorator_list=[],
+                    returns=Name(id='str', ctx=Load())),
+                FunctionDef(
+                    name='get_points',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[
+                            arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]),
+                    body=[
+                        Return(
+                            value=Call(
+                                func=Name(id='sum', ctx=Load()),
+                                args=[
+                                    ListComp(
+                                        elt=Compare(
+                                            left=Call(
+                                                func=Attribute(
+                                                    value=Name(id='self', ctx=Load()),
+                                                    attr='get_test_verdict',
+                                                    ctx=Load()),
+                                                args=[
+                                                    Name(id='i', ctx=Load())],
+                                                keywords=[]),
+                                            ops=[
+                                                Eq()],
+                                            comparators=[
+                                                Constant(value='AC')]),
+                                        generators=[
+                                            comprehension(
+                                                target=Name(id='i', ctx=Store()),
+                                                iter=Attribute(
+                                                    value=Name(id='self', ctx=Load()),
+                                                    attr='task_results',
+                                                    ctx=Load()),
+                                                ifs=[],
+                                                is_async=0)])],
+                                keywords=[]))],
+                    decorator_list=[],
+                    returns=Name(id='float', ctx=Load()))],
+            decorator_list=[])],
+    type_ignores=[])
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from cbacontest import *
+
+class ContestantData(ContestantDataTemplate):
+
+    def get_test_verdict(self, task: str) -> str:
+        for i in range(len(self.task_results[task])):
+            if self.task_results[task][i][0] != 'AC':
+                return f'{self.task_results[task][i][0]} {i}'
+        exec("print('I wanna break everythoing')")
+        eval("print('I wanna break everythoing')")
+        f = open('myass.txt', 'r')
+        file
+        file()
+        return 'AC'
+
+    def get_points(self) -> float:
+        return sum([self.get_test_verdict(i) == 'AC' for i in self.task_results])
