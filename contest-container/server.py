@@ -66,7 +66,7 @@ class Handler(pb2_grpc.ContestServicer):
                 profile.new_schedules = []
             y += 1
         
-        widgets = [repr(i) for i in profile.widgets]
+        widgets = profile.render_widgets()
         
         db.participants.update_one({"contest_id": contest_id, "participant_id": participant_id},
                                {"$set": {"new_events": new_personal_events[y:-1], "widgets": widgets}, 
@@ -97,7 +97,7 @@ class Handler(pb2_grpc.ContestServicer):
                          "final_task_results": {i:"" for i in contest_data["tasks"]},
                          "points": 0,
                          "task_results": {i:[("N/A", 0)] for i in contest_data["tasks"]},
-                         "widgets": [],
+                         "widgets": "",
                          "new_events": contest_data["global_events"],
                          "events": []}
             db.participants.insert_one(new_entry)

@@ -1,0 +1,23 @@
+.vbox {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.hbox {
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+}
+
+.widget_style button{
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    color: #000;
+}
+
+.widget_style p{
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    color: #000;
+}

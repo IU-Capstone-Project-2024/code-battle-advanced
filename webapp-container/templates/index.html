@@ -1,45 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <title>Code Battle Advanced</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+        <link rel="stylesheet" href="../static/general.css">
+        <link rel="stylesheet" href="../static/header.css">
+        <link rel="stylesheet" href="../static/main.css">
+        <link rel="stylesheet" href="../static/footer.css">
+        <link rel="stylesheet" href="../static/buttons.css">
+        <link rel="stylesheet" href="../static/index.css">
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <nav class="nav">
+                    <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
+                    <ul class="nav__list nav-pills pull-right">
+                        {%if username is defined %}
+                        <li class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></li>
+                        <li class="nav__item" role="presentation"><a class="nav__link" href="/logout">Logout</a></li>
+                        {% else %}
+                        <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">sign in</a></li>
+                        <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">get started</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-<head>
-    <title>Code Battle Advanced</title>
-</head>
+        <main class="main">
+            <div class="container">
+                <section class="jumbotron">
+                    <nav class="main__nav">
+                        <p class="lead">lead</p>
+                        <p role="presentation" class="red-btn active"><a class="main__nav-link" href="/contests/available">Available contests</a></p>
+                        <p role="presentation" class="red-btn active"><a class="main__nav-link" href="/tasks_archive">Task archive</a></p>
+                        {%if admin is defined%} 
+                            {%if admin%}
+                            <p role="presentation" class="red-btn active"><a class="main__nav-link" href="/contests/my">My contests</a></p>
+                            {%endif%}
+                        {%endif%} 
+                    </nav>
+                </section>
+            </div>
+        </main>
 
-<body>
-<h1>Code Battle Advanced</h1>
-<div class="container">
-    <div class="header">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="#">Home</a>
-                </li>
-                {%if username is defined %}
-                <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
-                </li>
-		<li role="presentation"><a href="/personal">Personal page</a>
-                </li>
-                {% else %}
-                <li role="presentation"><a href="/signin">Sign In</a>
-                </li>
-                <li role="presentation"><a href="/signup">Sign Up</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-    </div>
-
-    <div class="jumbotron">
-        <p class="lead"></p>
-        <li role="presentation" class="active"><a href="/contests/available">Available contests</a></li>
-        <li role="presentation" class="active"><a href="/tasks_archive">Task archive</a></li>
-	{%if admin is defined%} 
-		{%if admin%}
-		<li role="presentation" class="active"><a href="/contests/my">My contests</a></li>
-		{%endif%}
-	{%endif%}
-    </div>
-
-</div>
-</body>
-
+        <footer class="footer">
+            <div class="container">
+            <p class="footer__copyright">&copy; Copyright</p>
+            </div>
+        </footer>
+    </body>
 </html>
+

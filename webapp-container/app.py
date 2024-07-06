@@ -99,17 +99,17 @@ def error(admin, my_contest):
     return False
 
 
-def get_widgets_for_page(widgets):
-    widgets_for_page = []
-
-    for i in widgets:
-        if "TextButtonWidget(\'" not in i:
-            widgets_for_page.append([False] +
-                                    i.replace("TextWidget(\'", '').replace("\')", '').split('\', \''))
-        else:
-            widgets_for_page.append([True] +
-                                    i.replace("TextButtonWidget(\'", '').replace("\')", '').split('\', \''))
-    return widgets_for_page
+#def get_widgets_for_page(widgets):
+#    widgets_for_page = []
+#
+#    for i in widgets:
+#        if "TextButtonWidget(\'" not in i:
+#            widgets_for_page.append([False] +
+#                                    i.replace("TextWidget(\'", '').replace("\')", '').split('\', \''))
+#        else:
+#            widgets_for_page.append([True] +
+#                                    i.replace("TextButtonWidget(\'", '').replace("\')", '').split('\', \''))
+#    return widgets_for_page
 
     
 
@@ -122,11 +122,10 @@ def contest(contest_name):
     get_stub().GoToTime(pb2.GoToTimeMessage(contest_id=contest_name,
                                             participant_id=session['username'],
                                             time=cur_contest_time))
-    
-    widgets = mongo.db.participants.find_one({'contest_id': contest_name, 'participant_id': session['username']})['widgets']
-    name, text = None, None
-    has_widgets = len(widgets) > 0
-    widgets_for_page = get_widgets_for_page(widgets)
+   
+    #name, text = None, None
+    #has_widgets = len(widgets) > 0
+    #widgets_for_page = get_widgets_for_page(widgets)
     if error(admin, my_contest):
         return render_template('error.html')
     if 'username' not in session:
@@ -186,12 +185,12 @@ def contest(contest_name):
                                        'md': md})
             if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
                 mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
-
+    widgets = mongo.db.participants.find_one({'contest_id': contest_name, 'participant_id': session['username']})['widgets']
     tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
     return render_template('contest.html', admin=admin,
                            listOfTasks=tasks, contest_name=contest_name, username=session['username'],
-                           widgets=widgets_for_page, has_widgets=has_widgets)
+                           widgets=widgets)
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')

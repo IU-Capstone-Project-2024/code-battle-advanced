@@ -5,12 +5,15 @@ TestVerdict: TypeAlias = tuple[str, float]
 TestingResults: TypeAlias = list[TestVerdict]
 
 class Widget():
-    parent = None
+    parent: str = None
     name: str = "Widget0"
     dirty: bool = False
     
     def __init__(self, name):
         self.name = name
+        
+    def to_html(self):
+        return ""
     
     def __repr__(self):
         return f"Widget('{self.name}')"
@@ -26,6 +29,9 @@ class TextWidget(Widget):
         self.text = text
         self.dirty = True
     
+    def to_html(self):
+        return f'<p>{self.text}</p>'
+
     def __repr__(self):
         return f"TextWidget('{self.name}', '{self.text}')"
     
@@ -48,6 +54,9 @@ class TextButtonWidget(Widget):
     
     def on_press(self):
         self.parent.event_handler(self.name, "Pressed")
+      
+    def to_html(self):
+        return f'<button type="submit" name="btn" value={self.name}>{self.text}</button>'
     
     def __repr__(self):
         return f"TextButtonWidget('{self.name}', '{self.text}')"
@@ -57,6 +66,54 @@ class TextButtonWidget(Widget):
 #    
 #    def on_press(self):
 #        self.text = self.text[::-1]
+
+class WidgetBox(Widget):
+    contents: list[str] = []
+
+    def __init__(self, name, contents):
+        super().__init__(name)
+        self.name = name
+        fixedcontents = []
+        for i in contents:
+            if isinstance(i, Widget):
+                fixedcontents.append(i)
+            #elif isinstance(i, str):
+            #    fixedcontents.append(i)
+            else:
+                raise ValueError("Box is only supposed to have widgets or their names")
+        self.contents = fixedcontents
+    
+    def to_html(self):
+        ret_str = '<div>'
+        for i in self.contents:
+            ret_str += i.to_html()
+        ret_str += '</div>'
+        return ret_str
+    
+    def __repr__(self):
+        return f"WidgetBox('{self.name}', {str(self.contents)})"
+
+class HWidgetBox(WidgetBox):
+    def to_html(self):
+        ret_str = '<div class="hbox">'
+        for i in self.contents:
+            ret_str += i.to_html()
+        ret_str += '</div>'
+        return ret_str
+    
+    def __repr__(self):
+        return f"HWidgetBox('{self.name}', {str(self.contents)})"
+
+class VWidgetBox(WidgetBox):
+    def to_html(self):
+        ret_str = '<div class="vbox">'
+        for i in self.contents:
+            ret_str += i.to_html()
+        ret_str += '</div>'
+        return ret_str
+
+    def __repr__(self):
+        return f"VWidgetBox('{self.name}', {str(self.contents)})"
 
 class ContestantDataTemplate():
     widgets: list[Widget] = []
@@ -111,6 +168,19 @@ class ContestantDataTemplate():
             foo = getattr(self, self.binds[caller])
         
         return foo(caller, **event_data)
+    
+    @final
+    def render_widgets(self):
+        is_root = {i.name:True for i in self.widgets}
+        for i in self.widgets:
+            if isinstance(i, WidgetBox):
+                for j in i.contents:
+                    is_root[j.name] = False
+        rendered_str = ''
+        for i in self.widgets:
+            if is_root[i.name]:
+                rendered_str += i.to_html()
+        return rendered_str
         
     def start_contest(self, caller="Start", **kwargs):
         pass
