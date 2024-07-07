@@ -4,7 +4,6 @@ import bcrypt
 from pathlib import Path
 import markdown
 import markdown.extensions.fenced_code
-import uuid
 import os
 from datetime import datetime, timezone, timedelta
 import math
@@ -23,7 +22,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
 app.config['MONGO_dbname'] = 'Users'
 app.config[
-    'MONGO_URI'] = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
+    'MONGO_URI'] = "mongodb://localhost:27017/Users"
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
@@ -33,6 +32,7 @@ redis_host = "redis"
 def get_stub():
     channel = grpc.insecure_channel("192.168.49.2:32002")
     return pb2_grpc.ContestStub(channel)
+
 
 @app.route("/")
 @app.route("/main")
@@ -94,12 +94,12 @@ def error(admin, my_contest):
     start_time = pytz.utc.localize(my_contest['startTime'])
     if (not start_time
             <= datetime.now(pytz.utc) <= start_time
-            + timedelta(minutes=int(my_contest['duration'])) and not (admin and start_time > datetime.now(pytz.utc))):
+            + timedelta(minutes=int(my_contest['duration'])) and not admin):
         return True
     return False
 
 
-#def get_widgets_for_page(widgets):
+# def get_widgets_for_page(widgets):
 #    widgets_for_page = []
 #
 #    for i in widgets:
@@ -111,27 +111,26 @@ def error(admin, my_contest):
 #                                    i.replace("TextButtonWidget(\'", '').replace("\')", '').split('\', \''))
 #    return widgets_for_page
 
-    
 
 @app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
 def contest(contest_name):
-    my_contest = mongo.db.contests.find_one({"name": contest_name})
+    my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
     cur_contest_time = datetime.utcnow() - my_contest['startTime']
     cur_contest_time = int(cur_contest_time / timedelta(milliseconds=1))
     get_stub().GoToTime(pb2.GoToTimeMessage(contest_id=contest_name,
                                             participant_id=session['username'],
                                             time=cur_contest_time))
-   
-    #name, text = None, None
-    #has_widgets = len(widgets) > 0
-    #widgets_for_page = get_widgets_for_page(widgets)
+
+    # name, text = None, None
+    # has_widgets = len(widgets) > 0
+    # widgets_for_page = get_widgets_for_page(widgets)
     if error(admin, my_contest):
         return render_template('error.html')
     if 'username' not in session:
         return render_template('unauthorized.html')
     admin = mongo.db.users.find_one({'username': session['username']})['admin']
-
+    _id = None
     if request.method == 'POST':
         if request.form.get('btn'):
             get_stub().HandleEvent(pb2.EventData(contest_id=contest_name,
@@ -139,58 +138,59 @@ def contest(contest_name):
                                                  time=cur_contest_time,
                                                  caller=request.form['btn'],
                                                  data="{}"))
+            pass
         else:
-            filename = str(uuid.uuid4())
             available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
             md = return_bson('md-file')[0]
             if 'input-file' in request.files and 'checker-file' in request.files:
                 input1 = return_bson('input-file')
                 checker = return_bson('checker-file')
-                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
-                                       "input": input1,
-                                       "checker": checker,
-                                       "judgement_mod": request.form["judgement_mod"],
-                                       "available": available_languages,
-                                       "tags": request.form['tags'].split(","),
-                                       'md': md})
+                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                                 "input": input1,
+                                                 "checker": checker,
+                                                 "judgement_mod": request.form["judgement_mod"],
+                                                 "available": available_languages,
+                                                 "tags": request.form['tags'].split(","),
+                                                 'md': md}).inserted_id
             elif 'input-file' in request.files and 'solution-file' in request.files:
                 input1 = return_bson('input-file')
                 solution = return_bson('solution-file')
-                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
-                                       "input": input1,
-                                       "solution": solution,
-                                       "judgement_mod": request.form["judgement_mod"],
-                                       "available": available_languages,
-                                       "tags": request.form['tags'].split(","),
-                                       'md': md})
+                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                                 "input": input1,
+                                                 "solution": solution,
+                                                 "judgement_mod": request.form["judgement_mod"],
+                                                 "available": available_languages,
+                                                 "tags": request.form['tags'].split(","),
+                                                 'md': md}).inserted_id
             elif 'input-file' in request.files and 'interactive-file' in request.files:
                 input1 = return_bson('input-file')
                 interactive = return_bson('interactive-file')
-                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
-                                       "input": input1,
-                                       "interactive": interactive,
-                                       "judgement_mod": request.form["judgement_mod"],
-                                       "available": available_languages,
-                                       "tags": request.form['tags'].split(","),
-                                       'md': md})
+                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                                 "input": input1,
+                                                 "interactive": interactive,
+                                                 "judgement_mod": request.form["judgement_mod"],
+                                                 "available": available_languages,
+                                                 "tags": request.form['tags'].split(","),
+                                                 'md': md}).inserted_id
             elif 'input-file' in request.files and 'output-file' in request.files:
                 input1 = return_bson('input-file')
                 output = return_bson('output-file')
-                mongo.db.tasks.insert_one({'uuid': filename, "task_name": request.form['name'],
-                                       "input": input1,
-                                       "output": output,
-                                       "judgement_mod": request.form["judgement_mod"],
-                                       "available": available_languages,
-                                       "tags": request.form['tags'].split(","),
-                                       'md': md})
-            if filename not in mongo.db.contests.find_one({'name': contest_name})['tasks']:
-                mongo.db.contests.update_one({'name': contest_name}, {'$push': {'tasks': filename}})
-    widgets = mongo.db.participants.find_one({'contest_id': contest_name, 'participant_id': session['username']})['widgets']
-    tasks = mongo.db.contests.find_one({'name': contest_name})["tasks"]
-    tasks = [(mongo.db.tasks.find_one({'uuid': i})["task_name"], i) for i in tasks]
+                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                                 "input": input1,
+                                                 "output": output,
+                                                 "judgement_mod": request.form["judgement_mod"],
+                                                 "available": available_languages,
+                                                 "tags": request.form['tags'].split(","),
+                                                 'md': md}).inserted_id
+            if str(_id) not in mongo.db.contests.find_one({'_id': bson.ObjectId(contest_name)})['tasks']:
+                mongo.db.contests.update_one({'_id': bson.ObjectId(contest_name)},
+                                             {'$push': {'tasks': bson.ObjectId(_id)}})
+    widgets = mongo.db.participants.find_one({'contest_id': contest_name, 'participant_id': session['username']})[
+        'widgets']
+    tasks = mongo.db.contests.find_one({'_id': bson.ObjectId(contest_name)})["tasks"]
+    tasks = [(mongo.db.tasks.find_one({'_id': bson.ObjectId(i)})["task_name"], i) for i in tasks]
     return render_template('contest.html', admin=admin,
-                           listOfTasks=tasks, contest_name=contest_name, username=session['username'],
-                           widgets=widgets)
+                           listOfTasks=tasks, contest_name=contest_name, username=session['username'], widgets=widgets)
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
@@ -200,15 +200,15 @@ def task(contest_name=None, task_name=None):
         return render_template('unauthorized.html')
     print(contest_name)
     if contest_name is None:
-        result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_data"]
+        result = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})["md"]["file_data"]
     else:
-        my_contest = mongo.db.contests.find_one({"name": contest_name})
+        my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
         if error(admin, my_contest):
             return render_template("error.html")
 
-        result = mongo.db.tasks.find_one({"uuid": task_name})["md"]["file_data"]
-
+        result = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})["md"]["file_data"]
+    print(result)
     md_template_string = markdown.markdown(
         result.decode(), extensions=["fenced_code", 'tables']
     )
@@ -219,9 +219,9 @@ def task(contest_name=None, task_name=None):
         if os.path.exists(f"/tasks/{task_name}/{i}"):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
-
+    print(md_template_string)
     return render_template('task.html', url=task_name, username=session['username'],
-                                         contest_name=contest_name, statement=md_template_string)
+                           contest_name=contest_name, statement=md_template_string)
 
 
 def success_support_func(task_name):
@@ -239,14 +239,15 @@ def contest_success(contest_name=None, task_name=None):
         src, n, lang = success_support_func(task_name)
         if contest_name is not None:
             admin = mongo.db.users.find_one({'username': session['username']})['admin']
-            my_contest = mongo.db.contests.find_one({"name": contest_name})
+            my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
             if error(admin, my_contest):
                 return render_template("error.html")
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
                                                'in_contest_name':
-                                                   mongo.db.tasks.find_one({"uuid": task_name})["task_name"],
+                                                   mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})[
+                                                       "task_name"],
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'filename': request.files['file'].filename,
@@ -300,6 +301,7 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+
 def prune_vulnerabilities(file_str):
     tree = ast.parse(file_str)
 
@@ -319,13 +321,13 @@ def create_contest():
             'filename': filename,
             'file_data': bson.Binary(file_data)
         }
-        mongo.db.contests.insert_one({'name': request.form['ContestName'], 'tasks': [],
-                                      'duration': min(request.form['duration'], '43800', key=lambda i: int(i)),
-                                      'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
-                                                                                       "%d/%m/%Y %H:%M:%S")),
-                                      'allowed_teams': 'teams' in request.form,
-                                      'config': bson_document,
-                                      'global_events': [(0, "Start", {})]})
+        _id = mongo.db.contests.insert_one({'name': request.form['ContestName'], 'tasks': [],
+                                            'duration': min(request.form['duration'], '43800', key=lambda i: int(i)),
+                                            'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
+                                                                                             "%d/%m/%Y %H:%M:%S")),
+                                            'allowed_teams': 'teams' in request.form,
+                                            'config': bson_document,
+                                            'global_events': [(0, "Start", {})]})
 
     return render_template('create.html', admin=admin)
 
@@ -389,15 +391,17 @@ def tasks_archive():
         session['contests'] = []
         for i in mongo.db.contests.find():
             if not error(admin, i):
-                session['contests'].append(i['name'])
+                session['contests'].append(str(i['_id']))
         contest_archive = [i for i in mongo.db.contests.find()
-                           if i['name'] not in session['contests'] and datetime.now(pytz.utc) >
+                           if i['_id'] not in session['contests'] and datetime.now(pytz.utc) >
                            i['startTime'].astimezone(pytz.utc)
                            + timedelta(minutes=int(i['duration']))]
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
         archive = []
         for i in contest_archive:
-            archive += [(i['name'], j, mongo.db.tasks.find_one({'uuid': j})['task_name']) for j in i['tasks']]
+            archive += [(mongo.db.contests.find_one(i['_id'])['name'],
+                         j, mongo.db.tasks.find_one({'_id': j})['task_name']) for j in i['tasks']]
+        print(archive)
         return render_template('tasks_archive.html', all_tasks=archive, admin=admin,
                                username=session['username'])
 
@@ -414,7 +418,7 @@ def available_contests(type_contests):
         for i in mongo.db.contests.find():
             start_time = pytz.utc.localize(i['startTime'])
             if not error(admin, i):
-                session['contests'].append(i['name'])
+                session['contests'].append((i['name'], str(i['_id'])))
         if type_contests == 'available':
             return render_template('available.html', listOfUrls=session['contests'], admin=admin,
                                    username=session['username'])
