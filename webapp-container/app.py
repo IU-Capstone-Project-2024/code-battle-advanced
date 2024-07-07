@@ -22,7 +22,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
 app.config['MONGO_dbname'] = 'Users'
 app.config[
-    'MONGO_URI'] = "mongodb://localhost:27017/Users"
+        'MONGO_URI'] = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
@@ -416,7 +416,6 @@ def available_contests(type_contests):
             return render_template('unauthorized.html')
         session['contests'] = []
         for i in mongo.db.contests.find():
-            start_time = pytz.utc.localize(i['startTime'])
             if not error(admin, i):
                 session['contests'].append((i['name'], str(i['_id'])))
         if type_contests == 'available':
