@@ -13,6 +13,8 @@ import grpc
 
 import cbacontest
 
+import ast
+
 import contest_pb2 as pb2
 import contest_pb2_grpc as pb2_grpc
 
@@ -43,40 +45,36 @@ class Handler(pb2_grpc.ContestServicer):
     
         profile = config.ContestantData(task_results)
         
-        past_events = sorted(contest["global_events"] + part_data["events"])
+        past_events = sorted(part_data["events"])
         
         for i in past_events:
             profile.time = i[0]
             profile.event_handler(i[1], i[2])
             profile.new_schedules = []
-        
-        new_global_events = sorted(contest["new_global_events"]) + [(999999999999999999, "Terminated", {})]
+            
+        new_global_events = []
         new_personal_events = sorted(part_data["new_events"]) + [(999999999999999999, "Terminated", {})]
-        y1, y2 = 0, 0
-        while new_global_events[y1][0] <= time and new_personal_events[y2][0] <= time:
-            if new_global_events[y1][0] <= new_personal_events[y2][0]:
-                profile.time = new_global_events[y1][0]
-                profile.event_handler(new_global_events[y1][1], new_global_events[y1][2])
-                y1 += 1
-            else:
-                profile.time = new_personal_events[y2][0]
-                profile.event_handler(new_personal_events[y2][1], new_personal_events[y2][2])
-                y2 += 1
+        y = 0
+        while new_personal_events[y][0] <= time:
+            profile.time = new_personal_events[y][0]
+            profile.event_handler(new_personal_events[y][1], new_personal_events[y][2])
+            
             for i in profile.new_schedules:
                 if i[3]:
                     insort(new_global_events, (i[0], i[1], i[2]))
-                else:
-                    insort(new_personal_events, (i[0], i[1], i[2]))
+                insort(new_personal_events, (i[0], i[1], i[2]))
                 profile.new_schedules = []
-                    
-        widgets = [repr(i) for i in profile.widgets]
-                    
+            y += 1
+        
+        widgets = profile.render_widgets()
+        
         db.participants.update_one({"contest_id": contest_id, "participant_id": participant_id},
-                               {"$set": {"new_events": new_personal_events[y2:-1], "widgets": widgets}, 
-                                "$push":{"events": {"$each": new_personal_events[:y2]}}})
+                               {"$set": {"new_events": new_personal_events[y:-1], "widgets": widgets}, 
+                                "$push":{"events": {"$each": new_personal_events[:y]}}})
+        db.participants.update_many({"contest_id": contest_id, "participant_id": {"$ne": participant_id}},
+                               {"$push":{"new_events": {"$each": new_global_events}}})
         db.contests.update_one({"name": contest_id},
-                               {"$set": {"new_global_events": new_global_events[y1:-1]}, 
-                                "$push":{"global_events": {"$each": new_global_events[:y1]}}})
+                               {"$push":{"global_events": {"$each": new_global_events}}})
         
         return profile
     
@@ -99,8 +97,8 @@ class Handler(pb2_grpc.ContestServicer):
                          "final_task_results": {i:"" for i in contest_data["tasks"]},
                          "points": 0,
                          "task_results": {i:[("N/A", 0)] for i in contest_data["tasks"]},
-                         "widgets": [],
-                         "new_events": [],
+                         "widgets": "",
+                         "new_events": contest_data["global_events"],
                          "events": []}
             db.participants.insert_one(new_entry)
     
@@ -108,6 +106,8 @@ class Handler(pb2_grpc.ContestServicer):
         contest = request.contest_id
         participant = request.participant_id
         time = request.time
+        
+        self.check_entry(contest, participant)
         
         self.forward_to_time(contest, participant, time)
         
@@ -147,7 +147,7 @@ class Handler(pb2_grpc.ContestServicer):
         participant = request.participant_id
         time = request.time
         caller = request.caller
-        data = request.data
+        data = ast.literal_eval(request.data)
         
         self.check_entry(contest, participant)
         

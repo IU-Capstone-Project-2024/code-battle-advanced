@@ -1,16 +1,16 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Contest content</title>
-   <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
-   <link rel="stylesheet" href="../static/general.css">
-   <link rel="stylesheet" href="../static/header.css">
-   <link rel="stylesheet" href="../static/main.css">
-   <link rel="stylesheet" href="../static/footer.css">
-   <link rel="stylesheet" href="../static/buttons.css">
-   <link rel="stylesheet" href="../static/contest.css">
+   <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+   <link rel="stylesheet" href="/static/general.css">
+   <link rel="stylesheet" href="/static/header.css">
+   <link rel="stylesheet" href="/static/main.css">
+   <link rel="stylesheet" href="/static/footer.css">
+   <link rel="stylesheet" href="/static/buttons.css">
+   <link rel="stylesheet" href="/static/contest.css">
+   <link rel="stylesheet" href="/static/widgets.css">
 </head>
 <body>
    <header class="header">
@@ -28,6 +28,11 @@
       <div class="container">
          <section class="contest">
             <h2 class="contest__header">{{contest_name}}</h2>
+            <div class="widget_style">
+                <form method="post" enctype="multipart/form-data">
+                    {{widgets | safe}}
+                </form>
+            </div>
             {% for name, uuid in listOfTasks %}
             <article class="task">
                <h2 class="task__header">{{name}}</h2>
@@ -50,3 +55,4 @@
    </footer>
 </body>
 </html>
+

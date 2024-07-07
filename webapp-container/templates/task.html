@@ -4,14 +4,14 @@
     <title>Upload the file : GFG</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
-    <link rel="stylesheet" href="../static/general.css">
-    <link rel="stylesheet" href="../static/header.css">
-    <link rel="stylesheet" href="../static/main.css">
-    <link rel="stylesheet" href="../static/footer.css">
-    <link rel="stylesheet" href="../static/single_item.css">
-    <link rel="stylesheet" href="../static/buttons.css">
-    <link rel="stylesheet" href="../static/task.css">
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="/static/general.css">
+    <link rel="stylesheet" href="/static/header.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/footer.css">
+    <link rel="stylesheet" href="/static/single_item.css">
+    <link rel="stylesheet" href="/static/buttons.css">
+    <link rel="stylesheet" href="/static/task.css">
   </head>
   <body>
     <header>
@@ -30,6 +30,9 @@
     <main class="main">
       <div class="container">
         <section class="main__wrapper">
+          <div class="STYLE HERE">
+             {{statement | safe}}
+          </div>
           {%if contest_name is defined%}
           <form class="form" action="/contest/{{contest_name}}/task/{{url}}/success" method="post" enctype="multipart/form-data">
             <div class="form__select-wrapper">
