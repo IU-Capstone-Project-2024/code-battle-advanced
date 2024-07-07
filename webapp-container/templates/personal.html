@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Code battle advanced</title>
+
+</head>
+
+<body>
+<h1>Code Battle Advanced</h1>
+<div class="container">
+    <div class="header">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="/index">Home</a>
+                </li>
+                {%if username is defined %}
+                <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li role="presentation"><a href="/signin">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/signup">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div>
+    <h2>{{username}}</h2>
+    {%if admin is defined %}
+    {%if admin%}
+    <li role="presentation" class="active"><a href="/contests/my">My contests</a></li>
+    {% endif %}
+    {% endif %}
+    <li role="presentation" class="active"><a href="/contests/available">Available contests</a></li>
+    <li role="presentation" class="active"><a href="/tasks_archive">Task archive</a></li>
+    </div>
