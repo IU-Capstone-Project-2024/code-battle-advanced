@@ -220,8 +220,12 @@ def task(contest_name=None, task_name=None):
             shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
             md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
     print(md_template_string)
-    return render_template('task.html', url=task_name, username=session['username'],
-                           contest_name=contest_name, statement=md_template_string)
+    if contest_name is not None:
+        return render_template('task.html', url=task_name, username=session['username'],
+                               contest_name=contest_name, statement=md_template_string)
+    else:
+        return render_template('task.html', url=task_name, username=session['username'],
+                               statement=md_template_string)
 
 
 def success_support_func(task_name):
