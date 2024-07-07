@@ -322,7 +322,7 @@ def create_contest():
             'file_data': bson.Binary(file_data)
         }
         mongo.db.contests.insert_one({'name': request.form['ContestName'], 'tasks': [],
-                                      'duration': request.form['duration'],
+                                      'duration': min(request.form['duration'], '43800', key=lambda i: int(i)),
                                       'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
                                                                                        "%d/%m/%Y %H:%M:%S")),
                                       'allowed_teams': 'teams' in request.form,
