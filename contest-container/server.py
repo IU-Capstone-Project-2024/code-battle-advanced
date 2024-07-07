@@ -31,7 +31,7 @@ class Handler(pb2_grpc.ContestServicer):
         super().__init__()
     
     def forward_to_time(self, contest_id, participant_id, time):
-        contest = db.contests.find_one({"name":contest_id})
+        contest = db.contests.find_one({"_id": ObjectId(contest_id)})
         part_data = db.participants.find_one({"contest_id": contest_id, "participant_id": participant_id})
     
         config_file = open("cbamodule.py", "wb")
@@ -73,7 +73,7 @@ class Handler(pb2_grpc.ContestServicer):
                                 "$push":{"events": {"$each": new_personal_events[:y]}}})
         db.participants.update_many({"contest_id": contest_id, "participant_id": {"$ne": participant_id}},
                                {"$push":{"new_events": {"$each": new_global_events}}})
-        db.contests.update_one({"name": contest_id},
+        db.contests.update_one({"_id": ObjectId(contest_id)},
                                {"$push":{"global_events": {"$each": new_global_events}}})
         
         return profile
@@ -88,7 +88,7 @@ class Handler(pb2_grpc.ContestServicer):
     
     def check_entry(self, contest, participant):
         if db.participants.find_one({"contest_id": contest, "participant_id": participant}) == None:
-            contest_data = db.contests.find_one({"name": contest})
+            contest_data = db.contests.find_one({"_id": ObjectId(contest)})
             if contest_data == None:
                 raise ValueError(f"{contest} does not exist")
         

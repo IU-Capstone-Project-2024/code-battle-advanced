@@ -41,7 +41,7 @@ def test_task(task_id):
     
     task_name = submission_info["task_name"]
     
-    task = db.tasks.find_one({"uuid": task_name})
+    task = db.tasks.find_one({"_id": ObjectId(task_name)})
     
     rmtree("/tasks/current")
     os.mkdir("/tasks/current")

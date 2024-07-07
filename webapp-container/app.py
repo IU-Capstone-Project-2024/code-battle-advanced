@@ -190,7 +190,7 @@ def contest(contest_name):
     tasks = mongo.db.contests.find_one({'_id': bson.ObjectId(contest_name)})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'_id': bson.ObjectId(i)})["task_name"], i) for i in tasks]
     return render_template('contest.html', admin=admin,
-                           listOfTasks=tasks, contest_name=contest_name, username=session['username'], widgets=widgets)
+                           listOfTasks=tasks, contest_name=my_contest['name'], username=session['username'], widgets=widgets)
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
