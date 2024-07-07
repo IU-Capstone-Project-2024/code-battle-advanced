@@ -43,9 +43,9 @@
                 <p role="presentation" class="red-btn"><a class="main__nav-link" href="/submissions/1">My submissions</a></p>
             </section>
             <section class="jumbotron">
-                {% for url in listOfUrls %}
+                {% for name, url in listOfUrls %}
                     <article class="contest">
-                        <h2 class="contest__header">Title of contest</h2>
+                        <h2 class="contest__header">{{name}}</h2>
                         <p class="contest__content">Content description. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit distinctio, sequi quis ratione quasi repudiandae inventore, accusantium aut et nostrum dolores nihil magnam quidem dolore tempora eligendi non! Reprehenderit, voluptate.</p>
                         <p class="contest__requirements">Required languages/knowledge</p>
                         <p role="presentation" class="red-btn"><a href="/contest/{{url}}" class="main__nav-link">To contest</a></p>
