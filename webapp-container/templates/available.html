@@ -43,7 +43,7 @@
                 <p role="presentation" class="red-btn"><a class="main__nav-link" href="/submissions/1">My submissions</a></p>
             </section>
             <section class="jumbotron">
-               {% for name, description in listOfUrls %}     
+               {% for name, url, description in listOfUrls %}     
                     <article class="contest">
                         <h2 class="contest__header">{{name}}</h2>
                         <p class="contest__content">{{description}}</p>
