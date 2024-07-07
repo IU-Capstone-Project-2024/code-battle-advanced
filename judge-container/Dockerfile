@@ -5,7 +5,7 @@ USER root
 #Installing MongoDB
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main' >> /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositories
-RUN apk add py3-pip g++ bash linux-headers
+RUN apk add py3-pip g++ bash linux-headers openjdk11
 
 RUN python3 -m pip install --upgrade setuptools
 #Installing relevant python packages
