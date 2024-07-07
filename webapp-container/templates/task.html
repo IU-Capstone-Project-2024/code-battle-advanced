@@ -30,6 +30,9 @@
     <main class="main">
       <div class="container">
         <section class="main__wrapper">
+          <div class="STYLE HERE">
+             {{statement | safe}}
+          </div>
           {%if contest_name is defined%}
           <form class="form" action="/contest/{{contest_name}}/task/{{url}}/success" method="post" enctype="multipart/form-data">
             <div class="form__select-wrapper">
