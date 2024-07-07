@@ -211,7 +211,7 @@ def task(contest_name=None, task_name=None):
 
     md_template_string = markdown.markdown(
         result.decode(), extensions=["fenced_code", 'tables']
-    )
+    ).replace("\n", "")
 
     # Copy static resources and update paths in the Markdown content
     res_dir_names = ["static", "resources", "res"]
@@ -324,9 +324,10 @@ def create_contest():
                                       'startTime': pytz.UTC.localize(datetime.strptime(request.form['StartTime'],
                                                                                        "%d/%m/%Y %H:%M:%S")),
                                       'allowed_teams': 'teams' in request.form,
+                                      'description': request.form['description'],
                                       'config': bson_document,
                                       'global_events': [(0, "Start", {})]})
-
+        return redirect(url_for('/contests/my'))
     return render_template('create.html', admin=admin)
 
 
@@ -414,7 +415,7 @@ def available_contests(type_contests):
         for i in mongo.db.contests.find():
             start_time = pytz.utc.localize(i['startTime'])
             if not error(admin, i):
-                session['contests'].append(i['name'])
+                session['contests'].append((i['name'], i['description']))
         if type_contests == 'available':
             return render_template('available.html', listOfUrls=session['contests'], admin=admin,
                                    username=session['username'])
