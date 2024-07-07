@@ -80,7 +80,7 @@ def test_task(task_id):
     pathlib.Path.unlink(submission_file)
     db.submissions.update_one({"_id": ObjectId(task_id)}, {"$set":{"verdict":verdict}})
     
-    cur_contest_time = datetime.utcnow() - db.contests.find_one({"name":submission_info['contest']})['startTime']
+    cur_contest_time = datetime.utcnow() - db.contests.find_one({"_id": ObjectId(submission_info["contest"])})['startTime']
     cur_contest_time = int(cur_contest_time / timedelta(milliseconds=1))
     
     get_stub().UpdateTask(pb2.UpdateMessage(time=cur_contest_time, submission_id=task_id))

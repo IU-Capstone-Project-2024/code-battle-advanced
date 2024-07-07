@@ -12,7 +12,7 @@
             "admin": true
         },
         {
-            "username": "Pedor",
+            "username": "cba_admin",
             "password": {
                 "$binary": {
                     "base64": "JDJiJDE0JDhady9WcGtSOEN6NVJQWTBPa2ZQOU81cGpLRkV3S28uZDlvN0tWNFBYb2ZOMUJ4NFliVEVX",

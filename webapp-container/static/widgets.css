@@ -11,13 +11,18 @@
 }
 
 .widget_style button{
+    margin: 5px 10px;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
+    font-size: 30px;
     color: #000;
 }
 
 .widget_style p{
+    margin: 5px 10px;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
+    font-size: 30px;
     color: #000;
 }
+

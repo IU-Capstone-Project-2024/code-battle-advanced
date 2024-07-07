@@ -190,7 +190,7 @@ def contest(contest_name):
     tasks = mongo.db.contests.find_one({'_id': bson.ObjectId(contest_name)})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'_id': bson.ObjectId(i)})["task_name"], i) for i in tasks]
     return render_template('contest.html', admin=admin,
-                           listOfTasks=tasks, contest_name=my_contest['name'], username=session['username'], widgets=widgets)
+                           listOfTasks=tasks, contest_name=my_contest['name'], contest_id=contest_name, username=session['username'], widgets=widgets)
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
@@ -280,7 +280,7 @@ def submissions(page_number):
     submissions_array = submissions_array[(page_number - 1) * 10:page_number * 10]
     return render_template("submissions.html",
                            submissions_array=get_string_submissions(submissions_array), current_page=page_number,
-                           limit_page=limit_page)
+                           limit_page=limit_page, username=session['username'])
 
 
 @app.route('/signin', methods=['GET', 'POST'])
@@ -333,7 +333,7 @@ def create_contest():
                                       'description': request.form['description'],
                                       'config': bson_document,
                                       'global_events': [(0, "Start", {})]})
-        return redirect(url_for('/contests/my'))
+        return redirect('contests/my')
     return render_template('create.html', admin=admin)
 
 

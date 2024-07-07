@@ -36,13 +36,13 @@
             {% for name, uuid in listOfTasks %}
             <article class="task">
                <h2 class="task__header">{{name}}</h2>
-               <p class="red-btn" role="presentation"><a class="content__task-link" href={{contest_name}}/task/{{uuid}}>To task</a></p>
+               <p class="red-btn" role="presentation"><a class="content__task-link" href=/contest/{{contest_id}}/task/{{uuid}}>To task</a></p>
             </article>
             {% endfor %}
          </section>
           {%if admin is defined %}
                {%if admin%}
-               <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_name}}/upload">You can add your own task</a></p>
+               <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_id}}/upload">You can add your own task</a></p>
                {% endif %}
          {% endif %}
       </div>

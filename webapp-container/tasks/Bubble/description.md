@@ -1,4 +1,4 @@
-1100\. Final Standings
+#Final Standings
 ----------------------
 
 Time limit: 1.0 second  

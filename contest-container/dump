@@ -104,7 +104,7 @@ Module(
                             value=Call(
                                 func=Name(id='open', ctx=Load()),
                                 args=[
-                                    Constant(value='myass.txt'),
+                                    Constant(value='randfile.txt'),
                                     Constant(value='r')],
                                 keywords=[])),
                         Expr(
@@ -171,7 +171,7 @@ class ContestantData(ContestantDataTemplate):
                 return f'{self.task_results[task][i][0]} {i}'
         exec("print('I wanna break everythoing')")
         eval("print('I wanna break everythoing')")
-        f = open('myass.txt', 'r')
+        f = open('randfile.txt', 'r')
         file
         file()
         return 'AC'

@@ -7,11 +7,12 @@ from bson import ObjectId
 
 from bisect import insort
 
-from importlib import import_module
+import importlib
 
 import grpc
 
 import cbacontest
+import cbamodule as config
 
 import ast
 
@@ -37,7 +38,7 @@ class Handler(pb2_grpc.ContestServicer):
         config_file = open("cbamodule.py", "wb")
         config_file.write(contest["config"]['file_data'])
         config_file.close()
-        config = import_module("cbamodule")
+        importlib.reload(config)
         
         tasks = contest["tasks"]
     

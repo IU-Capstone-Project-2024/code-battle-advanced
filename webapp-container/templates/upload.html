@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Code battle advanced</title>
         <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
-        <link rel="stylesheet" href/static/general.css">
-        <link rel="stylesheet" href/static/header.css">
-        <link rel="stylesheet" href/static/main.css">
-        <link rel="stylesheet" href/static/footer.css">
-        <link rel="stylesheet" href/static/buttons.css">
-        <link rel="stylesheet" href/static/checkbox.css">
-        <link rel="stylesheet" href/static/upload.css">
+        <link rel="stylesheet" href="/static/general.css">
+        <link rel="stylesheet" href="/static/header.css">
+        <link rel="stylesheet" href="/static/main.css">
+        <link rel="stylesheet" href="/static/footer.css">
+        <link rel="stylesheet" href="/static/buttons.css">
+        <link rel="stylesheet" href="/static/checkbox.css">
+        <link rel="stylesheet" href="/static/upload.css">
     </head>
 
     <body>
@@ -37,9 +37,9 @@
                     <form class="form" method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form1">
                         <h2 id="form-header">Input + checker</h2>
                         <div class="form__choose-wrapper">
-                            <label for="input-file" class="green-btn">Input file</label>
+                            <label for="input-file" class="green-btn">Input files</label>
                             <input type="file" name="input-file" id="input-file" multiple hidden>
-                            <label for="checker-file" class="green-btn">Checker file</label>
+                            <label for="checker-file" class="green-btn">Checker files</label>
                             <input type="file" name="checker-file" id="checker-file" multiple hidden>
                             <label for="md-file" class="green-btn">Description file</label>
                             <input type="file" name="md-file" id="md-file" hidden>
