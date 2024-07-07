@@ -4,6 +4,23 @@
     row-gap: 1em;
 }
 
+.task__wrapper {
+    font-size: 20px;
+}
+
+.task__wrapper > h1 {
+    font-size: 2em;
+}
+
+.task__wrapper > p:nth-child(3),
+.task__wrapper > p:nth-child(5) {
+    margin-bottom: 1em;
+}
+
+.task__wrapper img {
+    width: 100%;
+}
+
 .form__select-wrapper {
     margin-bottom: 0.2em;
 }
