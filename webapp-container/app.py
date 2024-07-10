@@ -249,9 +249,7 @@ def contest_success(contest_name=None, task_name=None):
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
                                                'task_name': task_name,
-                                               'in_contest_name':
-                                                   mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})[
-                                                       "task_name"],
+                                               'in_contest_name': mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})["task_name"],
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'filename': request.files['file'].filename,

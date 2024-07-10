@@ -1,4 +1,176 @@
 {
+"participants":
+[
+    {
+        "_id": {
+            "$oid": "668add71492ed5e87dfd3463"
+        },
+        "contest_id": "668add705bf7fb697d58f013",
+        "participant_id": "Tedor",
+        "final_task_results": {},
+        "points": 0,
+        "task_results": {},
+        "widgets": "",
+        "new_events": [],
+        "events": [
+            [
+                0,
+                "Start",
+                {}
+            ]
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "668adeba492ed5e87dfd3464"
+        },
+        "contest_id": "668adeb95bf7fb697d58f015",
+        "participant_id": "Tedor",
+        "final_task_results": {},
+        "points": 0,
+        "task_results": {},
+        "widgets": "<div class=\"vbox\"><p>200</p><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=b1>1</button><button type=\"submit\" name=\"btn\" value=b2>2</button><button type=\"submit\" name=\"btn\" value=b3>3</button><button type=\"submit\" name=\"btn\" value=o+>+</button></div><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=b4>4</button><button type=\"submit\" name=\"btn\" value=b5>5</button><button type=\"submit\" name=\"btn\" value=b6>6</button><button type=\"submit\" name=\"btn\" value=o->-</button></div><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=b7>7</button><button type=\"submit\" name=\"btn\" value=b8>8</button><button type=\"submit\" name=\"btn\" value=b9>9</button><button type=\"submit\" name=\"btn\" value=o*>*</button></div><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=oC>C</button><button type=\"submit\" name=\"btn\" value=b0>0</button><button type=\"submit\" name=\"btn\" value=o=>=</button><button type=\"submit\" name=\"btn\" value=o/>/</button></div></div>",
+        "new_events": [],
+        "events": [
+            [
+                0,
+                "Start",
+                {}
+            ],
+            [
+                95674776,
+                "b1",
+                {}
+            ],
+            [
+                95675431,
+                "b9",
+                {}
+            ],
+            [
+                95676221,
+                "o+",
+                {}
+            ],
+            [
+                95677153,
+                "b6",
+                {}
+            ],
+            [
+                95677815,
+                "o=",
+                {}
+            ],
+            [
+                95684876,
+                "o*",
+                {}
+            ],
+            [
+                95685357,
+                "b8",
+                {}
+            ],
+            [
+                95685814,
+                "o=",
+                {}
+            ]
+        ]
+    }
+]
+,
+"contests":
+[
+    {
+        "_id": {
+            "$oid": "668add705bf7fb697d58f013"
+        },
+        "name": "Beginner Contest",
+        "tasks": [
+            {
+                "$oid": "668addab5bf7fb697d58f014"
+            },
+            {
+                "$oid": "668afdcf923d7e8ee17caea9"
+            },
+            {
+                "$oid": "668aff00923d7e8ee17caeaa"
+            }
+        ],
+        "duration": "43800",
+        "startTime": {
+            "$date": "2024-07-06T18:09:00Z"
+        },
+        "allowed_teams": false,
+        "description": "Contest with easy tasks for beginners",
+        "config": {
+            "filename": "cbamodule.py",
+            "file_data": {
+                "$binary": {
+                    "base64": "ZnJvbSBjYmFjb250ZXN0IGltcG9ydCAqCgpjbGFzcyBDb250ZXN0YW50RGF0YShDb250ZXN0YW50RGF0YVRlbXBsYXRlKToKICAgIGRlZiBnZXRfdGVzdF92ZXJkaWN0KHNlbGYsIHRhc2s6IHN0cikgLT4gc3RyOgogICAgICAgIHJldHVybiBzdXBlcigpLmdldF90ZXN0X3ZlcmRpY3QodGFzaykKICAgIAogICAgZGVmIGdldF9wb2ludHMoc2VsZikgLT4gZmxvYXQ6CiAgICAgICAgcmV0dXJuIHN1cGVyKCkuZ2V0X3BvaW50cygp",
+                    "subType": "00"
+                }
+            }
+        },
+        "global_events": [
+            [
+                0,
+                "Start",
+                {}
+            ]
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "668adeb95bf7fb697d58f015"
+        },
+        "name": "Calculator",
+        "tasks": [],
+        "duration": "43800",
+        "startTime": {
+            "$date": "2024-07-06T18:09:00Z"
+        },
+        "allowed_teams": false,
+        "description": "Simple calculator for showcasing widgets",
+        "config": {
+            "filename": "calc_module.py",
+            "file_data": {
+                "$binary": {
+                    "base64": "ZnJvbSBjYmFjb250ZXN0IGltcG9ydCAqCgpjbGFzcyBDb250ZXN0YW50RGF0YShDb250ZXN0YW50RGF0YVRlbXBsYXRlKToKICAgIAogICAgZGVmIHN0YXJ0X2NvbnRlc3Qoc2VsZiwgY2FsbGVyPSJTdGFydCIsICoqa3dhcmdzKToKICAgICAgICBzdXBlcigpLnN0YXJ0X2NvbnRlc3QoY2FsbGVyLCAqKmt3YXJncykKICAgICAgICBzZWxmLm51bSA9IDAKICAgICAgICBzZWxmLm9wID0gIisiCiAgICAgICAgc2VsZi5zYXZlbnVtID0gMAogICAgICAgIGRpc3AgPSBUZXh0V2lkZ2V0KCJkaXNwbGF5IiwgIjAiKQogICAgICAgIGIxID0gVGV4dEJ1dHRvbldpZGdldCgiYjEiLCAiMSIpCiAgICAgICAgYjIgPSBUZXh0QnV0dG9uV2lkZ2V0KCJiMiIsICIyIikKICAgICAgICBiMyA9IFRleHRCdXR0b25XaWRnZXQoImIzIiwgIjMiKQogICAgICAgIGI0ID0gVGV4dEJ1dHRvbldpZGdldCgiYjQiLCAiNCIpCiAgICAgICAgYjUgPSBUZXh0QnV0dG9uV2lkZ2V0KCJiNSIsICI1IikKICAgICAgICBiNiA9IFRleHRCdXR0b25XaWRnZXQoImI2IiwgIjYiKQogICAgICAgIGI3ID0gVGV4dEJ1dHRvbldpZGdldCgiYjciLCAiNyIpCiAgICAgICAgYjggPSBUZXh0QnV0dG9uV2lkZ2V0KCJiOCIsICI4IikKICAgICAgICBiOSA9IFRleHRCdXR0b25XaWRnZXQoImI5IiwgIjkiKQogICAgICAgIGIwID0gVGV4dEJ1dHRvbldpZGdldCgiYjAiLCAiMCIpCiAgICAgICAgCiAgICAgICAgb3BsID0gVGV4dEJ1dHRvbldpZGdldCgibysiLCAiKyIpCiAgICAgICAgb21pID0gVGV4dEJ1dHRvbldpZGdldCgiby0iLCAiLSIpCiAgICAgICAgb211bCA9IFRleHRCdXR0b25XaWRnZXQoIm8qIiwgIioiKQogICAgICAgIG9kZWwgPSBUZXh0QnV0dG9uV2lkZ2V0KCJvLyIsICIvIikKICAgICAgICAKICAgICAgICBvZXEgPSBUZXh0QnV0dG9uV2lkZ2V0KCJvPSIsICI9IikKICAgICAgICBvY2xlYXIgPSBUZXh0QnV0dG9uV2lkZ2V0KCJvQyIsICJDIikKICAgICAgICAKICAgICAgICBieDEgPSBIV2lkZ2V0Qm94KCJ4MSIsIFtiMSwgYjIsIGIzLCBvcGxdKQogICAgICAgIGJ4MiA9IEhXaWRnZXRCb3goIngyIiwgW2I0LCBiNSwgYjYsIG9taV0pCiAgICAgICAgYngzID0gSFdpZGdldEJveCgieDMiLCBbYjcsIGI4LCBiOSwgb211bF0pCiAgICAgICAgYng0ID0gSFdpZGdldEJveCgieDQiLCBbb2NsZWFyLCBiMCwgb2VxLCBvZGVsXSkKICAgICAgICBieDUgPSBWV2lkZ2V0Qm94KCJ4NSIsIFtkaXNwLCBieDEsIGJ4MiwgYngzLCBieDRdKQogICAgICAgIHNlbGYud2lkZ2V0cyA9IFtkaXNwLCBieDVdCiAgICAKICAgIGRlZiBkZWZhdWx0X2hhbmRsZXIoc2VsZiwgY2FsbGVyLCAqKmt3YXJncyk6CiAgICAgICAgc3VwZXIoKS5kZWZhdWx0X2hhbmRsZXIoY2FsbGVyLCAqKmt3YXJncykKICAgICAgICBpZiBjYWxsZXJbMF0gPT0gImIiOgogICAgICAgICAgICBzZWxmLm51bSA9IHNlbGYubnVtICogMTAgKyBpbnQoY2FsbGVyWzFdKQogICAgICAgIGlmIGNhbGxlclswXSA9PSAibyI6CiAgICAgICAgICAgIGlmIGNhbGxlclsxXSBpbiAiKy0qLyI6CiAgICAgICAgICAgICAgICBzZWxmLnNhdmVudW0gPSBzZWxmLm51bQogICAgICAgICAgICAgICAgc2VsZi5udW0gPSAwCiAgICAgICAgICAgICAgICBzZWxmLm9wID0gY2FsbGVyWzFdCiAgICAgICAgICAgIGVsaWYgY2FsbGVyWzFdID09ICI9IjoKICAgICAgICAgICAgICAgIGlmIHNlbGYub3AgPT0gIisiOgogICAgICAgICAgICAgICAgICAgIHNlbGYubnVtICs9IHNlbGYuc2F2ZW51bQogICAgICAgICAgICAgICAgZWxpZiBzZWxmLm9wID09ICItIjoKICAgICAgICAgICAgICAgICAgICBzZWxmLm51bSA9IHNlbGYuc2F2ZW51bSAtIHNlbGYubnVtCiAgICAgICAgICAgICAgICBlbGlmIHNlbGYub3AgPT0gIioiOgogICAgICAgICAgICAgICAgICAgIHNlbGYubnVtICo9IHNlbGYuc2F2ZW51bQogICAgICAgICAgICAgICAgZWxpZiBzZWxmLm9wID09ICIvIjoKICAgICAgICAgICAgICAgICAgICBzZWxmLm51bSA9IHNlbGYuc2F2ZW51bSAvLyBzZWxmLm51bQogICAgICAgICAgICAgICAgc2VsZi5vcCA9ICIrIgogICAgICAgICAgICAgICAgc2VsZi5zYXZlbnVtID0gMAogICAgICAgICAgICBlbGlmIGNhbGxlclsxXSA9PSAiQyI6CiAgICAgICAgICAgICAgICBzZWxmLm51bSA9IDAKICAgICAgICAgICAgICAgIHNlbGYub3AgPSAiKyIKICAgICAgICAgICAgICAgIHNlbGYuc2F2ZW51bSA9IDAKICAgICAgICBzZWxmLndpZGdldHNbMF0uc2V0VGV4dChzdHIoc2VsZi5udW0pKQ==",
+                    "subType": "00"
+                }
+            }
+        },
+        "global_events": [
+            [
+                0,
+                "Start",
+                {}
+            ]
+        ]
+    }
+]
+,
+"users":
+[
+    {
+        "_id": {
+            "$oid": "668add1bb637fbc01b969666"
+        },
+        "username": "Tedor",
+        "password": {
+            "$binary": {
+                "base64": "JDJiJDE0JGZkb2tBdTJScTYxSU4yR0VRQnJXaC54RHhQMC9RYUtaUER1aFVVcENlWW9qU1lSNFlnTUFh",
+                "subType": "00"
+            }
+        },
+        "email": "idc_lol",
+        "admin": true
+    }
+]
+,
 "tasks":
 [
     {
@@ -2022,178 +2194,6 @@
                 }
             }
         }
-    }
-]
-,
-"contests":
-[
-    {
-        "_id": {
-            "$oid": "668add705bf7fb697d58f013"
-        },
-        "name": "Beginner Contest",
-        "tasks": [
-            {
-                "$oid": "668addab5bf7fb697d58f014"
-            },
-            {
-                "$oid": "668afdcf923d7e8ee17caea9"
-            },
-            {
-                "$oid": "668aff00923d7e8ee17caeaa"
-            }
-        ],
-        "duration": "43800",
-        "startTime": {
-            "$date": "2024-07-06T18:09:00Z"
-        },
-        "allowed_teams": false,
-        "description": "Contest with easy tasks for beginners",
-        "config": {
-            "filename": "cbamodule.py",
-            "file_data": {
-                "$binary": {
-                    "base64": "ZnJvbSBjYmFjb250ZXN0IGltcG9ydCAqCgpjbGFzcyBDb250ZXN0YW50RGF0YShDb250ZXN0YW50RGF0YVRlbXBsYXRlKToKICAgIGRlZiBnZXRfdGVzdF92ZXJkaWN0KHNlbGYsIHRhc2s6IHN0cikgLT4gc3RyOgogICAgICAgIGZvciBpIGluIHJhbmdlKGxlbihzZWxmLnRhc2tfcmVzdWx0c1t0YXNrXSkpOgogICAgICAgICAgICBpZiBzZWxmLnRhc2tfcmVzdWx0c1t0YXNrXVtpXVswXSAhPSAiQUMiOgogICAgICAgICAgICAgICAgcmV0dXJuIGYie3NlbGYudGFza19yZXN1bHRzW3Rhc2tdW2ldWzBdfSB7aX0iCiAgICAgICAgcmV0dXJuICJBQyIKICAgIAogICAgZGVmIGdldF9wb2ludHMoc2VsZikgLT4gZmxvYXQ6CiAgICAgICAgcmV0dXJuIHN1bShbKHNlbGYuZ2V0X3Rlc3RfdmVyZGljdChpKSA9PSAiQUMiKSBmb3IgaSBpbiBzZWxmLnRhc2tfcmVzdWx0c10p",
-                    "subType": "00"
-                }
-            }
-        },
-        "global_events": [
-            [
-                0,
-                "Start",
-                {}
-            ]
-        ]
-    },
-    {
-        "_id": {
-            "$oid": "668adeb95bf7fb697d58f015"
-        },
-        "name": "Calculator",
-        "tasks": [],
-        "duration": "43800",
-        "startTime": {
-            "$date": "2024-07-06T18:09:00Z"
-        },
-        "allowed_teams": false,
-        "description": "Simple calculator for showcasing widgets",
-        "config": {
-            "filename": "calc_module.py",
-            "file_data": {
-                "$binary": {
-                    "base64": "ZnJvbSBjYmFjb250ZXN0IGltcG9ydCAqCgpjbGFzcyBDb250ZXN0YW50RGF0YShDb250ZXN0YW50RGF0YVRlbXBsYXRlKToKICAgIAogICAgZGVmIHN0YXJ0X2NvbnRlc3Qoc2VsZiwgY2FsbGVyPSJTdGFydCIsICoqa3dhcmdzKToKICAgICAgICBzZWxmLm51bSA9IDAKICAgICAgICBzZWxmLm9wID0gIisiCiAgICAgICAgc2VsZi5zYXZlbnVtID0gMAogICAgICAgIGRpc3AgPSBUZXh0V2lkZ2V0KCJkaXNwbGF5IiwgIjAiKQogICAgICAgIGIxID0gVGV4dEJ1dHRvbldpZGdldCgiYjEiLCAiMSIpCiAgICAgICAgYjIgPSBUZXh0QnV0dG9uV2lkZ2V0KCJiMiIsICIyIikKICAgICAgICBiMyA9IFRleHRCdXR0b25XaWRnZXQoImIzIiwgIjMiKQogICAgICAgIGI0ID0gVGV4dEJ1dHRvbldpZGdldCgiYjQiLCAiNCIpCiAgICAgICAgYjUgPSBUZXh0QnV0dG9uV2lkZ2V0KCJiNSIsICI1IikKICAgICAgICBiNiA9IFRleHRCdXR0b25XaWRnZXQoImI2IiwgIjYiKQogICAgICAgIGI3ID0gVGV4dEJ1dHRvbldpZGdldCgiYjciLCAiNyIpCiAgICAgICAgYjggPSBUZXh0QnV0dG9uV2lkZ2V0KCJiOCIsICI4IikKICAgICAgICBiOSA9IFRleHRCdXR0b25XaWRnZXQoImI5IiwgIjkiKQogICAgICAgIGIwID0gVGV4dEJ1dHRvbldpZGdldCgiYjAiLCAiMCIpCiAgICAgICAgCiAgICAgICAgb3BsID0gVGV4dEJ1dHRvbldpZGdldCgibysiLCAiKyIpCiAgICAgICAgb21pID0gVGV4dEJ1dHRvbldpZGdldCgiby0iLCAiLSIpCiAgICAgICAgb211bCA9IFRleHRCdXR0b25XaWRnZXQoIm8qIiwgIioiKQogICAgICAgIG9kZWwgPSBUZXh0QnV0dG9uV2lkZ2V0KCJvLyIsICIvIikKICAgICAgICAKICAgICAgICBvZXEgPSBUZXh0QnV0dG9uV2lkZ2V0KCJvPSIsICI9IikKICAgICAgICBvY2xlYXIgPSBUZXh0QnV0dG9uV2lkZ2V0KCJvQyIsICJDIikKICAgICAgICAKICAgICAgICBieDEgPSBIV2lkZ2V0Qm94KCJ4MSIsIFtiMSwgYjIsIGIzLCBvcGxdKQogICAgICAgIGJ4MiA9IEhXaWRnZXRCb3goIngyIiwgW2I0LCBiNSwgYjYsIG9taV0pCiAgICAgICAgYngzID0gSFdpZGdldEJveCgieDMiLCBbYjcsIGI4LCBiOSwgb211bF0pCiAgICAgICAgYng0ID0gSFdpZGdldEJveCgieDQiLCBbb2NsZWFyLCBiMCwgb2VxLCBvZGVsXSkKICAgICAgICBieDUgPSBWV2lkZ2V0Qm94KCJ4NSIsIFtkaXNwLCBieDEsIGJ4MiwgYngzLCBieDRdKQogICAgICAgIHNlbGYud2lkZ2V0cyA9IFtkaXNwLCBieDVdCiAgICAKICAgIGRlZiBkZWZhdWx0X2hhbmRsZXIoc2VsZiwgY2FsbGVyLCAqKmt3YXJncyk6CiAgICAgICAgaWYgY2FsbGVyWzBdID09ICJiIjoKICAgICAgICAgICAgc2VsZi5udW0gPSBzZWxmLm51bSAqIDEwICsgaW50KGNhbGxlclsxXSkKICAgICAgICBpZiBjYWxsZXJbMF0gPT0gIm8iOgogICAgICAgICAgICBpZiBjYWxsZXJbMV0gaW4gIistKi8iOgogICAgICAgICAgICAgICAgc2VsZi5zYXZlbnVtID0gc2VsZi5udW0KICAgICAgICAgICAgICAgIHNlbGYubnVtID0gMAogICAgICAgICAgICAgICAgc2VsZi5vcCA9IGNhbGxlclsxXQogICAgICAgICAgICBlbGlmIGNhbGxlclsxXSA9PSAiPSI6CiAgICAgICAgICAgICAgICBpZiBzZWxmLm9wID09ICIrIjoKICAgICAgICAgICAgICAgICAgICBzZWxmLm51bSArPSBzZWxmLnNhdmVudW0KICAgICAgICAgICAgICAgIGVsaWYgc2VsZi5vcCA9PSAiLSI6CiAgICAgICAgICAgICAgICAgICAgc2VsZi5udW0gPSBzZWxmLnNhdmVudW0gLSBzZWxmLm51bQogICAgICAgICAgICAgICAgZWxpZiBzZWxmLm9wID09ICIqIjoKICAgICAgICAgICAgICAgICAgICBzZWxmLm51bSAqPSBzZWxmLnNhdmVudW0KICAgICAgICAgICAgICAgIGVsaWYgc2VsZi5vcCA9PSAiLyI6CiAgICAgICAgICAgICAgICAgICAgc2VsZi5udW0gPSBzZWxmLnNhdmVudW0gLy8gc2VsZi5udW0KICAgICAgICAgICAgICAgIHNlbGYub3AgPSAiKyIKICAgICAgICAgICAgICAgIHNlbGYuc2F2ZW51bSA9IDAKICAgICAgICAgICAgZWxpZiBjYWxsZXJbMV0gPT0gIkMiOgogICAgICAgICAgICAgICAgc2VsZi5udW0gPSAwCiAgICAgICAgICAgICAgICBzZWxmLm9wID0gIisiCiAgICAgICAgICAgICAgICBzZWxmLnNhdmVudW0gPSAwCiAgICAgICAgc2VsZi53aWRnZXRzWzBdLnNldFRleHQoc3RyKHNlbGYubnVtKSkK",
-                    "subType": "00"
-                }
-            }
-        },
-        "global_events": [
-            [
-                0,
-                "Start",
-                {}
-            ]
-        ]
-    }
-]
-,
-"participants":
-[
-    {
-        "_id": {
-            "$oid": "668add71492ed5e87dfd3463"
-        },
-        "contest_id": "668add705bf7fb697d58f013",
-        "participant_id": "Tedor",
-        "final_task_results": {},
-        "points": 0,
-        "task_results": {},
-        "widgets": "",
-        "new_events": [],
-        "events": [
-            [
-                0,
-                "Start",
-                {}
-            ]
-        ]
-    },
-    {
-        "_id": {
-            "$oid": "668adeba492ed5e87dfd3464"
-        },
-        "contest_id": "668adeb95bf7fb697d58f015",
-        "participant_id": "Tedor",
-        "final_task_results": {},
-        "points": 0,
-        "task_results": {},
-        "widgets": "<div class=\"vbox\"><p>200</p><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=b1>1</button><button type=\"submit\" name=\"btn\" value=b2>2</button><button type=\"submit\" name=\"btn\" value=b3>3</button><button type=\"submit\" name=\"btn\" value=o+>+</button></div><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=b4>4</button><button type=\"submit\" name=\"btn\" value=b5>5</button><button type=\"submit\" name=\"btn\" value=b6>6</button><button type=\"submit\" name=\"btn\" value=o->-</button></div><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=b7>7</button><button type=\"submit\" name=\"btn\" value=b8>8</button><button type=\"submit\" name=\"btn\" value=b9>9</button><button type=\"submit\" name=\"btn\" value=o*>*</button></div><div class=\"hbox\"><button type=\"submit\" name=\"btn\" value=oC>C</button><button type=\"submit\" name=\"btn\" value=b0>0</button><button type=\"submit\" name=\"btn\" value=o=>=</button><button type=\"submit\" name=\"btn\" value=o/>/</button></div></div>",
-        "new_events": [],
-        "events": [
-            [
-                0,
-                "Start",
-                {}
-            ],
-            [
-                95674776,
-                "b1",
-                {}
-            ],
-            [
-                95675431,
-                "b9",
-                {}
-            ],
-            [
-                95676221,
-                "o+",
-                {}
-            ],
-            [
-                95677153,
-                "b6",
-                {}
-            ],
-            [
-                95677815,
-                "o=",
-                {}
-            ],
-            [
-                95684876,
-                "o*",
-                {}
-            ],
-            [
-                95685357,
-                "b8",
-                {}
-            ],
-            [
-                95685814,
-                "o=",
-                {}
-            ]
-        ]
-    }
-]
-,
-"users":
-[
-    {
-        "_id": {
-            "$oid": "668add1bb637fbc01b969666"
-        },
-        "username": "Tedor",
-        "password": {
-            "$binary": {
-                "base64": "JDJiJDE0JGZkb2tBdTJScTYxSU4yR0VRQnJXaC54RHhQMC9RYUtaUER1aFVVcENlWW9qU1lSNFlnTUFh",
-                "subType": "00"
-            }
-        },
-        "email": "idc_lol",
-        "admin": true
     }
 ]
 }

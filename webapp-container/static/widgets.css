@@ -18,6 +18,29 @@
     color: #000;
 }
 
+.widget_style button {
+    text-transform: capitalize;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #00C643;
+    color: #00C643;
+    border-radius: 1em;
+    font-size: 20px;
+    padding: 0.4em 0.8em;
+    height: fit-content;
+    transition: background-color 0.3s, color 0.3;
+}
+
+.widget_style button.active {
+    background-color: #00C643;
+    color: #ffffff;
+}
+
+.widget_style button:hover {
+    background-color: #00C643;
+    color: #ffffff;
+}
+
 .widget_style p{
     margin: 5px 10px;
     box-sizing: border-box;

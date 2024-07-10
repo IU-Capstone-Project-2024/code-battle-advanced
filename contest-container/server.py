@@ -39,12 +39,8 @@ class Handler(pb2_grpc.ContestServicer):
         config_file.write(contest["config"]['file_data'])
         config_file.close()
         importlib.reload(config)
-        
-        tasks = contest["tasks"]
     
-        task_results = part_data["task_results"]
-    
-        profile = config.ContestantData(task_results)
+        profile = config.ContestantData()
         
         past_events = sorted(part_data["events"])
         
@@ -68,9 +64,12 @@ class Handler(pb2_grpc.ContestServicer):
             y += 1
         
         widgets = profile.render_widgets()
+        final_verdicts = {str(task):profile.get_test_verdict(task) for task in contest['tasks']}
+        new_points = profile.get_points()
         
         db.participants.update_one({"contest_id": contest_id, "participant_id": participant_id},
-                               {"$set": {"new_events": new_personal_events[y:-1], "widgets": widgets}, 
+                               {"$set": {"new_events": new_personal_events[y:-1], "widgets": widgets,
+                                         "final_task_results": final_verdicts, "points": new_points}, 
                                 "$push":{"events": {"$each": new_personal_events[:y]}}})
         db.participants.update_many({"contest_id": contest_id, "participant_id": {"$ne": participant_id}},
                                {"$push":{"new_events": {"$each": new_global_events}}})
@@ -95,9 +94,8 @@ class Handler(pb2_grpc.ContestServicer):
         
             new_entry = {"contest_id": contest, 
                          "participant_id": participant,
-                         "final_task_results": {i:"" for i in contest_data["tasks"]},
+                         "final_task_results": {str(i):"" for i in contest_data["tasks"]},
                          "points": 0,
-                         "task_results": {i:[("N/A", 0)] for i in contest_data["tasks"]},
                          "widgets": "",
                          "new_events": contest_data["global_events"],
                          "events": []}
@@ -125,20 +123,13 @@ class Handler(pb2_grpc.ContestServicer):
     
         self.check_entry(contest, participant)
         
-        db.participants.update_one({"contest_id": contest, "participant_id": participant}, 
-                               {"$set":{f"task_results.{task}": verdict}})
-        
-        profile = self.handle_event(contest, participant, time, "Judge", {})
-        
-        final_verdict = profile.get_test_verdict(task)
-        new_points = profile.get_points()
-        
-        del profile
-        
-        db.participants.update_one({"contest_id": contest, "participant_id": participant}, 
-                               {"$set":{f"final_task_results.{task}": final_verdict, "points": new_points}})
-                               
-        db.submissions.update_one({"_id": ObjectId(request.submission_id)}, {"$set":{"final_verdict":final_verdict}})
+        profile = self.handle_event(contest, participant, time, "Judge", {"task":submission_info['task_name'],
+                                                                          "source":submission_info['source'],
+                                                                          "n_try":submission_info['n_try'],
+                                                                          'language':submission_info['language'],
+                                                                          'verdict':submission_info['verdict']})
+                                                                          
+        db.submissions.update_one({"_id": ObjectId(request.submission_id)}, {"$set":{"final_verdict":profile.get_test_verdict(task)}})
         
         return pb2.UpdateResponse(changed=False)
 

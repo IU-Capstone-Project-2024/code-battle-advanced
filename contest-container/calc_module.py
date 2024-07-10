@@ -34,6 +34,7 @@ class ContestantData(ContestantDataTemplate):
         self.widgets = [disp, bx5]
     
     def default_handler(self, caller, **kwargs):
+        super().default_handler(caller, **kwargs)
         if caller[0] == "b":
             self.num = self.num * 10 + int(caller[1])
         if caller[0] == "o":

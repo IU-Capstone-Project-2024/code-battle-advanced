@@ -124,9 +124,9 @@ class ContestantDataTemplate():
     time: int = 0
     
     @final
-    def __init__(self, task_results = []):
+    def __init__(self):
         self.widgets = []
-        self.task_results = task_results
+        self.task_results = dict()
         
         if "*" not in self.binds:
             self.binds["*"] = "default_handler"
@@ -186,9 +186,12 @@ class ContestantDataTemplate():
         pass
     
     def default_handler(self, caller, **kwargs):
-        pass
+        if caller == "Judge":
+            self.task_results[kwargs['task']] = kwargs['verdict']
         
     def get_test_verdict(self, task: str) -> str:
+        if task not in self.task_results:
+            return ""
         for i in range(len(self.task_results[task])):
             if self.task_results[task][i][0] != "AC":
                 return f"{self.task_results[task][i][0]} {i}"
