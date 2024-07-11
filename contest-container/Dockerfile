@@ -1,11 +1,6 @@
-FROM python:3.11.9-alpine3.20
+FROM python:3.11.9-slim-bullseye
 
 USER root
-
-#Installing MongoDB
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main' >> /etc/apk/repositories
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositories
-RUN apk add py3-pip linux-headers
 
 RUN python3 -m pip install --upgrade setuptools
 #Installing relevant python packages
