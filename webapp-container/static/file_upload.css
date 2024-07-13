@@ -1,6 +1,27 @@
 .file-area {
-position: relative;
+    position: relative;
+    text-transform: capitalize;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #00C643;
+    color: #00C643;
+    border-radius: 1em;
+    font-size: 20px;
+    padding: 0.4em 0.8em;
+    height: fit-content;
+    transition: background-color 0.3s, color 0.3;
 }
+
+.file-area.active{
+    background-color: #00C643;
+    color: #ffffff;
+}
+
+.file-area:hover {
+    background-color: #00C643;
+    color: #ffffff;
+}
+
 .file-area input[type=file] {
 position: absolute;
 width: 100%;
