@@ -6,7 +6,6 @@ cp ./contest-container/contest_pb2.py ./contest-container/contest_pb2.pyi ./cont
 
 docker build --network host -t web_app:v8 ./webapp-container
 docker build --network host -t judge:latest ./judge-container
-docker build --network host -t init_database:latest ./init-container
 docker build --network host -t contest:latest ./contest-container
 minikube image load web_app:v8
 minikube image load judge

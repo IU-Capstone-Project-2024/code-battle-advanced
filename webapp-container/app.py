@@ -22,8 +22,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
 app.config['MONGO_dbname'] = 'Users'
 app.config[
-        'MONGO_URI'] = (f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}"
-                        f":{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin")
+        'MONGO_URI'] = (f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin")
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
@@ -292,8 +291,7 @@ def signin():
         signin_user = users.find_one({'username': request.form['username']})
 
         if signin_user:
-            if bcrypt.hashpw(request.form['password'].encode('utf-8'), signin_user['password']) == \
-                    signin_user['password']:
+            if bcrypt.checkpw(request.form['password'].encode('utf-8'), signin_user['password']):
                 session['username'] = request.form['username']
                 return redirect(url_for('index'))
 
@@ -308,8 +306,15 @@ def logout():
     return redirect(url_for('index'))
 
 
-def prune_vulnerabilities(file_str):
+def check_vulnerabilities(file_str):
     tree = ast.parse(file_str)
+    for i in ast.walk(tree):
+        if isinstance(i, ast.ImportFrom) and i.module != 'cbacontest':
+            raise ValueError('Use of modules other than cbacontest is forbidden')
+        if isinstance(i, ast.Name) and i.id in ['eval', 'exec']:
+            raise ValueError('Use of eval and exec is forbidden')
+        if isinstance(i, ast.Name) and i.id in ['file', 'open']:
+            raise ValueError('Use of files is forbidden')
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -322,7 +327,7 @@ def create_contest():
         uploaded_file = request.files['type_python']
         filename = uploaded_file.filename
         file_data = uploaded_file.read()
-        prune_vulnerabilities(file_data)
+        check_vulnerabilities(file_data)
         bson_document = {
             'filename': filename,
             'file_data': bson.Binary(file_data)

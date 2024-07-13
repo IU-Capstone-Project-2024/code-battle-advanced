@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/static/buttons.css">
     <link rel="stylesheet" href="/static/create.css">
     <link rel="stylesheet" href="/static/checkbox.css">
+    <link rel="stylesheet" href="/static/file_upload.css">
 </head>
 <body>
     <header class="header">
@@ -36,8 +37,10 @@
                 <label for="description">Description:</label>
                 <input type="text" name="description" id="description" class="form-control" placeholder="Description" required autofocus>
                 <p class="form__contest-upload">You can upload your own type of contest in python format:</p>
-                <label class="green-btn" for="choose-file">Choose File</label>
-                <input type="file" name="type_python" id="choose-file" hidden>
+                <div class="file-area">
+                        <input type="file" name="type_python" id="choose-file">
+			<label class="green-btn">Choose File</label>
+		</div>
                 <input class="form-check-input" type="checkbox" value="No" id="teams" name="teams">
                 <label for="teams">Teams are allowed</label>
                 <button id="Submit" class="purple-btn btn btn-lg btn-primary btn-block" type="submit">Submit</button>
