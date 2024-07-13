@@ -20,7 +20,7 @@ import grpc
 import contest_pb2 as pb2
 import contest_pb2_grpc as pb2_grpc
 
-mongo_uri_docker = "mongodb://sUbskr1bet0:1celypuZZl3s@192.168.49.2:32000/CBA_database?authSource=admin"
+mongo_uri_docker = f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin"
 mongo_uri_local = "mongodb://localhost"
 
 redis_host = "redis"
