@@ -34,8 +34,8 @@ def test_task(task_id):
     
     submission_info = db.submissions.find_one({"_id": ObjectId(task_id)})
     
-    submission_file = f"/{submission_info['filename']}"
-    f = open(submission_file, "wb")
+    submission_file = f"./{submission_info['filename']}"
+    f = open(f"./judgement/{submission_file}", "wb")
     f.write(submission_info["source"])
     f.close()
     
@@ -43,15 +43,15 @@ def test_task(task_id):
     
     task = db.tasks.find_one({"_id": ObjectId(task_name)})
     
-    rmtree("/tasks/current")
-    os.mkdir("/tasks/current")
-    os.mkdir("/tasks/current/tests")
+    rmtree("./judgement/tasks")
+    os.mkdir("./judgement/tasks")
+    os.mkdir("./judgement/tasks/tests")
     
     for i in task["input"]:
-        open(f'/tasks/current/tests/{i["filename"]}', "wb").write(i["file_data"])
+        open(f'./judgement/tasks/tests/{i["filename"]}', "wb").write(i["file_data"])
     
     for i in task["checker"]:
-        open(f'/tasks/current/{i["filename"]}', "wb").write(i["file_data"])
+        open(f'./judgement/tasks/{i["filename"]}', "wb").write(i["file_data"])
     
     #zip_handle = ZipFile("/temp.zip")
     #for info in zip_handle.infolist():
@@ -64,15 +64,30 @@ def test_task(task_id):
     
     compiler = submission_info["language"]
     time_limit_ms = "2000"
-    verdict = open("verdict.temp", "w")
-    code = subprocess.check_call(["unshare", "-rn", "bash", "judge.sh", submission_file, "current", compiler, time_limit_ms], stdout=verdict)
-    verdict.close()
+    launcher = open("launcher.temp", "w")
+    code = subprocess.check_call(["unshare", "-rn", "bash", "judgementLaunch.sh", submission_file, "/", compiler, time_limit_ms], stdout=launcher)
+    launcher.close()
     
     if code != 0:
         print("Error while testing, check all your files for correctness.", file=stderr)
         return
     
+    with open("launcher.temp", "r") as launcher:
+    	temp = launcher.read().strip()
+    	if temp == "AC":
+    		print("Judge job completed")
+    	elif temp == "BE":
+    		print("Building error has accured while building the docker container", file=stderr)
+    		return
+    	elif temp == "JE":
+    		print("Judging error has accured inside the docker container", file=stderr)
+    		return
+    	else:
+    		print("Unexpected error", file=stderr)
+    		return
+    		
     verdict = open("verdict.temp", "r").read().strip()
+    exit(0)
     verdict = [i.split(" ") for i in verdict.split('\n')]
     
     verdict = [(i[0], int(i[1]), float(i[2]), int(i[3])) for i in verdict]
