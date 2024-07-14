@@ -63,6 +63,7 @@ do
 		else if [ $( echo $(cat temp2.out)*1000 | bc -l | cut -d. -f1 ) -gt $mstime ] ; then
 			echo TL $fileId 0 -1
 		else if [ ! $(sh ./tasks/$task/checker.sh $file temp.out) = "True" ] ; then
+			cat temp.out
 			echo WA $fileId 0 -1
 		else
 			echo AC $fileId 1 $(echo $(cat temp2.out)*1000 | bc -l | cut -d. -f1)
