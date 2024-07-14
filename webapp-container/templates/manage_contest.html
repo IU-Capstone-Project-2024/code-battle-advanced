@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Manage contest {{contest_name}}</title>
+</head>
+<body>
+   <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
+          <ul class="nav__list nav-pills pull-right">
+            <li role="presentation" class="nav__item"><a href="/contest/{{contest_id}}/leaderboard/1" class="nav__link">Leaderboard</a></li>
+          </ul>
+        </nav>
+      </div>
+   </header>
+
+   <main class="main">
+      <div class="container">
+         <section class="contest">
+            <h2 class="contest__header">{{contest_name}}</h2>
+	    {%if not_started%}
+	    <form method="post" action="#" class="red-btn" id="start" role="presentation">
+    		<input type="hidden" name="id" value="start">
+    		<button type="submit" class="start_contest">Start this contest</button>
+	    </form>
+	    {%endif%}
+	    {%if not_ended%}
+	    <form method="post" action="#" class="red-btn" id="end" role="presentation">
+    		<input type="hidden" name="id" value="end">
+    		<button type="submit" class="end_contest">End this contest</button>
+	    </form>
+	    {%endif%}
+            {% for name, uuid in listOfTasks %}
+            <article class="task">
+                <h2 class="task__header">{{name}}</h2>
+                <form method="post" action="#" class="red-btn" id="{{uuid}}" role="presentation">
+    		<input type="hidden" name="id" value="{{uuid}}">
+    		<button type="submit" class="delete_content__task">Delete this task</button>
+		</form>
+            </article>
+            {% endfor %}
+          </section>
+          {%if admin is defined %}
+               {%if admin%}
+               <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_id}}/upload">You can add your own task</a></p>
+               {% endif %}
+         {% endif %}
+      </div>
+   </main>
+
+   <footer class="footer">
+      <div class="container">
+        <p class="footer__copyright">&copy; Copyright</p>
+      </div>
+   </footer>
+</body>
+</html>

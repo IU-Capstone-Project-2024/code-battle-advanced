@@ -20,6 +20,14 @@
           <ul class="nav__list nav-pills pull-right">
             <li role="presentation" class="nav__item"><a href="/contest/{{contest_id}}/leaderboard/1" class="nav__link">Leaderboard</a></li>
           </ul>
+	  
+          {%if admin is defined %}
+               {%if admin%}
+		   <ul class="nav__list nav-pills pull-right">
+            	   <li role="presentation" class="nav__item"><a href="/manage_contest/{{contest_id}}" class="nav__link">Manage</a></li>
+                   </ul>
+               {% endif %}
+          {% endif %}
         </nav>
       </div>
    </header>
@@ -39,12 +47,7 @@
                <p class="red-btn" role="presentation"><a class="content__task-link" href=/contest/{{contest_id}}/task/{{uuid}}>To task</a></p>
             </article>
             {% endfor %}
-         </section>
-          {%if admin is defined %}
-               {%if admin%}
-               <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_id}}/upload">You can add your own task</a></p>
-               {% endif %}
-         {% endif %}
+         </section
       </div>
    </main>
 
@@ -53,6 +56,11 @@
         <p class="footer__copyright">&copy; Copyright</p>
       </div>
    </footer>
+   <script>
+   if ( window.history.replaceState ) {
+   	window.history.replaceState( null, null, window.location.href );
+   }
+   </script>
+
 </body>
 </html>
-

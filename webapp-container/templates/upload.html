@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="/static/buttons.css">
         <link rel="stylesheet" href="/static/checkbox.css">
         <link rel="stylesheet" href="/static/upload.css">
+        <link rel="stylesheet" href="/static/file_upload.css">
     </head>
 
     <body>
@@ -30,21 +31,26 @@
                     {%if admin%}
                     <select class="form__selector" name="form_selector" onchange="showForm()">
                         <option class="form__selector-option" value="Input+checker">Input + checker</option>
-                        <option class="form__selector-option" value="Input+solution">Input + solution</option>
+                        <!--<option class="form__selector-option" value="Input+solution">Input + solution</option>
                         <option class="form__selector-option" value="Input+interactive">Input + interactive</option>
-                        <option class="form__selector-option" value="Input+output">Input + output</option>
+                        <option class="form__selector-option" value="Input+output">Input + output</option>-->
                     </select>
                     <form class="form" method="post" action="/contest/{{contest_name}}" enctype="multipart/form-data" id="form1">
                         <h2 id="form-header">Input + checker</h2>
                         <div class="form__choose-wrapper">
-                            <label for="input-file" class="green-btn">Input files</label>
-                            <input type="file" name="input-file" id="input-file" multiple hidden>
-                            <label for="checker-file" class="green-btn">Checker files</label>
-                            <input type="file" name="checker-file" id="checker-file" multiple hidden>
-                            <label for="md-file" class="green-btn">Description file</label>
-                            <input type="file" name="md-file" id="md-file" hidden>
+                            <div class="file-area">
+                                Input files
+				<input type="file" name="input-file" id="input-file" multiple>
+			    </div>
+			    <div class="file-area">
+                            	Checker files
+                            	<input type="file" name="checker-file" id="checker-file" multiple>
+                            </div>
+                            <div class="file-area">
+                            	Description file
+                            	<input type="file" name="md-file" id="md-file">
+                            </div>
                         </div>
-                        
                         <select class="form__selector" name="judgement_mod" id="judgement_mod">
                             <option class="form__selector-option" value="first">Until first error</option>
                             <option class="form__selector-option" value="all">All tests</option>
