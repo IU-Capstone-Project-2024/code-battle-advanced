@@ -25,8 +25,8 @@
         		<li class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></li>
                 <li class="nav__item" role="presentation"><a class="nav__link" href="/logout">Logout</a></li>
                 {% else %}
-                <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">sign in</a></li>
-                <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">get started</a></li>
+                <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">Sign in</a></li>
+                <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">Get started</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -36,9 +36,9 @@
         <div class="container">
             <section class="main__nav">
                 <ul class="main__nav-list">
-                    <li role="presentation" class="red-btn active"><a href="#" class="main__nav-link">Contests</a></li>
-                    <li role="presentation" class="red-btn"><a href="" class="main__nav-link">In Progress</a></li>
-                    <li role="presentation" class="red-btn"><a href="" class="main__nav-link">Solved tasks</a></li>
+                    <li role="presentation" class="red-btn active"><a href="/contests/my" class="main__nav-link">My contests</a></li>
+                    <li role="presentation" class="red-btn"><a href="" class="main__nav-link">Available contests</a></li>
+                    <!--<li role="presentation" class="red-btn"><a href="" class="main__nav-link">Solved tasks</a></li>-->
                 </ul>
                 <p role="presentation" class="red-btn"><a class="main__nav-link" href="/submissions/1">My submissions</a></p>
             </section>

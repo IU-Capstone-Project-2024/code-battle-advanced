@@ -268,8 +268,7 @@ def contest_success(contest_name=None, task_name=None):
 def get_string_submissions(submissions_arr):
     result = []
     for i in submissions_arr:
-        result.append(f"time: {i['datetime in UTC']}; contest: {i['contest']}; task_name: {i['in_contest_name']};"
-                      f" language: {i['language']}; verdict: {i['final_verdict']}")
+        result.append((f"time: {i['datetime in UTC']}; contest: {i['contest']}; task_name: {i['in_contest_name']};language: {i['language']}; verdict: {i['final_verdict']}", i['contest'], i['task_name']))
     return result
 
 
