@@ -43,9 +43,30 @@
             {% endfor %}
           </section>
           {%if admin is defined %}
-               {%if admin%}
-               <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_id}}/upload">You can add your own task</a></p>
-               {% endif %}
+                {%if admin%}
+                <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_id}}/upload">You can add your own task</a></p>
+	        <h2> Group members <h2>
+                {% for name, uuid in groups_members %}
+                <article class="group">
+                	<form method="post" action="#" class="red-btn" id="{{uuid}}" role="presentation">
+    			<input type="hidden" name="remove" value="{{uuid}}">
+			<p>{{name}}</p>
+    			<button type="submit" class="delete_content__task">Delete</button>
+			</form>
+                </article>
+                {% endfor %}
+		{%if has_groups%}
+	        <p> You can add group of participants </p>
+	        <form class="form" action="/manage_contest/{{contest_id}}" method="post" enctype="multipart/form-data">
+                <select class="green-btn" name='group' id='group'>
+	            {% for group, uuid in groups %}
+                    <option value={{uuid}}>{{group}}</option>
+   	          ` {% endfor %}
+                </select>
+                <input class="purple-btn" type="submit" value="Add">
+      	        </form>
+		{% endif %}
+	        {% endif %}
          {% endif %}
       </div>
    </main>
