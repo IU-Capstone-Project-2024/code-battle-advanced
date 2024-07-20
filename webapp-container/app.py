@@ -22,7 +22,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testlol'
 app.config['MONGO_dbname'] = 'Users'
 app.config[
-        'MONGO_URI'] = (f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin")
+        'MONGO_URI'] = (f"mongodb://{os.environ['MONGO_INITDB_ROOT_USERNAME']}:"
+                        f"{os.environ['MONGO_INITDB_ROOT_PASSWORD']}@192.168.49.2:32000/CBA_database?authSource=admin")
 mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
@@ -54,13 +55,26 @@ def get_number(username, task_name):
         return max_try + 1
 
 
+def has_access(user, contest_1):
+    print(contest_1)
+    for i in contest_1['groups']:
+        group_1 = mongo.db.groups.find_one({'_id': bson.ObjectId(i)})
+        if user['_id'] in group_1['members']:
+            return True
+    return False
+
+
 @app.route("/signup", methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
         users = mongo.db.users
         signup_user = users.find_one({'username': request.form['username']})
         if signup_user is not None:
-            flash(request.form['username'] + ' username is already exist')
+            flash(request.form['username'] + ' username already exists')
+            return redirect(url_for('signup'))
+        signup_email = users.find_one({'email': request.form['email']})
+        if signup_email is not None:
+            flash('User with ' + request.form['email'] + ' email already exists')
             return redirect(url_for('signup'))
         hashed = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt(14))
         users.insert_one(
@@ -90,11 +104,11 @@ def return_bson(name):
     return bson_documents
 
 
-def error(admin, my_contest):
+def error(user, admin, my_contest):
     start_time = pytz.utc.localize(my_contest['startTime'])
-    if (not start_time
-            <= datetime.now(pytz.utc) <= start_time
-            + timedelta(minutes=int(my_contest['duration'])) and not admin):
+    if not (start_time <= datetime.now(pytz.utc) <= start_time + timedelta(minutes=int(my_contest['duration']))
+            and has_access(user, my_contest)) and \
+            not admin:
         return True
     return False
 
@@ -114,17 +128,18 @@ def error(admin, my_contest):
 @app.route('/contest/<string:contest_name>', methods=['GET', 'POST'])
 def contest(contest_name):
     my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
-    admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    user = mongo.db.users.find_one({'username': session['username']})
+    admin = user['admin']
     cur_contest_time = datetime.utcnow() - my_contest['startTime']
     cur_contest_time = int(cur_contest_time / timedelta(milliseconds=1))
     get_stub().GoToTime(pb2.GoToTimeMessage(contest_id=contest_name,
-                                            participant_id=session['username'],
-                                            time=cur_contest_time))
+                                        participant_id=session['username'],
+                                           time=cur_contest_time))
 
     # name, text = None, None
     # has_widgets = len(widgets) > 0
     # widgets_for_page = get_widgets_for_page(widgets)
-    if error(admin, my_contest):
+    if error(user, admin, my_contest):
         return render_template('error.html')
     if 'username' not in session:
         return render_template('unauthorized.html')
@@ -191,7 +206,8 @@ def contest(contest_name):
     tasks = [(mongo.db.tasks.find_one({'_id': bson.ObjectId(i)})["task_name"], i) for i in tasks]
     return render_template('contest.html', admin=admin,
                            listOfTasks=tasks, contest_name=my_contest['name'], contest_id=contest_name,
-                           username=session['username'], widgets=widgets)
+                           username=session['username'], widgets=widgets
+                           )
 
 
 @app.route('/contest/<string:contest_name>/task/<string:task_name>')
@@ -204,8 +220,9 @@ def task(contest_name=None, task_name=None):
         result = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})["md"]["file_data"]
     else:
         my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
-        admin = mongo.db.users.find_one({'username': session['username']})['admin']
-        if error(admin, my_contest):
+        user = mongo.db.users.find_one({'username': session['username']})
+        admin = user['admin']
+        if error(user, admin, my_contest):
             return render_template("error.html")
 
         result = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})["md"]["file_data"]
@@ -238,25 +255,26 @@ def success_support_func(task_name):
 
 
 @app.route('/task/<string:task_name>/success', methods=['POST'])
-@app.route('/contest/<string:contest_name>/task/<string:task_name>/success', methods=['POST'])
-def contest_success(contest_name=None, task_name=None):
+@app.route('/contest/<string:contest_id>/task/<string:task_name>/success', methods=['POST'])
+def contest_success(contest_id=None, task_id=None):
     if request.method == 'POST':
-        src, n, lang = success_support_func(task_name)
-        if contest_name is not None:
-            admin = mongo.db.users.find_one({'username': session['username']})['admin']
-            my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
-            if error(admin, my_contest):
+        src, n, lang = success_support_func(task_id)
+        if contest_id is not None:
+            user = mongo.db.users.find_one({'username': session['username']})
+            admin = user['admin']
+            my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_id)})
+            if error(user, admin, my_contest):
                 return render_template("error.html")
         _id = mongo.db.submissions.insert_one({'sender': session['username'],
                                                "datetime in UTC": datetime.now(timezone.utc),
-                                               'task_name': task_name,
+                                               'task_name': task_id,
                                                'in_contest_name':
-                                                   mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})[
+                                                   mongo.db.tasks.find_one({"_id": bson.ObjectId(task_id)})[
                                                        "task_name"],
                                                'source': src, 'n_try': n,
                                                'language': lang,
                                                'filename': request.files['file'].filename,
-                                               'contest': 'No contest' if contest_name is None else contest_name,
+                                               'contest': 'No contest' if contest_id is None else contest_id,
                                                'verdict': "N/A",
                                                'final_verdict': "N/A"}).inserted_id
         if not isinstance(_id, str):
@@ -268,12 +286,15 @@ def contest_success(contest_name=None, task_name=None):
 def get_string_submissions(submissions_arr):
     result = []
     for i in submissions_arr:
-        result.append((f"time: {i['datetime in UTC']}; contest: {i['contest']}; task_name: {i['in_contest_name']};language: {i['language']}; verdict: {i['final_verdict']}", i['contest'], i['task_name']))
+        result.append(f"time: {i['datetime in UTC']}; contest: {i['contest']}; task_name: {i['in_contest_name']};"
+                      f" language: {i['language']}; verdict: {i['final_verdict']}")
     return result
 
 
 @app.route('/submissions/<int:page_number>', methods=['POST', 'GET'])
 def submissions(page_number):
+    if 'username' not in session:
+        return render_template('unauthorized.html')
     submissions_array = mongo.db.submissions.find({'sender': session['username']})
     submissions_array = sorted(submissions_array, key=lambda x: x['datetime in UTC'], reverse=True)
     limit_page = min(math.ceil(len(submissions_array) / 10), 1)
@@ -290,10 +311,10 @@ def signin():
         signin_user = users.find_one({'username': request.form['username']})
 
         if signin_user:
-            if bcrypt.checkpw(request.form['password'].encode('utf-8'), signin_user['password']):
+            if bcrypt.hashpw(request.form['password'].encode('utf-8'), signin_user['password']) == \
+                    signin_user['password']:
                 session['username'] = request.form['username']
                 return redirect(url_for('index'))
-
         flash('Username and password combination is wrong')
         return render_template('signin.html')
     return render_template('signin.html')
@@ -305,15 +326,8 @@ def logout():
     return redirect(url_for('index'))
 
 
-def check_vulnerabilities(file_str):
+def prune_vulnerabilities(file_str):
     tree = ast.parse(file_str)
-    for i in ast.walk(tree):
-        if isinstance(i, ast.ImportFrom) and i.module != 'cbacontest':
-            raise ValueError('Use of modules other than cbacontest is forbidden')
-        if isinstance(i, ast.Name) and i.id in ['eval', 'exec']:
-            raise ValueError('Use of eval and exec is forbidden')
-        if isinstance(i, ast.Name) and i.id in ['file', 'open']:
-            raise ValueError('Use of files is forbidden')
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -326,7 +340,7 @@ def create_contest():
         uploaded_file = request.files['type_python']
         filename = uploaded_file.filename
         file_data = uploaded_file.read()
-        check_vulnerabilities(file_data)
+        prune_vulnerabilities(file_data)
         bson_document = {
             'filename': filename,
             'file_data': bson.Binary(file_data)
@@ -338,25 +352,26 @@ def create_contest():
                                       'allowed_teams': 'teams' in request.form,
                                       'description': request.form['description'],
                                       'config': bson_document,
-                                      'global_events': [(0, "Start", {})]})
+                                      'global_events': [(0, "Start", {})],
+                                      'groups': []})
         return redirect('contests/my')
     return render_template('create.html', admin=admin)
 
 
-@app.route('/contest/<string:contest_name>/upload', methods=['GET', 'POST'])
-def upload(contest_name):
+@app.route('/contest/<string:contest_id>/upload', methods=['GET', 'POST'])
+def upload(contest_id):
     if 'username' not in session:
         return render_template('unauthorized.html')
     else:
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    return render_template('upload.html', admin=admin, contest_name=contest_name)
+    return render_template('upload.html', admin=admin, contest_name=contest_id)
 
 
-@app.route('/contest/<string:contest_name>/leaderboard/<int:page_number>', methods=['GET', 'POST'])
-def leader_board(contest_name, page_number):
+@app.route('/contest/<string:contest_id>/leaderboard/<int:page_number>', methods=['GET', 'POST'])
+def leader_board(contest_id, page_number):
     board = []
     # leaders = {}
-    for i in mongo.db.participants.find({'contest_id': contest_name}):
+    for i in mongo.db.participants.find({'contest_id': contest_id}):
         board.append((i["participant_id"], i["points"]))
 
     #        if i['sender'] not in leaders.keys():
@@ -381,7 +396,7 @@ def leader_board(contest_name, page_number):
     board = board[(page_number - 1) * 10:page_number * 10]
     return render_template('leaderboard.html', board=[';'.join(map(str, i)) for i in board],
                            limit_page=limit_page,
-                           current_page=page_number, contest_name=contest_name)
+                           current_page=page_number, contest_name=contest_id)
 
 
 @app.route('/personal', methods=['GET', 'POST'])
@@ -390,7 +405,11 @@ def personal():
         return render_template('unauthorized.html')
     else:
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
-        return render_template('personal.html', admin=admin, username=session['username'])
+        groups = []
+        for i in mongo.db.groups.find({}):
+            if bson.ObjectId(mongo.db.users.find_one({'username': session['username']})['_id']) in i['members']:
+                groups.append((i['_id'], i['name']))
+        return render_template('personal.html', admin=admin, username=session['username'], groups=groups)
 
 
 @app.route('/tasks_archive', methods=['GET', 'POST'])
@@ -398,10 +417,11 @@ def tasks_archive():
     if 'username' not in session:
         return render_template('unauthorized.html')
     else:
-        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+        user = mongo.db.users.find_one({'username': session['username']})
+        admin = user['admin']
         session['contests'] = []
         for i in mongo.db.contests.find():
-            if not error(admin, i):
+            if not error(user, admin, i):
                 session['contests'].append(str(i['_id']))
         contest_archive = [i for i in mongo.db.contests.find()
                            if i['_id'] not in session['contests'] and datetime.now(pytz.utc) >
@@ -422,12 +442,13 @@ def available_contests(type_contests):
     if 'username' not in session:
         return render_template('unauthorized.html')
     else:
-        admin = mongo.db.users.find_one({'username': session['username']})['admin']
+        user = mongo.db.users.find_one({'username': session['username']})
+        admin = user['admin']
         if not admin and type_contests == 'my':
             return render_template('unauthorized.html')
         session['contests'] = []
         for i in mongo.db.contests.find():
-            if not error(admin, i):
+            if not error(user, admin, i):
                 session['contests'].append((i['name'], str(i['_id']), i['description']))
         if type_contests == 'available':
             return render_template('available.html', listOfUrls=session['contests'], admin=admin,
@@ -437,46 +458,110 @@ def available_contests(type_contests):
                                    listOfUrls=session['contests'], admin=admin)
 
 
-@app.route('/manage_contest/<string:contest_name>', methods=['GET', 'POST'])
-def manage_contest(contest_name):
-    admin = mongo.db.users.find_one({'username': session['username']})['admin']
-    my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
-    if error(admin, my_contest):
+@app.route('/manage_contest/<string:contest_id>', methods=['GET', 'POST'])
+def manage_contest(contest_id):
+    user = mongo.db.users.find_one({'username': session['username']})
+    admin = user['admin']
+    my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_id)})
+    if error(user, admin, my_contest):
         return render_template('error.html')
     if 'username' not in session:
         return render_template('unauthorized.html')
-    tasks = mongo.db.contests.find_one({'_id': bson.ObjectId(contest_name)})["tasks"]
+    tasks = mongo.db.contests.find_one({'_id': bson.ObjectId(contest_id)})["tasks"]
     tasks = [(mongo.db.tasks.find_one({'_id': bson.ObjectId(i)})["task_name"], i) for i in tasks]
     start_time = pytz.utc.localize(my_contest['startTime'])
     not_started, not_ended = False, False
-    print(datetime.now(pytz.utc), start_time + timedelta(minutes=int(my_contest['duration'])))
     if start_time > datetime.now(pytz.utc):
         not_started = True
     elif datetime.now(pytz.utc) < start_time + timedelta(minutes=int(my_contest['duration'])) and not not_started:
         not_ended = True
     if request.method == 'POST':
-        if request.form['id'] == 'start':
-            mongo.db.contests.update_one({'_id': bson.ObjectId(contest_name)},
+        if 'group' in request.form:
+            if request.form['group'] != '':
+                group1 = mongo.db.groups.find_one({'_id': bson.ObjectId(request.form['group'])})
+                mongo.db.contests.update_one({"_id": bson.ObjectId(contest_id)}, {'$push': {'groups': group1['_id']}})
+            pass
+        elif 'remove' in request.form:
+            mongo.db.contests.update_one({"_id": bson.ObjectId(contest_id)},
+                                         {"$pull": {"groups": bson.ObjectId(request.form["remove"])}})
+        elif 'start' in request.form:
+            mongo.db.contests.update_one({'_id': bson.ObjectId(contest_id)},
                                          {"$set": {'startTime': datetime.now(pytz.utc)}})
-            return redirect('/contest/' + contest_name)
-        elif request.form['id'] == 'end':
+            return redirect('/contest/' + contest_id)
+        elif 'end' in request.form:
             dif_time = (datetime.now(pytz.utc) -
                         pytz.utc.localize(my_contest['startTime']))
-            mongo.db.contests.update_one({'_id': bson.ObjectId(contest_name)},
+            mongo.db.contests.update_one({'_id': bson.ObjectId(contest_id)},
                                          {"$set": {'duration': dif_time.total_seconds() / 60}})
-            return redirect('/contest/' + contest_name)
+            return redirect('/contest/' + contest_id)
         else:
             for i in tasks:
                 if request.form['id'] == str(i[1]):
                     mongo.db.tasks.delete_many({"_id": bson.ObjectId(i[1])})
-                    mongo.db.contests.update_one({"_id": bson.ObjectId(contest_name)},
+                    mongo.db.contests.update_one({"_id": bson.ObjectId(contest_id)},
                                                  {"$pull": {"tasks": bson.ObjectId(i[1])}})
-        return redirect('/manage_contest/' + contest_name)
+        return redirect('/manage_contest/' + contest_id)
+    groups = [(i['name'], i['_id']) for i in mongo.db.groups.find({}) if i['_id'] not in my_contest['groups']]
+    has_groups = len(groups) != 0
+    groups_members = [(mongo.db.groups.find_one({"_id": i})["name"], i) for i in my_contest['groups']]
     return render_template('manage_contest.html', admin=admin,
-                           listOfTasks=tasks, contest_name=my_contest['name'], contest_id=contest_name,
-                           username=session['username'], not_started=not_started, not_ended=not_ended)
+                           listOfTasks=tasks, contest_name=my_contest['name'], contest_id=contest_id,
+                           username=session['username'], not_started=not_started, not_ended=not_ended, groups=groups,
+                           has_groups=has_groups, groups_members=groups_members)
+
+
+@app.route('/group/<group_id>', methods=['GET', 'POST'])
+def group(group_id):
+    me = mongo.db.users.find_one({'username': session['username']})
+    admin = me['admin']
+    group_object = mongo.db.groups.find_one({"_id": bson.ObjectId(group_id)})
+
+    members = [(mongo.db.users.find_one({"_id": bson.ObjectId(i)})['username'], i) for i in group_object['members']
+               if me['_id'] != i]
+    usernames = [(i['username'], i['_id']) for i in list(mongo.db.users.find({})) if (i['username'], i['_id'])
+                 not in members and
+                 me['_id'] != i['_id']]
+    if 'username' not in session and not admin:
+        return render_template('unauthorized.html')
+    if request.method == 'POST':
+        if 'username' in request.form:
+            person = request.form['username']
+            mongo.db.groups.update_one({"_id": bson.ObjectId(group_id)}, {"$push": {"members": bson.ObjectId(person)}})
+        elif 'delete_group' in request.form:
+            mongo.db.groups.delete_one({"_id": bson.ObjectId(group_id)})
+            return redirect("/personal")
+        else:
+            for i in members:
+                if str(request.form['delete']) == i[0]:
+                    mongo.db.groups.update_one({"_id": bson.ObjectId(group_id)},
+                                               {"$pull": {"members": bson.ObjectId(i[1])}})
+                    break
+        return redirect("/group/" + str(group_id))
+    has_usernames = len(usernames) != 0
+    return render_template('group.html', admin=admin, members=members,
+                           group_name=group_object['name'], usernames=usernames, group_id=group_id,
+                           has_usernames=has_usernames)
+
+
+@app.route('/create_group', methods=['GET', 'POST'])
+def create_group():
+    admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    if 'username' not in session and not admin:
+        return render_template('unauthorized.html')
+    if request.method == 'POST':
+        group1 = mongo.db.groups.find_one({'name': request.form['GroupName']})
+        if group1 is not None:
+            flash('Group with name ' + request.form['GroupName'] + ' already exists')
+            return render_template('create_group.html', admin=admin)
+        _id = mongo.db.groups.insert_one({'name': request.form['GroupName'],
+                                          'members':
+                                              [bson.ObjectId(mongo.db.users
+                                                             .find_one({'username': session['username']})['_id'])],
+                                          'description': request.form['description']}).inserted_id
+        return redirect("/group/" + str(_id))
+    return render_template('create_group.html', admin=admin)
 
 
 if __name__ == "__main__":
-    q = redis.StrictRedis(host=redis_host)
+q = redis.StrictRedis(host=redis_host)
     app.run(host='0.0.0.0', debug=True)
