@@ -563,5 +563,5 @@ def create_group():
 
 
 if __name__ == "__main__":
-q = redis.StrictRedis(host=redis_host)
+    q = redis.StrictRedis(host=redis_host)
     app.run(host='0.0.0.0', debug=True)
