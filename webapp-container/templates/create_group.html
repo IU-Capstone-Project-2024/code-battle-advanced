@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Battle Advanced</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="/static/general.css">
+    <link rel="stylesheet" href="/static/header.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/footer.css">
+    <link rel="stylesheet" href="/static/buttons.css">
+    <link rel="stylesheet" href="/static/create.css">
+    <link rel="stylesheet" href="/static/checkbox.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+          <nav class="nav">
+            <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
+          </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            {% if admin is defined %}
+            {% if admin %}
+            <form class="form-contest" action="/create_group" method="post" enctype="multipart/form-data">
+                <label for="GroupName">Group name:</label>
+                <input type="text" name="GroupName" id="GroupName" class="form-control" placeholder="Group's title" required autofocus>
+                <label for="description">Description:</label>
+                <input type="text" name="description" id="description" class="form-control" placeholder="Description" required autofocus>
+                <button id="Submit" class="purple-btn btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            </form>
+            {% endif %}
+            {% endif %}
+    {% with messages = get_flashed_messages() %}
+          {% if messages %} 
+          <ul class=flashes>
+             {% for message in messages %} 
+            <li>{{ message }}</li>
+             {% endfor %} 
+          </ul>
+           {% endif %} 
+    {% endwith %} 
+    </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__copyright">&copy; Copyright</p>
+        </div>
+    </footer>
+</body>
+</html>
