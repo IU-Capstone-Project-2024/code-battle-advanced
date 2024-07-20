@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Manage group {{group_name}}</title>
+</head>
+<body>
+   <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
+        </nav>
+      </div>
+   </header>
+
+   <main class="main">
+      <div class="container">
+         <section class="contest">
+            <h2 class="contest__header">{{group_name}}</h2>
+	    <form method="post" action="#" class="red-btn" name="delete_group" role="presentation">
+    		<input type="hidden" name="delete_group" value="del">
+    		<button type="submit" class="start_contest">Delete this group</button>
+	    </form>
+	    <h2> Group members <h2>
+            {% for username, uuid in members %}
+            <article class="task">
+                <h2 class="task__header">{{name}}</h2>
+                <form method="post" action="#" class="red-btn" id="{{uuid}}" role="presentation">
+    		<input type="hidden" name="delete" value="{{username}}">
+		<p>{{username}}</p>
+    		<button type="submit" class="delete_content__task">Delete</button>
+		</form>
+            </article>
+            {% endfor %}
+          </section>
+      </div>
+      {%if has_usernames%}
+      <form class="form" action="/group/{{group_id}}" method="post" enctype="multipart/form-data">
+      <select class="green-btn" name='username' id='username'>
+	   {% for username, uuid in usernames %}
+                <option value={{uuid}}>{{username}}</option>
+   	   {% endfor %}
+      </select>
+      <input class="purple-btn" type="submit" value="Add">
+      </form>
+      {%endif%}
+   </main>
+   <footer class="footer">
+      <div class="container">
+        <p class="footer__copyright">&copy; Copyright</p>
+      </div>
+   </footer>
+</body>
+</html>
