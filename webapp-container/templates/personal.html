@@ -34,4 +34,13 @@
     {% endif %}
     <li role="presentation" class="active"><a href="/contests/available">Available contests</a></li>
     <li role="presentation" class="active"><a href="/tasks_archive">Task archive</a></li>
+    {%if admin is defined %}
+    {%if admin%}
+    <li role="presentation" class="active"><a href="/create_group">Create group</a></li>
+    {% endif %}
+    {% endif %}
+    <h2>Groups</h2>
+    {%for group_id, group_name in groups%}
+	<li role="presentation" class="active"><a href="/group/{{group_id}}">{{group_name}}</a></li>
+    {%endfor%}
     </div>
