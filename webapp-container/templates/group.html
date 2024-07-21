@@ -3,6 +3,13 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Manage group {{group_name}}</title>
+   <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+   <link rel="stylesheet" href="/static/general.css">
+   <link rel="stylesheet" href="/static/header.css">
+   <link rel="stylesheet" href="/static/main.css">
+   <link rel="stylesheet" href="/static/footer.css">
+   <link rel="stylesheet" href="/static/buttons.css">
+   <link rel="stylesheet" href="/static/group.css">
 </head>
 <body>
    <header class="header">
@@ -17,38 +24,39 @@
       <div class="container">
          <section class="contest">
             <h2 class="contest__header">{{group_name}}</h2>
-	    <form method="post" action="#" class="red-btn" name="delete_group" role="presentation">
-    		<input type="hidden" name="delete_group" value="del">
-    		<button type="submit" class="start_contest">Delete this group</button>
-	    </form>
-	    <h2> Group members <h2>
+            <form method="post" action="#" name="delete_group" role="presentation">
+               <input type="hidden" name="delete_group" value="del">
+               <button type="submit" class="green-btn start_contest">Delete this group</button>
+            </form>
+	         <h2>Group members:<h2>
             {% for username, uuid in members %}
             <article class="task">
-                <h2 class="task__header">{{name}}</h2>
-                <form method="post" action="#" class="red-btn" id="{{uuid}}" role="presentation">
-    		<input type="hidden" name="delete" value="{{username}}">
-		<p>{{username}}</p>
-    		<button type="submit" class="delete_content__task">Delete</button>
-		</form>
+               <h2 class="task__header">{{name}}</h2>
+               <form method="post" action="#" id="{{uuid}}" role="presentation">
+                  <input type="hidden" name="delete" value="{{username}}">
+                  <p>{{username}}</p>
+                  <button type="submit" class="green-btn delete_content__task">Delete</button>
+		         </form>
             </article>
             {% endfor %}
           </section>
+          {%if has_usernames%}
+         <form class="form" action="/group/{{group_id}}" method="post" enctype="multipart/form-data">
+            <select class="green-btn" name='username' id='username'>
+               {% for username, uuid in usernames %}
+               <option value={{uuid}}>{{username}}</option>
+               {% endfor %}
+            </select>
+            <input class="purple-btn" type="submit" value="Add">
+         </form>
+         {%endif%}
       </div>
-      {%if has_usernames%}
-      <form class="form" action="/group/{{group_id}}" method="post" enctype="multipart/form-data">
-      <select class="green-btn" name='username' id='username'>
-	   {% for username, uuid in usernames %}
-                <option value={{uuid}}>{{username}}</option>
-   	   {% endfor %}
-      </select>
-      <input class="purple-btn" type="submit" value="Add">
-      </form>
-      {%endif%}
+      
    </main>
    <footer class="footer">
       <div class="container">
-        <p class="footer__copyright">&copy; Copyright</p>
+         <p class="footer__copyright">&copy; Copyright</p>
       </div>
-   </footer>
+  </footer>
 </body>
 </html>

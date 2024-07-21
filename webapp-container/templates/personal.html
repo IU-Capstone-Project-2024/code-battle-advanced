@@ -1,46 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Code battle advanced</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Code battle advanced</title>
+        <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+        <link rel="stylesheet" href="../static/general.css">
+        <link rel="stylesheet" href="../static/header.css">
+        <link rel="stylesheet" href="../static/main.css">
+        <link rel="stylesheet" href="../static/footer.css">
+        <link rel="stylesheet" href="../static/buttons.css">
+        <link rel="stylesheet" href="../static/main_nav.css">
+        <link rel="stylesheet" href="../static/personal.css">
+    </head>
 
-</head>
+    <body>
+        <header>
+            <div class="container">
+            <nav class="nav">
+                <h1 class="nav__header"><a href="/index" class="nav__header-link">Code Battle Advanced</a></h1>
+                <ul class="nav__list nav-pills pull-right">
+                    {%if username is defined %} 
+                    <li class="nav__item logged" role="presentation"><a class="nav__link" href="/personal">{{username}}</a></li>
+                    <li class="nav__item" role="presentation"><a class="nav__link" href="/logout">Logout</a></li>
+                    {% else %} 
+                    <li class="nav__item" role="presentation"><a class="nav__link" href="/signin">Sign in</a></li>
+                    <li class="nav__item" role="presentation"><a class="nav__link" href="/signup">Get started</a></li> 
+                    {% endif %} 
+                </ul>
+            </nav>
+        </header>
 
-<body>
-<h1>Code Battle Advanced</h1>
-<div class="container">
-    <div class="header">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="/index">Home</a>
-                </li>
-                {%if username is defined %}
-                <li role="presentation"> Logged in {{username}} <a href="/logout">Logout</a>
-                </li>
-                {% else %}
-                <li role="presentation"><a href="/signin">Sign In</a>
-                </li>
-                <li role="presentation"><a href="/signup">Sign Up</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-    </div>
-    <div>
-    <h2>{{username}}</h2>
-    {%if admin is defined %}
-    {%if admin%}
-    <li role="presentation" class="active"><a href="/contests/my">My contests</a></li>
-    {% endif %}
-    {% endif %}
-    <li role="presentation" class="active"><a href="/contests/available">Available contests</a></li>
-    <li role="presentation" class="active"><a href="/tasks_archive">Task archive</a></li>
-    {%if admin is defined %}
-    {%if admin%}
-    <li role="presentation" class="active"><a href="/create_group">Create group</a></li>
-    {% endif %}
-    {% endif %}
-    <h2>Groups</h2>
-    {%for group_id, group_name in groups%}
-	<li role="presentation" class="active"><a href="/group/{{group_id}}">{{group_name}}</a></li>
-    {%endfor%}
-    </div>
+        <div class="main">
+            <div class="container">
+                <h2>{{username}}</h2>
+                <section class="nav">
+                    <ul class="main__nav-list">
+                        {%if admin is defined %}
+                            {%if admin%}
+                            <li role="presentation" class="red-btn"><a class="main__nav-link" href="/contests/my">My contests</a></li>
+                            {% endif %}
+                        {% endif %}
+                        <li role="presentation" class="red-btn"><a class="main__nav-link" href="/contests/available">Available contests</a></li>
+                        <li role="presentation" class="red-btn"><a class="main__nav-link" href="/tasks_archive">Task archive</a></li>
+                    </ul>
+                    {%if admin is defined %}
+                        {%if admin%}
+                        <p role="presentation" class="red-btn"><a class="main__nav-link" href="/create_group">Create group</a></p>
+                        {% endif %}
+                    {% endif %}
+                </section>
+                
+                <section class="main__groups">
+                    <h2>Groups</h2>
+                    {%for group_id, group_name in groups%}
+                        <article class="main__groups-group">
+                            <p role="presentation" class="group__header">{{group_name}}</p>
+                            <p role="presentation" class="red-btn"><a href="/contest/{{url}}" class="main__nav-link">To group</a></p>
+                        </article>
+                        <article class="main__groups-group">
+                            <p role="presentation" class="group__header">{{group_name}}</p>
+                            <p role="presentation" class="red-btn"><a href="/contest/{{url}}" class="main__nav-link">To group</a></p>
+                        </article>
+                    {%endfor%}
+                </section>
+                
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+              <p class="footer__copyright">&copy; Copyright</p>
+            </div>
+        </footer>
+    </body>
+</html>

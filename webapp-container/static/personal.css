@@ -1,0 +1,15 @@
+.main__groups-group {
+    padding: 30px;
+    border-radius: 1em;
+}
+
+.main__groups-group:nth-child(2n + 1) {
+    background-color: #E2E2E2;
+}
+
+.group__header {
+    color: #000;
+    margin-bottom: 14.5px;
+    font-size: 24px;
+    font-weight: 700;
+}
