@@ -12,6 +12,12 @@ import shutil
 import redis
 import ast
 import bson
+import re
+
+from replicate.exceptions import ModelError
+
+from threading import Thread
+from ai_images import process_text
 
 import grpc
 
@@ -28,6 +34,26 @@ mongo = PyMongo(app)
 p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
+
+def makeimage(prompt, number, task_id):
+    
+    attempts = 0
+    
+    #engineered_prompt = "You generate colorful images to accompany programming tasks. The task name is {task_name}. The task description in md format is \"{statement}\". The user wants the picture to be {prompt}."
+    
+    while 1:
+        try:
+            image = process_text(prompt, filemode=False)
+            break
+        except (RuntimeError, ModelError) as e:
+            attempts += 1
+            if attempts == 10:
+                image = open("/static/failure.png", "rb").read()
+                break
+            continue
+    
+    mongo.db.tasks.update_one({"_id": task_id}, {"$set": {f"res.ai_{number}":image}})
+    
 
 
 def get_stub():
@@ -156,11 +182,25 @@ def contest(contest_name):
         else:
             available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
             md = return_bson('md-file')[0]
+            
+            md_str = md["file_data"].decode()
+            
+            ai = re.findall(r"!\[.*?\]\(AI\)", md_str)
+            c = 0
+            jobs = []
+            for i in ai:
+                md_str = md_str.replace(i, i.split("(")[0] + f"(ai_{c})")
+                jobs.append([i.split("]")[0][2:], c, "no"])
+                c += 1
+            
+            md["file_data"] = md_str.encode()
+            
             if 'input-file' in request.files and 'checker-file' in request.files and 'name' in request.form:
                 input1 = return_bson('input-file')
                 checker = return_bson('checker-file')
                 _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
                                                  "input": input1,
+                                                 "res": {},
                                                  "checker": checker,
                                                  "judgement_mod": request.form["judgement_mod"],
                                                  "available": available_languages,
@@ -171,6 +211,7 @@ def contest(contest_name):
                 solution = return_bson('solution-file')
                 _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
                                                  "input": input1,
+                                                 "res": [],
                                                  "solution": solution,
                                                  "judgement_mod": request.form["judgement_mod"],
                                                  "available": available_languages,
@@ -181,6 +222,7 @@ def contest(contest_name):
                 interactive = return_bson('interactive-file')
                 _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
                                                  "input": input1,
+                                                 "res": [],
                                                  "interactive": interactive,
                                                  "judgement_mod": request.form["judgement_mod"],
                                                  "available": available_languages,
@@ -191,11 +233,17 @@ def contest(contest_name):
                 output = return_bson('output-file')
                 _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
                                                  "input": input1,
+                                                 "res": [],
                                                  "output": output,
                                                  "judgement_mod": request.form["judgement_mod"],
                                                  "available": available_languages,
                                                  "tags": request.form['tags'].split(","),
                                                  'md': md}).inserted_id
+            
+            for i in jobs:
+                i[-1] = _id
+                Thread(target=makeimage, args=i).run()
+            
             if 'name' in request.form:
                 mongo.db.contests.update_one({'_id': bson.ObjectId(contest_name)},
                                              {'$push': {'tasks': bson.ObjectId(_id)}})
@@ -216,28 +264,34 @@ def task(contest_name=None, task_name=None):
     if 'username' not in session:
         return render_template('unauthorized.html')
     print(contest_name)
-    if contest_name is None:
-        result = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})["md"]["file_data"]
-    else:
+    
+    task = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})
+    
+    if contest_name:
         my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
         user = mongo.db.users.find_one({'username': session['username']})
         admin = user['admin']
         if error(user, admin, my_contest):
             return render_template("error.html")
+    
+    md = task["md"]["file_data"].decode()
 
-        result = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})["md"]["file_data"]
-    print(result)
+    imagenames = re.findall(r"!\[.*?\]\(ai_.*?\)", md)
+    for i in imagenames:
+        name = i.split("(")[1][:-1]
+        if name in task["res"]:
+            f = open(f"/static/{name}", "wb")
+            f.write(task["res"][name])
+            f.close()
+            
+            md = md.replace(i, i.split("(")[0] + f"(/static/{name})")
+        else:
+            md = md.replace(i, i.split("(")[0] + f"(/static/placeholder)")
+    
     md_template_string = markdown.markdown(
-        result.decode(), extensions=["fenced_code", 'tables']
+       md, extensions=["fenced_code", 'tables']
     ).replace("\n", "")
 
-    # Copy static resources and update paths in the Markdown content
-    res_dir_names = ["static", "resources", "res"]
-    for i in res_dir_names:
-        if os.path.exists(f"/tasks/{task_name}/{i}"):
-            shutil.copytree(f"/tasks/{task_name}/{i}", "/static", dirs_exist_ok=True)
-            md_template_string = md_template_string.replace(f"src=\"./{i}", "src=\"/static")
-    print(md_template_string)
     if contest_name is not None:
         return render_template('task.html', url=task_name, username=session['username'],
                                contest_name=contest_name, statement=md_template_string)

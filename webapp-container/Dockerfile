@@ -6,9 +6,10 @@ RUN python3 -m pip install --upgrade setuptools
 
 RUN pip3 install setuptools
 #Installing relevant python packages
-RUN pip3 install Flask-PyMongo markdown bcrypt redis pytz protobuf pathlib grpcio==1.64.1
+RUN pip3 install Flask-PyMongo markdown bcrypt redis pytz protobuf pathlib grpcio==1.64.1 replicate python-dotenv requests
 
 COPY ./app.py /app.py
+COPY ./ai_images.py /ai_images.py
 COPY ./templates /templates
 COPY ./static /static
 RUN mkdir -p /static

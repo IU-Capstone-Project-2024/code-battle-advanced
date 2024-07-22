@@ -4,7 +4,12 @@
 Time limit: 1.0 second  
 Memory limit: 16 MB  
 
-Old contest software uses bubble sort for generating final standings. But now, there are too many teams and that software works too slow. You are asked to write a program, which generates exactly the same final standings as old software, but fast.
+Old contest software uses bubble sort for generating final standings. But now, there are too many teams and that software works too slow. 
+![Computer breaking from trying to sort numbers](AI)
+
+You are asked to write a program, which generates exactly the same final standings as old software, but fast.
+
+![Programmer being happy from solving a task](AI)
 
 ### Input
 
