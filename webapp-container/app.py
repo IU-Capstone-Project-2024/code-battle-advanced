@@ -35,12 +35,12 @@ p = Path('./tasks')
 UPLOAD_FOLDER = './submissions'
 redis_host = "redis"
 
+
 def makeimage(prompt, number, task_id):
-    
     attempts = 0
-    
-    #engineered_prompt = "You generate colorful images to accompany programming tasks. The task name is {task_name}. The task description in md format is \"{statement}\". The user wants the picture to be {prompt}."
-    
+
+    # engineered_prompt = "You generate colorful images to accompany programming tasks. The task name is {task_name}. The task description in md format is \"{statement}\". The user wants the picture to be {prompt}."
+
     while 1:
         try:
             image = process_text(prompt, filemode=False)
@@ -51,9 +51,8 @@ def makeimage(prompt, number, task_id):
                 image = open("/static/failure.png", "rb").read()
                 break
             continue
-    
-    mongo.db.tasks.update_one({"_id": task_id}, {"$set": {f"res.ai_{number}":image}})
-    
+
+    mongo.db.tasks.update_one({"_id": task_id}, {"$set": {f"res.ai_{number}": image}})
 
 
 def get_stub():
@@ -139,6 +138,13 @@ def error(user, admin, my_contest):
     return False
 
 
+def refresh(md_str, id_):
+    c = 0
+    for i in re.findall(r"!\[.*?\]\(ai_.*?\)", md_str):
+        Thread(target=makeimage, args=[i.split("]")[0][2:], c, id_]).run()
+        c += 1
+
+
 # def get_widgets_for_page(widgets):
 #    widgets_for_page = []
 #
@@ -182,9 +188,9 @@ def contest(contest_name):
         else:
             available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
             md = return_bson('md-file')[0]
-            
+
             md_str = md["file_data"].decode()
-            
+
             ai = re.findall(r"!\[.*?\]\(AI\)", md_str)
             c = 0
             jobs = []
@@ -192,9 +198,9 @@ def contest(contest_name):
                 md_str = md_str.replace(i, i.split("(")[0] + f"(ai_{c})")
                 jobs.append([i.split("]")[0][2:], c, "no"])
                 c += 1
-            
+
             md["file_data"] = md_str.encode()
-            
+
             if 'input-file' in request.files and 'checker-file' in request.files and 'name' in request.form:
                 input1 = return_bson('input-file')
                 checker = return_bson('checker-file')
@@ -239,11 +245,11 @@ def contest(contest_name):
                                                  "available": available_languages,
                                                  "tags": request.form['tags'].split(","),
                                                  'md': md}).inserted_id
-            
+
             for i in jobs:
                 i[-1] = _id
                 Thread(target=makeimage, args=i).run()
-            
+
             if 'name' in request.form:
                 mongo.db.contests.update_one({'_id': bson.ObjectId(contest_name)},
                                              {'$push': {'tasks': bson.ObjectId(_id)}})
@@ -264,16 +270,16 @@ def task(contest_name=None, task_name=None):
     if 'username' not in session:
         return render_template('unauthorized.html')
     print(contest_name)
-    
+
     task = mongo.db.tasks.find_one({"_id": bson.ObjectId(task_name)})
-    
+
     if contest_name:
         my_contest = mongo.db.contests.find_one({"_id": bson.ObjectId(contest_name)})
         user = mongo.db.users.find_one({'username': session['username']})
         admin = user['admin']
         if error(user, admin, my_contest):
             return render_template("error.html")
-    
+
     md = task["md"]["file_data"].decode()
 
     imagenames = re.findall(r"!\[.*?\]\(ai_.*?\)", md)
@@ -283,13 +289,13 @@ def task(contest_name=None, task_name=None):
             f = open(f"/static/{name}", "wb")
             f.write(task["res"][name])
             f.close()
-            
+
             md = md.replace(i, i.split("(")[0] + f"(/static/{name})")
         else:
             md = md.replace(i, i.split("(")[0] + f"(/static/placeholder)")
-    
+
     md_template_string = markdown.markdown(
-       md, extensions=["fenced_code", 'tables']
+        md, extensions=["fenced_code", 'tables']
     ).replace("\n", "")
 
     if contest_name is not None:
@@ -553,6 +559,11 @@ def manage_contest(contest_id):
         elif 'remove' in request.form:
             mongo.db.contests.update_one({"_id": bson.ObjectId(contest_id)},
                                          {"$pull": {"groups": bson.ObjectId(request.form["remove"])}})
+        elif 'refresh' in request.form:
+            id_ = bson.ObjectId(request.form["refresh"])
+            md = mongo.db.tasks.find_one({"_id": id_})['description']
+            md_str = md["file_data"].decode()
+            refresh(md_str, id_)
         elif 'start' in request.form:
             mongo.db.contests.update_one({'_id': bson.ObjectId(contest_id)},
                                          {"$set": {'startTime': datetime.now(pytz.utc)}})
