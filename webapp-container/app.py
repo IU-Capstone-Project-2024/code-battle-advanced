@@ -141,7 +141,7 @@ def error(user, admin, my_contest):
 def refresh(md_str, id_):
     c = 0
     for i in re.findall(r"!\[.*?\]\(ai_.*?\)", md_str):
-        Thread(target=makeimage, args=[i.split("]")[0][2:], c, id_]).run()
+        Thread(target=makeimage, args=[i.split("]")[0][2:], c, id_]).start()
         c += 1
 
 
@@ -248,7 +248,7 @@ def contest(contest_name):
 
             for i in jobs:
                 i[-1] = _id
-                Thread(target=makeimage, args=i).run()
+                Thread(target=makeimage, args=i).start()
 
             if 'name' in request.form:
                 mongo.db.contests.update_one({'_id': bson.ObjectId(contest_name)},
@@ -561,7 +561,7 @@ def manage_contest(contest_id):
                                          {"$pull": {"groups": bson.ObjectId(request.form["remove"])}})
         elif 'refresh' in request.form:
             id_ = bson.ObjectId(request.form["refresh"])
-            md = mongo.db.tasks.find_one({"_id": id_})['description']
+            md = mongo.db.tasks.find_one({"_id": id_})['md']
             md_str = md["file_data"].decode()
             refresh(md_str, id_)
         elif 'start' in request.form:
