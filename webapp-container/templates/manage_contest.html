@@ -48,6 +48,10 @@
                   <input type="hidden" name="id" value="{{uuid}}">
                   <button type="submit" class="green-btn delete_content__task">Delete this task</button>
                </form>
+	       <form method="post" action="#" id="{{uuid}}" role="presentation">
+                  <input type="hidden" name="refresh" value="{{uuid}}">
+                  <button type="submit" class="green-btn delete_content__task">Refresh this picture</button>
+               </form>
             </article>
             {% endfor %}
          </section>
