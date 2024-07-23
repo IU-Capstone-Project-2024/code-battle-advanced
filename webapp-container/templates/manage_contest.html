@@ -3,6 +3,13 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Manage contest {{contest_name}}</title>
+   <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+   <link rel="stylesheet" href="/static/general.css">
+   <link rel="stylesheet" href="/static/header.css">
+   <link rel="stylesheet" href="/static/main.css">
+   <link rel="stylesheet" href="/static/footer.css">
+   <link rel="stylesheet" href="/static/buttons.css">
+   <link rel="stylesheet" href="/static/manage_contest.css">
 </head>
 <body>
    <header class="header">
@@ -20,52 +27,56 @@
       <div class="container">
          <section class="contest">
             <h2 class="contest__header">{{contest_name}}</h2>
-	    {%if not_started%}
-	    <form method="post" action="#" class="red-btn" id="start" role="presentation">
-    		<input type="hidden" name="id" value="start">
-    		<button type="submit" class="start_contest">Start this contest</button>
-	    </form>
-	    {%endif%}
-	    {%if not_ended%}
-	    <form method="post" action="#" class="red-btn" id="end" role="presentation">
-    		<input type="hidden" name="id" value="end">
-    		<button type="submit" class="end_contest">End this contest</button>
-	    </form>
-	    {%endif%}
+            <div class="wrapper">
+               {%if not_started%}
+               <form method="post" action="#" id="end" role="presentation">
+                  <input type="hidden" name="id" value="end">
+                  <button type="submit" class="green-btn end_contest">End this contest</button>
+               </form>
+               {%endif%}
+               {%if not_ended%}
+               <form method="post" action="#" id="start" role="presentation">
+                  <input type="hidden" name="id" value="start">
+                  <button type="submit" class="green-btn start_contest">Start this contest</button>
+               </form>
+               {%endif%}
+            </div>
             {% for name, uuid in listOfTasks %}
             <article class="task">
                 <h2 class="task__header">{{name}}</h2>
-                <form method="post" action="#" class="red-btn" id="{{uuid}}" role="presentation">
-    		<input type="hidden" name="id" value="{{uuid}}">
-    		<button type="submit" class="delete_content__task">Delete this task</button>
-		</form>
+               <form method="post" action="#" id="{{uuid}}" role="presentation">
+                  <input type="hidden" name="id" value="{{uuid}}">
+                  <button type="submit" class="green-btn delete_content__task">Delete this task</button>
+               </form>
             </article>
             {% endfor %}
-          </section>
-          {%if admin is defined %}
-                {%if admin%}
-                <p role="presentation" class="red-btn"><a class="contest__create-link" href="/contest/{{contest_id}}/upload">You can add your own task</a></p>
-	        <h2> Group members <h2>
-                {% for name, uuid in groups_members %}
-                <article class="group">
-                	<form method="post" action="#" class="red-btn" id="{{uuid}}" role="presentation">
-    			<input type="hidden" name="remove" value="{{uuid}}">
-			<p>{{name}}</p>
-    			<button type="submit" class="delete_content__task">Delete</button>
-			</form>
-                </article>
-                {% endfor %}
-		{%if has_groups%}
-	        <p> You can add group of participants </p>
-	        <form class="form" action="/manage_contest/{{contest_id}}" method="post" enctype="multipart/form-data">
-                <select class="green-btn" name='group' id='group'>
-	            {% for group, uuid in groups %}
-                    <option value={{uuid}}>{{group}}</option>
-   	          ` {% endfor %}
-                </select>
-                <input class="purple-btn" type="submit" value="Add">
-      	        </form>
-		{% endif %}
+         </section>
+         {%if admin is defined %}
+            {%if admin%}
+            <p role="presentation"><a class="purple-btn contest__create-link" href="/contest/{{contest_id}}/upload">You can add your own task</a></p>
+	         <section class="main__group">
+               <h2> Group members <h2>
+                  {% for name, uuid in groups_members %}
+                  <article class="group">
+                      <form method="post" action="#" id="{{uuid}}" role="presentation">
+                        <input type="hidden" name="remove" value="{{uuid}}">
+                        <p>{{name}}</p>
+                        <button type="submit" class="green-btn delete_content__task">Delete</button>
+                     </form>
+                  </article>
+                  {% endfor %}
+            </section>           
+		      {%if has_groups%}
+	         <p> You can add group of participants </p>
+	         <form class="form" action="/manage_contest/{{contest_id}}" method="post" enctype="multipart/form-data">
+               <select class="green-btn" name='group' id='group'>
+               {% for group, uuid in groups %}
+                  <option value={{uuid}}>{{group}}</option>
+               ` {% endfor %}
+               </select>
+               <input class="purple-btn" type="submit" value="Add">
+            </form>
+            {% endif %}
 	        {% endif %}
          {% endif %}
       </div>

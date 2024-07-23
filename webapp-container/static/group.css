@@ -1,0 +1,32 @@
+.contest h2 {
+    font-size: 24px;
+}
+
+select {
+    display: block;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+}
+
+.contest__header {
+    text-align: center;
+}
+
+.green-btn {
+    margin-bottom: 0.5em;
+}
+
+.purple-btn, .green-btn {
+    width: fit-content;
+}
+
+.purple-btn {
+    display: block;
+    margin: 0 auto;
+}

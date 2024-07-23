@@ -1,0 +1,26 @@
+.contest {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+.main__group {
+    margin: 1em 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+}
+
+.contest__header {
+    text-align: center;
+    font-size: 28px;
+}
+
+.purple-btn {
+    width: fit-content;
+}
