@@ -1,12 +1,27 @@
 .contest {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 1em;
     margin-bottom: 1em;
 }
 
+.task {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 1em;
+    row-gap: 0.5em;
+}
+
+.task__header {
+    width: 100%;
+}
+
 .main__group {
-    margin: 1em 0;
+    margin-bottom: 3em;
+    margin-top: 2em;
 }
 
 .wrapper {
@@ -21,6 +36,16 @@
     font-size: 28px;
 }
 
+.contest__create-link {
+    display: inline-block;
+    margin-bottom: 1em;
+}
+
 .purple-btn {
     width: fit-content;
+}
+
+input.purple-btn {
+    margin-left: 2em;
+    min-width: 100px;
 }
