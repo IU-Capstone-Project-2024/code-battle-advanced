@@ -520,7 +520,7 @@ def available_contests(type_contests):
         user = mongo.db.users.find_one({'username': session['username']})
         admin = user['admin']
         if not admin and type_contests == 'my':
-            return render_template('unauthorized.html')
+            return render_template('error.html')
         session['contests'] = []
         for i in mongo.db.contests.find():
             if not error(user, admin, i):
