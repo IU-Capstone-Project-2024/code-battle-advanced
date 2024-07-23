@@ -3,6 +3,8 @@
 
 Your task is to [add](https://en.wikipedia.org/wiki/Addition) 2 numbers and print the result.
 
+![Bold text saying A+B](AI)
+
 ## Input format
 
 You are given a and b (-10^18 < a, b < 10^18) on a single line
