@@ -5,13 +5,13 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
-      <link rel="stylesheet" href="../static/general.css">
-      <link rel="stylesheet" href="../static/header.css">
-      <link rel="stylesheet" href="../static/main.css">
-      <link rel="stylesheet" href="../static/footer.css">
-      <link rel="stylesheet" href="../static/buttons.css">
-      <link rel="stylesheet" href="../static/main_nav.css">
-      <link rel="stylesheet" href="../static/submissions.css">
+      <link rel="stylesheet" href="/static/general.css">
+      <link rel="stylesheet" href="/static/header.css">
+      <link rel="stylesheet" href="/static/main.css">
+      <link rel="stylesheet" href="/static/footer.css">
+      <link rel="stylesheet" href="/static/buttons.css">
+      <link rel="stylesheet" href="/static/main_nav.css">
+      <link rel="stylesheet" href="/static/submissions.css">
    </head>
    <body>
       <header>
@@ -36,7 +36,6 @@
                <ul class="main__nav-list">
                   <li role="presentation" class="red-btn"><a href="/contests/my" class="main__nav-link">My contests</a></li>
                   <li role="presentation" class="red-btn"><a href="/contests/available" class="main__nav-link">Available contests</a></li>
-                  <!--<li role="presentation" class="red-btn"><a href="" class="main__nav-link">Solved tasks</a></li>-->
                </ul>
                <p role="presentation" class="red-btn active"><a class="main__nav-link" href="/submissions/1">My submissions</a></p>
             </nav>
@@ -55,7 +54,6 @@
                      <article class="submission">
                         <h2 class="submission__header">{{submission}}</h2>
                         <div class="submission__buttons">
-                           <!--<p role="presentation" class="red-btn"><a href="#" class="main__nav-link">View code</a></p>-->
                            <p role="presentation" class="red-btn"><a href="/contest/{{contest}}/task/{{task_name}}" class="main__nav-link">To task</a></p>
                         </div>
                      </article>
