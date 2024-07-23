@@ -433,12 +433,12 @@ def upload(contest_id):
 
         for i in jobs:
             i[-1] = _id
-            Thread(target=makeimage, args=i).run()
+            Thread(target=makeimage, args=i).start()
 
         if 'name' in request.form:
             mongo.db.contests.update_one({'_id': bson.ObjectId(contest_id)},
                                          {'$push': {'tasks': bson.ObjectId(_id)}})
-        return redirect("contest/" + contest_id)
+        return redirect("/contest/" + contest_id)
     return render_template('upload.html', admin=admin, contest_name=contest_id)
 
 
