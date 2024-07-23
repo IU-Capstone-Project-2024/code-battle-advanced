@@ -185,75 +185,6 @@ def contest(contest_name):
                                                  caller=request.form['btn'],
                                                  data="{}"))
             pass
-        else:
-            available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
-            md = return_bson('md-file')[0]
-
-            md_str = md["file_data"].decode()
-
-            ai = re.findall(r"!\[.*?\]\(AI\)", md_str)
-            c = 0
-            jobs = []
-            for i in ai:
-                md_str = md_str.replace(i, i.split("(")[0] + f"(ai_{c})")
-                jobs.append([i.split("]")[0][2:], c, "no"])
-                c += 1
-
-            md["file_data"] = md_str.encode()
-
-            if 'input-file' in request.files and 'checker-file' in request.files and 'name' in request.form:
-                input1 = return_bson('input-file')
-                checker = return_bson('checker-file')
-                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
-                                                 "input": input1,
-                                                 "res": {},
-                                                 "checker": checker,
-                                                 "judgement_mod": request.form["judgement_mod"],
-                                                 "available": available_languages,
-                                                 "tags": request.form['tags'].split(","),
-                                                 'md': md}).inserted_id
-            elif 'input-file' in request.files and 'solution-file' in request.files and 'name' in request.form:
-                input1 = return_bson('input-file')
-                solution = return_bson('solution-file')
-                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
-                                                 "input": input1,
-                                                 "res": [],
-                                                 "solution": solution,
-                                                 "judgement_mod": request.form["judgement_mod"],
-                                                 "available": available_languages,
-                                                 "tags": request.form['tags'].split(","),
-                                                 'md': md}).inserted_id
-            elif 'input-file' in request.files and 'interactive-file' in request.files and 'name' in request.form:
-                input1 = return_bson('input-file')
-                interactive = return_bson('interactive-file')
-                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
-                                                 "input": input1,
-                                                 "res": [],
-                                                 "interactive": interactive,
-                                                 "judgement_mod": request.form["judgement_mod"],
-                                                 "available": available_languages,
-                                                 "tags": request.form['tags'].split(","),
-                                                 'md': md}).inserted_id
-            elif 'input-file' in request.files and 'output-file' in request.files and 'name' in request.form:
-                input1 = return_bson('input-file')
-                output = return_bson('output-file')
-                _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
-                                                 "input": input1,
-                                                 "res": [],
-                                                 "output": output,
-                                                 "judgement_mod": request.form["judgement_mod"],
-                                                 "available": available_languages,
-                                                 "tags": request.form['tags'].split(","),
-                                                 'md': md}).inserted_id
-
-            for i in jobs:
-                i[-1] = _id
-                Thread(target=makeimage, args=i).start()
-
-            if 'name' in request.form:
-                mongo.db.contests.update_one({'_id': bson.ObjectId(contest_name)},
-                                             {'$push': {'tasks': bson.ObjectId(_id)}})
-            return redirect('/contest/' + contest_name)
     widgets = mongo.db.participants.find_one({'contest_id': contest_name, 'participant_id': session['username']})[
         'widgets']
     tasks = mongo.db.contests.find_one({'_id': bson.ObjectId(contest_name)})["tasks"]
@@ -439,6 +370,75 @@ def upload(contest_id):
         return render_template('unauthorized.html')
     else:
         admin = mongo.db.users.find_one({'username': session['username']})['admin']
+    if request.method == 'POST':
+        available_languages = [i if request.form[i] else None for i in ['py', 'java', 'cpp']]
+        md = return_bson('md-file')[0]
+
+        md_str = md["file_data"].decode()
+
+        ai = re.findall(r"!\[.*?\]\(AI\)", md_str)
+        c = 0
+        jobs = []
+        for i in ai:
+            md_str = md_str.replace(i, i.split("(")[0] + f"(ai_{c})")
+            jobs.append([i.split("]")[0][2:], c, "no"])
+            c += 1
+
+        md["file_data"] = md_str.encode()
+
+        if 'input-file' in request.files and 'checker-file' in request.files and 'name' in request.form:
+            input1 = return_bson('input-file')
+            checker = return_bson('checker-file')
+            _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                             "input": input1,
+                                             "res": {},
+                                             "checker": checker,
+                                             "judgement_mod": request.form["judgement_mod"],
+                                             "available": available_languages,
+                                             "tags": request.form['tags'].split(","),
+                                             'md': md}).inserted_id
+        elif 'input-file' in request.files and 'solution-file' in request.files and 'name' in request.form:
+            input1 = return_bson('input-file')
+            solution = return_bson('solution-file')
+            _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                             "input": input1,
+                                             "res": [],
+                                             "solution": solution,
+                                             "judgement_mod": request.form["judgement_mod"],
+                                             "available": available_languages,
+                                             "tags": request.form['tags'].split(","),
+                                             'md': md}).inserted_id
+        elif 'input-file' in request.files and 'interactive-file' in request.files and 'name' in request.form:
+            input1 = return_bson('input-file')
+            interactive = return_bson('interactive-file')
+            _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                             "input": input1,
+                                             "res": [],
+                                             "interactive": interactive,
+                                             "judgement_mod": request.form["judgement_mod"],
+                                             "available": available_languages,
+                                             "tags": request.form['tags'].split(","),
+                                             'md': md}).inserted_id
+        elif 'input-file' in request.files and 'output-file' in request.files and 'name' in request.form:
+            input1 = return_bson('input-file')
+            output = return_bson('output-file')
+            _id = mongo.db.tasks.insert_one({"task_name": request.form['name'],
+                                             "input": input1,
+                                             "res": [],
+                                             "output": output,
+                                             "judgement_mod": request.form["judgement_mod"],
+                                             "available": available_languages,
+                                             "tags": request.form['tags'].split(","),
+                                             'md': md}).inserted_id
+
+        for i in jobs:
+            i[-1] = _id
+            Thread(target=makeimage, args=i).run()
+
+        if 'name' in request.form:
+            mongo.db.contests.update_one({'_id': bson.ObjectId(contest_id)},
+                                         {'$push': {'tasks': bson.ObjectId(_id)}})
+        return redirect("contest/" + contest_id)
     return render_template('upload.html', admin=admin, contest_name=contest_id)
 
 
