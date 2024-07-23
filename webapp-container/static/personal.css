@@ -1,6 +1,10 @@
 .main__groups-group {
-    padding: 30px;
+    padding: 1em;
     border-radius: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 1em;
 }
 
 .main__groups-group:nth-child(2n + 1) {
@@ -9,7 +13,12 @@
 
 .group__header {
     color: #000;
-    margin-bottom: 14.5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.main__groups-header {
+    color: #000;
     font-size: 24px;
     font-weight: 700;
 }
