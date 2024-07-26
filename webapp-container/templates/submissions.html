@@ -50,11 +50,11 @@
                      <p role="presentation" class="red-btn btn-next active"><a class="main__nav-link" href="/submissions/{{current_page+1}}">&gt;</a></p>
                    {%endif%} 
                </div>
-                   {% for submission, contest, task_name in submissions_array %} 
+                   {% for submission in submissions_array %} 
                      <article class="submission">
                         <h2 class="submission__header">{{submission}}</h2>
                         <div class="submission__buttons">
-                           <p role="presentation" class="red-btn"><a href="/contest/{{contest}}/task/{{task_name}}" class="main__nav-link">To task</a></p>
+                           <p role="presentation" class="red-btn"><a href="/" class="main__nav-link">To task</a></p>
                         </div>
                      </article>
                    {% endfor %}

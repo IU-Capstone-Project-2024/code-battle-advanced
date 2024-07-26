@@ -246,7 +246,7 @@ def success_support_func(task_name):
 
 
 @app.route('/task/<string:task_name>/success', methods=['POST'])
-@app.route('/contest/<string:contest_id>/task/<string:task_name>/success', methods=['POST'])
+@app.route('/contest/<string:contest_id>/task/<string:task_id>/success', methods=['POST'])
 def contest_success(contest_id=None, task_id=None):
     if request.method == 'POST':
         src, n, lang = success_support_func(task_id)
